@@ -13,9 +13,11 @@ In this script we have four methods.
 4) RC_function_UD dresses up the Liouvillian with all the mapped RC frame parameters.
     It calculates these in accordance with Jake's initial paper.
 """
+import numpy as np
+import scipy as sp
+from qutip import destroy, tensor, qeye, spre, spost, sprepost
 
-
-def Ham_RC(eps, Omega, kap, N):
+def Ham_RC(sigma, eps, Omega, kap, N):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
     Output: Hamiltonian, sigma_- and sigma_z in the vibronic Hilbert space
@@ -23,8 +25,9 @@ def Ham_RC(eps, Omega, kap, N):
     a = destroy(N)
     H_S = eps*tensor(sigma.dag()*sigma, qeye(N)) + kap*tensor(sigma.dag()*sigma, (a + a.dag()))+tensor(qeye(2),Omega*a.dag()*a)
     A_em = tensor(sigma, qeye(N))
+    A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
     A_ph = tensor(sigma.dag()*sigma, qeye(N))
-    return H_S, A_em, A_ph
+    return H_S, A_em, A_nrwa, A_ph
 
 def RCME_operators(H_0, A, gamma, beta):
     # This function will be passed a TLS-RC hamiltonian, RC operator, spectral density and beta
@@ -82,14 +85,14 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
     L=L-spost(Xi*A)
     return L
 
-def RC_function_UD(eps, T_Ph, wc, wRC, alpha_ph, N):
+def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N):
 
     # we define all of the RC parameters by the underdamped spectral density
     Gamma = (wRC**2)/wc
-    gamma = Gamma / (2. * pi * wRC)  # free parameter that we normally use to fix to wRC to the system splitting
+    gamma = Gamma / (2. * np.pi * wRC)  # free parameter that we normally use to fix to wRC to the system splitting
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
     print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps
-    H, A_em, A_ph = Ham_RC(eps, wRC, kappa, N)
+    H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
     L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph)
-    
-    return L_RC, H, A_em, wRC, kappa
+
+    return L_RC, H, wRC, kappa
