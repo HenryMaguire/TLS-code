@@ -8,9 +8,11 @@ The four electromagnetic liouvillians I am studying:
 """
 
 import numpy as np
+import scipy as sp
 from qutip import destroy, tensor, qeye, spost, spre, sprepost
+import time
 
-def Occupation(omega, T, time_units):
+def Occupation(omega, T, time_units='cm'):
     conversion = 0.695
     if time_units == 'ps': # allows conversion to picoseconds
         conversion == 7.13
@@ -25,12 +27,14 @@ def Occupation(omega, T, time_units):
     return n
 
 def Gamma_1(epsilon, N, alpha):
-    return 0.5*np.pi*alpha*N
+    return 0.5*np.pi*alpha*N*epsilon
 
 def Gamma_2(epsilon, N, alpha):
-    return 0.5*np.pi*alpha*(N+1)
+    return 0.5*np.pi*alpha*(N+1)*epsilon
+def J_ohmic(omega, alpha):
+    return alpha*omega
 
-def decay_rate(omega, J, T, time_units):
+def decay_rate(omega, J, alpha, T, time_units):
     """
     Decay rate for non-secular master equation. In my notes, this is called Gamma.
     """
@@ -47,17 +51,17 @@ def decay_rate(omega, J, T, time_units):
         beta = 1. / (conversion* T)
 
     Gamma = 0
-    coth = lambda x : np.cosh(x)/np.sinh(x)
+    coth = lambda x : (sp.exp(2*alpha)+1)/(sp.exp(2*alpha)-1)
     if omega>0:
-        Gamma = np.pi*0.5*J(omega)*(coth(beta*omega/2)-1)
+        Gamma = np.pi*0.5*J(omega, alpha)*(coth(beta*omega/2)-1)
     elif omega ==0:
-        Gamma = np.pi*J(1)/beta # I thought this was supposed to be just J(1), but mathematica says otherwise
+        Gamma = np.pi*J(1, alpha)/beta # I thought this was supposed to be just J(1), but mathematica says otherwise
     else:
-        Gamma = 0.5*J(omega)*(coth(beta*omega/2)+1)
+        Gamma = 0.5*J(omega, alpha)*(coth(beta*omega/2)+1)
     return Gamma
 
 def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
-    J = lambda x : alpha
+    ti = time.time()
     d = H_vib.shape[0]
     evals, evecs = H_vib.eigenstates()
     Z = 0 # initalise rate operator
@@ -67,14 +71,15 @@ def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
             sig_ij = sig_x.matrix_element(evecs[i].dag(), evecs[j])
             IJ = evecs[i]*evecs[j].dag()
             if sig_ij >0:
-                Z+= decay_rate(eps_ij, J, T, time_units)*sig_ij
-                print Z
+                Z+= decay_rate(eps_ij, J_ohmic, alpha, T, time_units)*sig_ij*IJ
     L = spre(sig_x*Z) - sprepost(Z, sig_x) + spost(Z.dag()*sig_x) - sprepost(sig_x, Z.dag())
+    print "It took ", time.time()-ti, " seconds to build the non-RWA Liouvillian"
     return -L
 
 def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
+    ti = time.time()
     d = H_vib.shape[0]
-    evals, evecs = H.eigenstates()
+    evals, evecs = H_vib.eigenstates()
     X1, X2, X3, X4 = 0, 0, 0, 0
     for i in range(int(d)):
         for j in range(int(d)):
@@ -92,6 +97,7 @@ def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
                 X4+= Gamma_1(eps_ij, Occ, alpha)*sig_ij*IJ
     L = spre(sig*X1) -sprepost(X1,sig)+spost(X2*sig)-sprepost(sig,X2)
     L+= spre(sig.dag()*X3)-sprepost(X3, sig.dag())+spost(X4*sig.dag())-sprepost(sig.dag(), X4)
+    print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
     return -L
 
 def L_vib_lindblad(H_vib, A, T, alpha_em, time_units='cm'):
@@ -135,14 +141,16 @@ def L_vib_lindblad(H_vib, A, T, alpha_em, time_units='cm'):
                 L += (T1 + T2 - T3)
                 l+=1
 
-    print "It took ", time.time()-ti, " seconds to build the Liouvillian"
+    print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
     #eMatrix = np.array(eMatrix).reshape((H_vib.shape[0], H_vib.shape[0]))
     #plt.imshow(eMatrix)
     return -L
 
 def L_EM_lindblad(splitting, col_em, alpha, T, time_units='cm'):
+    ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
-    L+= np.pi*alpha*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
-    L+= np.pi*alpha*(EMnb)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    L+= np.pi*splitting*alpha*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
+    L+= np.pi*splitting*alpha*(EMnb)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L

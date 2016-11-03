@@ -1,9 +1,10 @@
-from qutip import ket, mesolve, qeye
+from qutip import ket, mesolve, qeye, tensor, thermal_dm, destroy
 import UD_liouv as RC
 import driving_liouv as diss
 reload(RC)
 reload(diss)
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_dynamics():
@@ -45,15 +46,15 @@ if __name__ == "__main__":
 
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 1000. # TLS splitting
+    eps = 4000. # TLS splitting
 
-    T_EM = 1.
+    T_EM = 100.
     alpha_EM = 0.3
 
     T_Ph = 300.
     wc = 53. # Ind.-Boson frame cutoff freq
-    w0 = 300.
-    alpha_Ph = 100 # 2./np.pi # Ind.-Boson frame coupling
+    w0 = 30.
+    alpha_Ph = 10 # 2./np.pi # Ind.-Boson frame coupling
 
     L_RC, H, wRC, kappa = RC.RC_function_UD(sigma, eps, T_Ph, wc, w0, alpha_Ph, N)
 
@@ -62,16 +63,16 @@ if __name__ == "__main__":
     # electromagnetic liouvillians
     L_nrwa = diss.L_nonrwa(H, A_nrwa, alpha_EM, T_EM)
     L_ns = diss.L_nonsecular(H, A_EM, alpha_EM, T_EM)
-    L_s = diss.L_vib_lindblad(H_vib, A_EM, T_EM, alpha_EM)
+    L_s = diss.L_vib_lindblad(H, A_EM, T_EM, alpha_EM)
     L_naive = diss.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
 
-    n_RC = Occupation(wRC, T_Ph)
+    n_RC = diss.Occupation(wRC, T_Ph)
     rho_0 = tensor(0.5*((E+G)*(E+G).dag()), thermal_dm(N, n_RC))
 
     expects = [tensor(G*G.dag(), qeye(N)), tensor(G*E.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N))]
     timelist = np.linspace(0,15,20000)
     #nonsec_check(eps, H, A_em, N)
     DATA_nrwa = mesolve(H, rho_0, timelist, [L_RC+L_nrwa], expects, progress_bar=True)
-    DATA_ns = mesolve(H, rho_0, timelist, [L_RC+L_ns], expects, progress_bar=True)
-    DATA_s = mesolve(H, rho_0, timelist, [L_RC+L_s], expects, progress_bar=True)
-    DATA_naive = mesolve(H, rho_0, timelist, [L_RC+L_naive], expects, progress_bar=True)
+    #DATA_ns = mesolve(H, rho_0, timelist, [L_RC+L_ns], expects, progress_bar=True)
+    #DATA_s = mesolve(H, rho_0, timelist, [L_RC+L_s], expects, progress_bar=True)
+    #DATA_naive = mesolve(H, rho_0, timelist, [L_RC+L_naive], expects, progress_bar=True)
