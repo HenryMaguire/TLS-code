@@ -16,6 +16,11 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
 
 
 def nonsec_check(eps, H, A, N):
+    """
+    Plots a scatter graph with a crude representation of how dominant non-secular terms are likely.
+    The idea is that 'slowly' oscillating terms with large coefficients
+        should contribute most to the non-secularity in the dynamics.
+    """
     dipoles = []
     TD = []
     evals, evecs = H.eigenstates()

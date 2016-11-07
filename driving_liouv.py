@@ -14,7 +14,7 @@ import time
 
 def Occupation(omega, T, time_units='cm'):
     conversion = 0.695
-    if time_units == 'ps': # allows conversion to picoseconds
+    if time_units == 'ps': # allows conversion to picoseconds, I can't remember what the exact number is though and cba to find it
         conversion == 7.13
     else:
         pass
@@ -36,7 +36,7 @@ def J_ohmic(omega, alpha, wc=10000):
     return alpha*omega*np.exp(-omega/wc)
 
 def cauchyIntegrands(omega, beta, J, ver):
-    # Function which will be called within another function where J, beta and the eta are defined locally
+    # Function which will be called within another function where J, beta and the eta are defined locally.
     F = 0
     if ver == 1:
         F = J(omega)*(coth(beta*omega/2.)+1)
@@ -103,7 +103,7 @@ def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
             eps_ij = abs((evals[i]-evals[j]).real)
             sig_ij = sig_x.matrix_element(evecs[i].dag(), evecs[j])
             IJ = evecs[i]*evecs[j].dag()
-            if sig_ij >0:
+            if abs(sig_ij) >0:
                 Z+= decay_rate(eps_ij, J_ohmic, alpha, T, time_units)*sig_ij*IJ
     L = spre(sig_x*Z) - sprepost(Z, sig_x) + spost(Z.dag()*sig_x) - sprepost(sig_x, Z.dag())
     print "It took ", time.time()-ti, " seconds to build the non-RWA Liouvillian"
@@ -123,11 +123,28 @@ def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
             Occ = Occupation(eps_ij, T, time_units)
             IJ = evecs[i]*evecs[j].dag()
             JI = evecs[j]*evecs[i].dag()
-            if (sig_ij or sig_ji) >0:
-                X1+= Gamma_1(eps_ij, Occ, alpha)*sig_ji*JI
-                X2+= Gamma_2(eps_ij, Occ, alpha)*sig_ji*JI
+
+            if abs(sig_ij)>0 or abs(sig_ji)>0: # I had if sig_ij or sig_ji>0
                 X3+= Gamma_2(eps_ij, Occ, alpha)*sig_ij*IJ
                 X4+= Gamma_1(eps_ij, Occ, alpha)*sig_ij*IJ
+                X1+= Gamma_1(eps_ij, Occ, alpha)*sig_ji*JI
+                X2+= Gamma_2(eps_ij, Occ, alpha)*sig_ji*JI
+            """
+            There is some strange stuff happening here:
+            I had if sig_ij or sig_ji>0 (see below), only the fast timescale nonsecular dynamics are left
+            i.e. dynamics follow secular version exactly apart from a very fast oscillatory component.
+            This is weird because it's as if it became exactly what one would have predicted the non-secular
+            dynamics should be, but it was probably a bug!
+            """
+            """
+            if sig_ji or sig_ij>0:
+                X3+= Gamma_2(eps_ij, Occ, alpha)*sig_ij*IJ
+                X4+= Gamma_1(eps_ij, Occ, alpha)*sig_ij*IJ
+                X1+= Gamma_1(eps_ij, Occ, alpha)*sig_ji*JI
+                X2+= Gamma_2(eps_ij, Occ, alpha)*sig_ji*JI
+            else:
+                pass
+            """
     L = spre(sig*X1) -sprepost(X1,sig)+spost(X2*sig)-sprepost(sig,X2)
     L+= spre(sig.dag()*X3)-sprepost(X3, sig.dag())+spost(X4*sig.dag())-sprepost(sig.dag(), X4)
     print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
