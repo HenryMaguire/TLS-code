@@ -174,6 +174,7 @@ Now we derive four different master equations to describe the dissipative dynami
 \label{ssec:nrwa}
 Here we derive a Born-Markov master equation (Redfield equation) for the light-matter coupling without imposing the rotating wave approximation. The idea is that since the coupled system-vibrational Hamiltonian has potentially degenerate eigenfrequencies spanning many orders of magnitude there may exist some combination of transitions which become non-negligibly coupled by the shared optical field which are \textit{counter-rotating} but slowly. The Hamiltonian for the dissipative vibronic system is $H = H_S + H_B^{Vib} + H_I^{Vib} + H_B^{EM} + H_I^{EM}$
 \begin{align}
+\label{eq:H_nrwa}
 	\begin{split}
 		H_S &= \epsilon \sigma^{\dagger}\sigma\otimes I_{RC} + \eta\sigma^{\dagger}\sigma(c + c^{\dagger}) + \Omega ( I_{TLS}\otimes c^{\dagger}c) \\
 		H_B^{EM} &= \sum_{j}\omega_j b^{\dagger}_j b_j \quad \quad H_I^{EM} = \sum_{j}(\sigma+\sigma^{\dagger})(g_j^*b^{\dagger}_j+ g_j b_j).
@@ -227,13 +228,16 @@ The rates can be evaluated using \ref{eq:Sokhotski}
 \pi f_2(\abs{\xi_{mn}}) + i\mathcal{P}\left[\int_{0}^{\infty}\left(\frac{f_1(\omega)}{\omega+\abs{\xi_{mn}}} - \frac{f_2(\omega)}{\omega-\abs{\xi_{mn}}}\right)d\omega\right]  & \text{if } \xi_{mn}<0.
 \end{cases}
 \end{equation}
-
+\begin{itemize}
+	\item Limiting case: check for a TLS (no vibronic levels) what the master equation terms reduce to. Is there a way to make these terms have negligible effect, as in Ahsan's notes where $\alpha\ll \epsilon$. What would this mean for the vibronic system and which parameter regimes might satisfy this?
+	\item What happens if you make the secular approximation? This is not possible for this master equation because I never looked at things in the interaction picture. Would we be interested in studying this?
+\end{itemize}
 \subsection{Vibronic non-secular theory}
 \label{ssec:nsec}
 \begin{itemize}
 	\item Make proper argument for the RWA? Or make the standard argument and then show how it's wrong?
 \end{itemize}
-We make a Rotating-Wave-Approximation (RWA) by discarding the counter rotating terms in the $H^{EM}_I$, yielding
+Starting from \ref{eq:H_nrwa} we make a Rotating-Wave-Approximation (RWA) by discarding the counter rotating terms in the $H^{EM}_I$, yielding
 \begin{align}
 	\begin{split}
 		H_S &= \epsilon \sigma^{\dagger}\sigma\otimes I_{RC} + \eta\sigma^{\dagger}\sigma(c + c^{\dagger}) + \Omega ( I_{TLS}\otimes c^{\dagger}c) \\

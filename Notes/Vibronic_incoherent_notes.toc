@@ -9,9 +9,9 @@
 \contentsline {subsection}{\numberline {4.1}Non-Rotating Wave Approximation}{6}
 \contentsline {subsection}{\numberline {4.2}Vibronic non-secular theory}{7}
 \contentsline {subsection}{\numberline {4.3}Vibronic Lindblad theory}{10}
-\contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{10}
+\contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{11}
 \contentsline {section}{\numberline {5}Analysis}{11}
 \contentsline {subsection}{\numberline {5.1}Equivalence of non-secular and secular theories}{11}
-\contentsline {subsection}{\numberline {5.2}Validity of RWA}{11}
-\contentsline {subsection}{\numberline {5.3}Bath dynamics}{11}
+\contentsline {subsection}{\numberline {5.2}Validity of RWA}{12}
+\contentsline {subsection}{\numberline {5.3}Bath dynamics}{12}
 \contentsline {section}{References}{12}
