@@ -15,22 +15,31 @@
 
 \begin{document}
 \tableofcontents
+\section*{Preface}
+Electron-phonon coupling theory from the book chapters \cite{} \cite{}.
 \maketitle
-
 \begin{abstract}
-In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states. Aim to answer the question, what effect does having a well defined vibronic manifold have on the discrepancies between secular and non-secular optical master equations? How does the reaction coordinate picture relate to the theory of delocalised (phonon?) vs localised vibrations (from the electron-phonon chapter). 
+In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths at different orders of perturbation. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states. Aim to answer the question, "what effect does having a well defined vibronic manifold have on the discrepancies between secular and non-secular optical master equations?" How does the reaction coordinate picture relate to the theory of delocalised (phonon?) vs localised vibrations (from the electron-phonon chapter). 
 \end{abstract}
-
+ 
+\section{TODO:}
+\begin{itemize}
+	\item Have another pass of the content to get an idea of what is missing.
+	\item Reference as much as possible
+	\item Draw the vibronic manifolds
+\end{itemize}
 \section{Introduction}
 \textbf{Questions we need to answer for introduction:}
 \begin{itemize}
 	\item Where does it say that exciton-phonon/vibration interactions are strong in biomolecular light-harvesting systems?
 	\item Is it the low-frequency delocalised continuum of phonon modes that are strongly coupled? Or specific resonant vibrational modes?
 	\item What motivates the use of the reaction coordinate method? What does it allow? What are the restrictions?
+	\item Potential nanosystems which harvest or manipulate light are likely to be fabricated in the solid state, where low-frequency phonon modes are likely to interact strongly with electronic degrees of freedom. Give a few examples of potential architectures.
+	\item The size of natural light harvesting systems means that the peak solar frequencies are likely to have wavelengths that span many molecular sites. This leads to various collective excitation and emission effects. In the strong vibrational regime this leads to rich dynamics and steady states which are likely to affect the operational efficiency of a machine.
 \end{itemize}
 In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In the limit of strong and intermediate exciton-phonon coupling, a weak interaction between an incoherent optical field and the effective system eigenstructure gives rise to rich dynamical and steady state behaviour. 
 
-The references[]  discuss proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations of the system are known as excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised vibrations lead to many interesting observable effects:
+The references[]  discuss proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations of the system are known as excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised vibrations lead to many interesting observable effects:
 \begin{itemize}
 	\item Homogeneous broadening of the emission and absorption spectra (why is is specifically homogeneous?)
 	\item Excitation of a electronic molecular transition leads to a reconfiguration of the equilibrium position of the relative nuclear coordinate which means the vibrational modes are out of equilibrium. The higher lying vibrational states then relax back to the potential minimum (assuming low-temperature) of the excited state on a fast timescale. This energy, dissipated to the vibrational environment, is called the reorganisation energy.
@@ -51,12 +60,18 @@ The references[]  discuss proposals for nanoscopic photocells based on recent an
 Things I still want to cover:
 \begin{description}
 	\item[Light-Harvesting] - 
-	\item[Exciton-phonon coupling] - 
+	\item[Exciton-phonon coupling] - How does bare coupling strength relate to that electron-phonon coupling number they use in the literature?
 	\item[Strong-coupling] - 
 	\item[Incoherent driving] - 
+	\item[TYPICAL PARAMETERS] - I need to have a range of parameters which are typical for the types of systems I am interested in. System splitting, electron-phonon coupling strength, phonon frequencies, vibrational frequencies, phonon cutoff frequency. Let's assume that natural systems are the most efficient and use these values.
 \end{description}
 \section{Non-perturbative Electron-Phonon coupling}
-Discuss it's regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
+\begin{itemize}
+	\item As we have mentioned, strong-coupling to vibrations can occur in biomolecular and solid state systems.
+	\item Reaction coordinate method shown to be effective in modelling the broad and sharply peaked lorentzian sprectral densities, strong-coupling and non-Markovianity \cite{keylist}.
+	\item Discuss RC regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
+\end{itemize}
+
 We restrict ourselves to a Lorentzian spectral density, 
 \begin{equation}
 \label{eq:DrudeLorentzUnderdamped}
@@ -115,11 +130,10 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 \pdv{\rho(t)}{t} = -i\left[H_0, \rho(t)\right] - \left[A, \left[\chi, \rho(t)\right]\right] + \left[A, \big\lbrace\Xi, \rho(t)\big\rbrace\right].
 \end{equation}
 \begin{itemize}
-	\item One picture showing the plot of eigenenergies with small $\omega_0$ and one with very large $\omega_0$. Does an underdamped SD give more localised vibration-like manifolds? 
+	\item One picture showing the plot of eigenenergies with small $\omega_0$ and one with very large $\omega_0$. Does an underdamped SD give more localised vibration-like manifolds?  No, SD must be peaked around low-frequencies and  must be sharply peaked. What does this mean?
 	\item Picture showing the dynamics of the coherences in underdamped and overdamped case. Check dynamics of reaction coordinates too.
+	\item What do these manifolds mean in the context of the reaction coordinate mapping? How can the decay between vibrational levels be interpreted? Does it accurately represent the physics? (i.e. are the of the low-frequency delocalised phonons strongly coupled to the system in biomolecular systems?)
 \end{itemize}
-
-What do these manifolds mean in the context of the reaction coordinate mapping? How can the decay between vibrational levels be interpreted? Does it accurately represent the physics? (i.e. are the of the low-frequency delocalised phonons strongly coupled to the system in biomolecular systems?)
 
 \subsection{Underdamped Lorentzian Spectral Density (Localised vibrations)}
 \begin{itemize}
@@ -156,7 +170,7 @@ and the rest is self-explanatory for now.
 J (\omega)= \sum_{j}\abs{g_{\textbf{j}}}^2 \delta (\omega-\omega_j).
 \end{equation}
 Now we derive four different master equations to describe the dissipative dynamics under different levels of secular approximation. Firstly, we do not make a rotating wave approximation on the system-bath Hamiltonian. This is 
-\subsection{Non-RWA (BMME from the minimal-coupling Hamiltonian)}
+\subsection{Non-Rotating Wave Approximation}
 \label{ssec:nrwa}
 Here we derive a Born-Markov master equation (Redfield equation) for the light-matter coupling without imposing the rotating wave approximation. The idea is that since the coupled system-vibrational Hamiltonian has potentially degenerate eigenfrequencies spanning many orders of magnitude there may exist some combination of transitions which become non-negligibly coupled by the shared optical field which are \textit{counter-rotating} but slowly. The Hamiltonian for the dissipative vibronic system is $H = H_S + H_B^{Vib} + H_I^{Vib} + H_B^{EM} + H_I^{EM}$
 \begin{align}
@@ -198,7 +212,7 @@ Z = \sum_{m,n} A_{m,n} \Gamma(\xi_{mn}) \dyad{\varphi_m}{\varphi_n}
 \end{equation}
 where the temperature-dependent rates are defined
 \begin{equation}
-\Gamma(\omega) = \int_{0}^{\infty}d\tau \int_{0}^{\infty}d\omega \left(f_1(\omega)e^{i(\omega-\xi_{mn})\tau} + f_2(\omega)e^{-i(\omega+\xi_{mn})\tau}\right)
+\Gamma(\xi_{mn}) = \int_{0}^{\infty}d\tau \int_{0}^{\infty}d\omega \left(f_1(\omega)e^{i(\omega-\xi_{mn})\tau} + f_2(\omega)e^{-i(\omega+\xi_{mn})\tau}\right)
 \end{equation}
 along with the functions
 \begin{equation}
@@ -206,7 +220,7 @@ f_1(\omega) = \frac{1}{2}J(\omega)(\coth(\beta \omega/2)-1) \quad \textnormal{an
 \end{equation}
 The rates can be evaluated using \ref{eq:Sokhotski}
 \begin{equation}
-\Gamma(\nu) =
+\Gamma(\xi_{mn}) =
 \begin{cases}
 \pi f_1(\xi_{mn}) + i\mathcal{P}\left[\int_{0}^{\infty}\left(\frac{f_1(\omega)}{\omega-\xi_{mn}} - \frac{f_2(\omega)}{\omega+\xi_{mn}}\right)d\omega\right] & \text{if } \xi_{mn}>0,\\ 
 \frac{\pi}{2}\lim\limits_{x\to 0}\left(J(x)\coth(\frac{\beta x}{2})\right) - i\mathcal{P}\left[\int_{0}^{\infty}\frac{J(\omega)}{\omega}d\omega\right] & \text{if } \xi_{mn}=0,\\ 
@@ -216,7 +230,10 @@ The rates can be evaluated using \ref{eq:Sokhotski}
 
 \subsection{Vibronic non-secular theory}
 \label{ssec:nsec}
-We make a Rotating-Wave-Approximation (RWA) by discarding the counter rotating terms in the $H^{EM}_I$, yielding \textbf{Make proper argument for the RWA? Or make the standard argument and then show how it's wrong?}
+\begin{itemize}
+	\item Make proper argument for the RWA? Or make the standard argument and then show how it's wrong?
+\end{itemize}
+We make a Rotating-Wave-Approximation (RWA) by discarding the counter rotating terms in the $H^{EM}_I$, yielding
 \begin{align}
 	\begin{split}
 		H_S &= \epsilon \sigma^{\dagger}\sigma\otimes I_{RC} + \eta\sigma^{\dagger}\sigma(c + c^{\dagger}) + \Omega ( I_{TLS}\otimes c^{\dagger}c) \\
