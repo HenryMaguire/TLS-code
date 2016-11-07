@@ -89,10 +89,10 @@ def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N):
 
     # we define all of the RC parameters by the underdamped spectral density
     Gamma = (wRC**2)/wc
-    gamma = Gamma / (2. * np.pi * wRC)  # free parameter that we normally use to fix to wRC to the system splitting
+    gamma = Gamma / (2. * np.pi * wRC)  # no longer a free parameter that we normally use to fix wRC to the system splitting
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
-    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps
+    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "gamma=", gamma
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
     L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph)
 
-    return L_RC, H, wRC, kappa
+    return L_RC, H, A_em, A_nrwa, wRC, kappa

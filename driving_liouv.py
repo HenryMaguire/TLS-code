@@ -27,12 +27,45 @@ def Occupation(omega, T, time_units='cm'):
     return n
 
 def Gamma_1(epsilon, N, alpha):
-    return 0.5*np.pi*alpha*N*epsilon
+    return 0.5*np.pi*alpha*N
 
 def Gamma_2(epsilon, N, alpha):
-    return 0.5*np.pi*alpha*(N+1)*epsilon
-def J_ohmic(omega, alpha):
-    return alpha*omega
+    return 0.5*np.pi*alpha*(N+1)
+
+def J_ohmic(omega, alpha, wc=10000):
+    return alpha*omega*np.exp(-omega/wc)
+
+def cauchyIntegrands(omega, beta, J, ver):
+    # Function which will be called within another function where J, beta and the eta are defined locally
+    F = 0
+    if ver == 1:
+        F = J(omega)*(coth(beta*omega/2.)+1)
+    elif ver == -1:
+        F = J(omega)*(coth(beta*omega/2.)-1)
+    elif ver == 0:
+        F = J(omega)
+    return F
+
+def Gamma(omega, beta, J):
+    G = 0
+    # Here I define the functions which "dress" the integrands so they have only 1 free parameter for Quad.
+    F_p = (lambda x: (cauchyIntegrands(x, beta, J, 1)))
+    F_m = (lambda x: (cauchyIntegrands(x, beta, J, -1)))
+    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, 0)))
+    n = 30
+    print "Cauchy int. convergence checks: ", F_p(4*n), F_p(4*n), F_p(4*n)
+    if omega>0.:
+        # These bits do the Cauchy integrals too
+        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega)+ (1j/2.)*((integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega)[0]+integrate.quad(F_m, n, 2*n, weight='cauchy', wvar=omega)[0]+integrate.quad(F_m, 2*n, 3*n, weight='cauchy', wvar=omega)[0]+integrate.quad(F_m, 3*n, 4*n, weight='cauchy', wvar=omega)[0]) - (integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)[0]+integrate.quad(F_p, n, 2*n, weight='cauchy', wvar=-omega)[0]+integrate.quad(F_p, 2*n, 3*n, weight='cauchy', wvar=-omega)[0]+integrate.quad(F_p, 3*n, 4*n, weight='cauchy', wvar=-omega)[0]))
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega), integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)
+    elif omega==0.:
+        # The limit as omega tends to zero is zero for superohmic case?
+        G = -(1j)*(integrate.quad(F_0, -1e-12, n, weight='cauchy', wvar=0)[0]+integrate.quad(F_0, n, 2*n, weight='cauchy', wvar=0)[0]+integrate.quad(F_0, 2*n, 3*n, weight='cauchy', wvar=0)[0]+integrate.quad(F_0, 3*n, 4*n, weight='cauchy', wvar=0)[0])
+        #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
+    elif omega<0.:
+        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega))+ (1j/2.)*((integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega))[0]+integrate.quad(F_m, n, 2*n, weight='cauchy', wvar=-abs(omega))[0]+integrate.quad(F_m, 2*n, 3*n, weight='cauchy', wvar=-abs(omega))[0]+integrate.quad(F_m, 3*n, 4*n, weight='cauchy', wvar=-abs(omega))[0]) - (integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))[0]+integrate.quad(F_p, n, 2*n, weight='cauchy', wvar=abs(omega))[0]+integrate.quad(F_p, 2*n, 3*n, weight='cauchy', wvar=abs(omega))[0]+integrate.quad(F_p, 3*n, 4*n, weight='cauchy', wvar=abs(omega))[0]))
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
+    return G
 
 def decay_rate(omega, J, alpha, T, time_units):
     """
@@ -55,7 +88,7 @@ def decay_rate(omega, J, alpha, T, time_units):
     if omega>0:
         Gamma = np.pi*0.5*J(omega, alpha)*(coth(beta*omega/2)-1)
     elif omega ==0:
-        Gamma = np.pi*J(1, alpha)/beta # I thought this was supposed to be just J(1), but mathematica says otherwise
+        Gamma = np.pi*J(1, alpha) #/beta I thought this was supposed to be just J(1), but mathematica says otherwise
     else:
         Gamma = 0.5*J(omega, alpha)*(coth(beta*omega/2)+1)
     return Gamma
@@ -150,7 +183,7 @@ def L_EM_lindblad(splitting, col_em, alpha, T, time_units='cm'):
     ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
-    L+= np.pi*splitting*alpha*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
-    L+= np.pi*splitting*alpha*(EMnb)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    L+= np.pi*alpha*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
+    L+= np.pi*alpha*(EMnb)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
     print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L

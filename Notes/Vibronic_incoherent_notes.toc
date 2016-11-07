@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Non-perturbative Electron-Phonon coupling}{3}
+\contentsline {subsection}{\numberline {2.1}The reaction coordinate master equation}{4}
+\contentsline {subsection}{\numberline {2.2}Underdamped Lorentzian Spectral Density (Localised vibrations)}{4}
+\contentsline {subsection}{\numberline {2.3}Drude-Lorentz Spectral Density (Delocalised phonons)}{5}
+\contentsline {subsection}{\numberline {2.4}Fluorescence spectra}{5}
+\contentsline {section}{\numberline {3}Vibronic dissipation due to an electromagnetic bath}{5}
+\contentsline {subsection}{\numberline {3.1}Non-RWA (BMME from the minimal-coupling Hamiltonian)}{5}
+\contentsline {subsection}{\numberline {3.2}Vibronic non-secular theory}{7}
+\contentsline {subsection}{\numberline {3.3}Vibronic Lindblad theory}{9}
+\contentsline {subsection}{\numberline {3.4}Electronic Lindblad theory}{10}
+\contentsline {section}{\numberline {4}Analysis}{10}
+\contentsline {subsection}{\numberline {4.1}Equivalence of non-secular and secular theories}{10}
+\contentsline {subsection}{\numberline {4.2}Validity of RWA}{10}
+\contentsline {subsection}{\numberline {4.3}Bath dynamics}{11}
+\contentsline {section}{References}{11}
