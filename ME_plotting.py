@@ -40,10 +40,18 @@ def plot_dynamics():
     plt.xlabel("Time (cm)")
     plt.show()
     """
+def plot_spectrum(dyn, t):
+    ss = dyn[-1]
+    gg = dyn-ss
+    spec = np.fft.fft(gg)
+    freq = np.fft.fftfreq(t.shape[-1])
+    plt.plot(freq, abs(spec.real))
+
+
 
 if __name__ == "__main__":
 
-    N = 12
+    N = 6
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -60,7 +68,7 @@ if __name__ == "__main__":
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
 
     # electromagnetic liouvillians
-    #L_nrwa = diss.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
+    L_nrwa = diss.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
     L_ns = diss.L_nonsecular(H, A_EM, alpha_EM, T_EM)
     L_s = diss.L_vib_lindblad(H, A_EM, T_EM, alpha_EM)
     L_naive = diss.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
@@ -71,12 +79,14 @@ if __name__ == "__main__":
 
     # Expectation values and time increments needed to calculate the dynamics
     expects = [tensor(G*G.dag(), qeye(N)), tensor(G*E.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N))]
-    timelist = np.linspace(0,15,20000)
+    timelist = np.linspace(0,10,200000)
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity.
     # Calculate dynamics
     #DATA_nrwa = mesolve(H, rho_0, timelist, [L_RC+L_nrwa], expects, progress_bar=True)
     DATA_ns = mesolve(H, rho_0, timelist, [L_RC+L_ns], expects, progress_bar=True)
-    DATA_s = mesolve(H, rho_0, timelist, [L_RC+L_s], expects, progress_bar=True)
-    DATA_naive = mesolve(H, rho_0, timelist, [L_RC+L_naive], expects, progress_bar=True)
-    plot_dynamics()
-    plt.show()
+    #DATA_s = mesolve(H, rho_0, timelist, [L_RC+L_s], expects, progress_bar=True)
+    #DATA_naive = mesolve(H, rho_0, timelist, [L_RC+L_naive], expects, progress_bar=True)
+    #plot_dynamics(DATA_ns, DATA_s, DATA_naive)
+    #plot_spectrum(1-DATA_ns.expect[0], timelist)
+    np.savetxt('DATA_ns.txt', np.array([DATA_ns.expect[0], timelist]))
+    #plt.show()

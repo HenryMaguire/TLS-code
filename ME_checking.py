@@ -41,3 +41,10 @@ def nonsec_check(eps, H, A, N):
     plt.xlabel(r"$\varphi_{ij}-\varphi_{kl}$")
     plt.ylabel(r"Dipole overlap of transitions $A_{ij}A_{kl}$")
     return TD, dipoles
+
+def plot_spectrum(dyn, t):
+    ss = dyn[-1]
+    gg = dyn-ss
+    spec = np.fft.fft(gg)
+    freq = np.fft.fftfreq(t.shape[-1])
+    plt.plot(freq, abs(spec.real))
