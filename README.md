@@ -11,13 +11,8 @@ There is:
 
 # Requirements
 
-- Python 2.7
-- Qutip
-- Numpy
-- Scipy
-- Matplotlib
-
-** TODO: **
-Debugging the NRWA code:
-- The rate operators in the nrwa case seems to be incompatible with the a flat spectrum since the coth term diverges in this case. I think I will need to have an ohmic spectral density with some cutoff.
-- Check that the system operator has all of the properties we expect.
+All the python files are written in Python 2.7. The modules will need to be at least:
+- Qutip 3.1.0
+- Numpy 1.11.2
+- Scipy 0.16.0
+- Matplotlib 1.4.3

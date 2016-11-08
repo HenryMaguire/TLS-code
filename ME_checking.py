@@ -1,10 +1,23 @@
+from qutip import ket
+from driving_liouv import L_vib_lindblad
+from qutip import ket, mesolve, qeye, tensor, thermal_dm, destroy, steadystate
+import matplotlib.pyplot as plt
+import numpy as np
+import UD_liouv as RC
+import driving_liouv as diss
+
+reload(RC)
+reload(diss)
+
+"""
 def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
-    expects = [tensor(G*E.dag(), qeye(N))]
     timelist = np.linspace(0,5,20000)
     coh_data = []
-
-    for n in range(17,19):
+    G = ket([0])
+    E = ket([1])
+    for n in range(15,25):
         L_n, L_v, H, wRC = RC_function(eps, T_EM, T_Ph, wc, alpha_Ph, alpha_em, n)
+        expects = [tensor(E*E.dag(), qeye(n)), tensor(G*E.dag(), qeye(n))]
         n_RC = Occupation(wRC, T_Ph)
         rho_0 = tensor(0.5*((E+G)*(E+G).dag()), thermal_dm(n, n_RC))
         DATA_v = mesolve(H, rho_0, timelist, [L_v], expects, progress_bar=True)
@@ -13,11 +26,32 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     for i in coh_data:
         plt.plot(i.expect[0])
     plt.legend()
+"""
 
+def SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_operator='excited', time_units='cm', start_n=14, finish_n=25):
+    # Only for Hamiltonians of rotating wave form
+    G = ket([0])
+    E = ket([1])
+    ss_list = [] # steady states
+    expect_operator = E*E.dag()
+    if expect_operator == 'coherence':
+        expect_operator = G*E.dag()
+    else:
+        pass
+    for n in range(15,25):
+        L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(G*E.dag()+E*G.dag(), eps, T_ph, wc, w0, alpha_ph, n)
+        L_s = L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
+        expects = []
+        ss = steadystate(H, [L_RC+L_s]).ptrace(0)
+        ss_E = (ss*expect_operator).tr()
+        ss_list.append(ss_E)
+        print 'n'
+    plt.figure()
+    plt.plot(range(15,25), ss_list)
 
 def nonsec_check(eps, H, A, N):
     """
-    Plots a scatter graph with a crude representation of how dominant non-secular terms are likely.
+    Plots a scatter graph with a crude representation of how dominant non-secular terms are.
     The idea is that 'slowly' oscillating terms with large coefficients
         should contribute most to the non-secularity in the dynamics.
     """

@@ -139,7 +139,7 @@ def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
     print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
     return -L
 
-def L_vib_lindblad(H_vib, A, T, alpha_em, time_units='cm'):
+def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
     '''
     Initially assuming that the vibronic eigenstructure has no
     degeneracy and the secular approximation has been made
