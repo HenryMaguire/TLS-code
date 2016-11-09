@@ -48,7 +48,7 @@ def plot_dynamics():
     plt.savefig(file_name)
     plt.close()
 
-def plot_spectrum(DAT, t):
+def plot_dynamics_spec(DAT, t):
     dyn = 1-DAT.expect[1]
     plt.figure()
     ss = dyn[-1]
@@ -58,20 +58,20 @@ def plot_spectrum(DAT, t):
     plt.plot(freq, abs(spec.real), label=r'$re(S)$')
     plt.plot(freq, abs(spec.imag), linestyle="dotted", label=r'$im(S)$')
     #plt.plot(freq, abs(spec), linestyle='dotted')
-    plt.title("Emission spectrum of vibronic TLS")
+    plt.title("Frequency spectrum of vibronic TLS coherence")
     plt.legend()
     plt.ylabel("Magnitude" )
     plt.xlabel(r"Frequency- $\epsilon$ ($cm^{-1}$)")
-    p_file_name = "Notes/Images/Spectra/Emission_a{:d}_Tph{:d}_Tem{:d}_w0{:d}.pdf".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
+    p_file_name = "Notes/Images/Spectra/Coh_spec_a{:d}_Tph{:d}_Tem{:d}_w0{:d}.pdf".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
     plt.xlim(-0.13, 0.1)
     plt.savefig(p_file_name)
-    d_file_name = "DATA/Spectra/Emission_a{:d}_Tph{:d}_TEM{:d}_w0{:d}.txt".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
+    d_file_name = "DATA/Spectra/Coh_spec_a{:d}_Tph{:d}_TEM{:d}_w0{:d}.txt".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
     np.savetxt(d_file_name, np.array([spec, freq]), delimiter = ',', newline= '\n')
     plt.close()
 
 if __name__ == "__main__":
 
-    N = 20
+    N = 10
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -81,7 +81,7 @@ if __name__ == "__main__":
     T_EM = 0. # Optical bath temperature
     alpha_EM = 0.3 # System-bath strength (optical)
 
-    T_ph = 300. # Phonon bath temperature
+    T_ph = 100. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
     alpha_ph = 400. # Ind.-Boson frame coupling
@@ -115,6 +115,6 @@ if __name__ == "__main__":
     plot_dynamics()
     #SS, nvals = check.SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=10)
     #plt.plot(nvals, SS)
-    plot_spectrum(DATA_s, timelist)
+    plot_dynamics_spec(DATA_s, timelist)
 
     np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')
