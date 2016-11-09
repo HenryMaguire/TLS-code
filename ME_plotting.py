@@ -11,6 +11,7 @@ reload(check)
 
 
 def plot_dynamics():
+    plt.figure()
     if T_EM>0.0:
         #ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
         ss_v = steadystate(H, [L_RC+L_s]).ptrace(0)
@@ -30,7 +31,9 @@ def plot_dynamics():
     plt.ylabel("Excited state population")
     plt.xlabel("Time (cm)")
     plt.legend()
-    #plt.savefig('dynamics_a'.format({alpha}))
+    file_name = "Notes/Images/Pop_a{d}_Tph{d}_TEM{d}_w0{d}.pdf".format(alpha_ph, T_ph, T_EM, w0)
+    plt.savefig(file_name)
+
     """
 
     plt.title(r"$\alpha_{ph}=$""%i"r"$cm^{-1}$, $T_{EM}=$""%i K" %(alpha_ph, T_EM))
@@ -42,26 +45,39 @@ def plot_dynamics():
     plt.xlabel("Time (cm)")
     """
 
-def plot_spectrum(dyn, t):
+def plot_spectrum(DAT, t):
+    dyn = 1-DAT.expect[1]
+    plt.figure()
     ss = dyn[-1]
     gg = dyn-ss
     spec = np.fft.fft(gg)
     freq = np.fft.fftfreq(t.shape[-1])
-    plt.plot(freq, abs(spec.real))
+    plt.plot(freq, abs(spec.real), label=r'$re(S)$')
+    plt.plot(freq, abs(spec.imag), linestyle="dotted", label=r'$im(S)$')
+    #plt.plot(freq, abs(spec), linestyle='dotted')
+    plt.title("Emission spectrum of vibronic TLS")
+    plt.legend()
+    plt.ylabel("Magnitude" )
+    plt.xlabel(r"Frequency- $\epsilon$ ($cm^{-1}$)")
+    p_file_name = "Notes/Images/Spectra/Emission_a{:d}_Tph{:d}_TEM{:d}_w0{:d}.pdf".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
+    plt.xlim(-0.13, 0.1)
+    plt.savefig(p_file_name)
+    d_file_name = "DATA/Spectra/Emission_a{:d}_Tph{:d}_TEM{:d}_w0{:d}.txt".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
+    np.savetxt(d_file_name, np.array([spec, freq]), delimiter = ',', newline= '\n')
 
 
 
 if __name__ == "__main__":
 
-    N = 5
+    N = 16
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
     eps = 18000. # TLS splitting
 
-    T_EM = 6000.
-    alpha_EM = 3.
+    T_EM = 0.
+    alpha_EM = 0.3
 
     T_ph = 300.
     wc = 53. # Ind.-Boson frame cutoff freq
@@ -77,29 +93,23 @@ if __name__ == "__main__":
 
     # Set up the initial density matrix
     n_RC = diss.Occupation(wRC, T_ph)
-    initial_sys = G*G.dag()
-    #initial_sys = 0.5*(G+E)*(E.dag()+G.dag())
+    #initial_sys = G*G.dag()
+    initial_sys = 0.5*(G+E)*(E.dag()+G.dag())
     rho_0 = tensor(initial_sys, thermal_dm(N, n_RC))
 
     # Expectation values and time increments needed to calculate the dynamics
-    expects = [tensor(G*G.dag(), qeye(N)), tensor(G*E.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N))]
-    timelist = np.linspace(0,10,20000)
+    expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N))]
+    timelist = np.linspace(0,10,30000)
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity.
     # Calculate dynamics
     #DATA_nrwa = mesolve(H, rho_0, timelist, [L_RC+L_nrwa], expects, progress_bar=True)
     #DATA_ns = mesolve(H, rho_0, timelist, [L_RC+L_ns], expects, progress_bar=True)
     DATA_s = mesolve(H, rho_0, timelist, [L_RC+L_s], expects, progress_bar=True)
     DATA_naive = mesolve(H, rho_0, timelist, [L_RC+L_naive], expects, progress_bar=True)
-    #plt.figure()
-    #plot_dynamics()
-    #plt.show()
-    check.SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM)
 
-
-
-
-
-    #plot_spectrum(1-DATA_ns.expect[0], timelist)
+    #SS, nvals = check.SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=10)
+    #plt.plot(nvals, SS)
+    plot_spectrum(DATA_s, timelist)
     #np.savetxt('DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = '\n', newline= ',')
     #plt.show()
     #raw_input("press return to close graph: ")

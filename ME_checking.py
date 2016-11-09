@@ -28,7 +28,7 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     plt.legend()
 """
 
-def SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_operator='excited', time_units='cm', start_n=14, finish_n=25):
+def SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_operator='excited', time_units='cm', start_n=14, end_n=20):
     # Only for Hamiltonians of rotating wave form
     G = ket([0])
     E = ket([1])
@@ -38,14 +38,15 @@ def SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_ope
         expect_operator = G*E.dag()
     else:
         pass
-    for n in range(15,25):
+    for n in range(start_n,end_n):
         L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(G*E.dag()+E*G.dag(), eps, T_ph, wc, w0, alpha_ph, n)
         L_s = L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
         expects = []
         ss = steadystate(H, [L_RC+L_s]).ptrace(0)
         ss_E = (ss*expect_operator).tr()
         ss_list.append(ss_E)
-        print 'n'
+        print "N=", n, "\n -----------------------------"
+    return ss_list, range(start_n,end_n)
     plt.figure()
     plt.plot(range(15,25), ss_list)
 
