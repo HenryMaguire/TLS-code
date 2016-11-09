@@ -19,7 +19,7 @@ def Occupation(omega, T, time_units='cm'):
     else:
         pass
     n =0.
-    if T ==0. or omega ==0.:
+    if T ==0. or omega ==0.: # stop divergences safely
         n = 0.
     else:
         beta = 1. / (conversion* T)
@@ -114,6 +114,7 @@ def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
     return -L
 
 def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
+    #Construct non-secular liouvillian
     ti = time.time()
     d = H_vib.shape[0]
     evals, evecs = H_vib.eigenstates()
@@ -123,12 +124,11 @@ def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
             eps_ij = abs(evals[i]-evals[j])
             sig_ij = sig.matrix_element(evecs[i].dag(), evecs[j])
             sig_ji = (sig.dag()).matrix_element(evecs[j].dag(), evecs[i])
-            #print sig_ji == sig_ij.conjugate()
             Occ = Occupation(eps_ij, T, time_units)
             IJ = evecs[i]*evecs[j].dag()
             JI = evecs[j]*evecs[i].dag()
 
-            if abs(sig_ij)>0 or abs(sig_ji)>0: # I had if sig_ij or sig_ji>0
+            if abs(sig_ij)>0 or abs(sig_ji)>0:
                 X3+= Gamma_2(eps_ij, Occ, alpha)*sig_ij*IJ
                 X4+= Gamma_1(eps_ij, Occ, alpha)*sig_ij*IJ
                 X1+= Gamma_1(eps_ij, Occ, alpha)*sig_ji*JI
@@ -149,7 +149,6 @@ def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
     L = 0
     eig = H_vib.eigenstates()
     eVals = eig[0]
-    #print len(evals), len(evals[(d/2.)::])
     eVecs = eig[1] # come out like kets
     l = 0
     occs=[]
