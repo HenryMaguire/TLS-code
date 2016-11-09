@@ -16,3 +16,9 @@ All the python files are written in Python 2.7. The modules will need to be at l
 - Numpy
 - Scipy
 - Matplotlib
+
+# Bugs
+- In driving_liouv the nrwa Liouvillian does not work. I think it won't converge for a flat spectrum.
+
+# To do:
+- Put all of the globally run code in ME_plotting into an IPython notebook with a full discussion of what's going on.

@@ -9,7 +9,6 @@ import driving_liouv as diss
 reload(RC)
 reload(diss)
 
-"""
 def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     timelist = np.linspace(0,5,20000)
     coh_data = []
@@ -26,7 +25,7 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     for i in coh_data:
         plt.plot(i.expect[0])
     plt.legend()
-"""
+
 
 def SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_operator='excited', time_units='cm', start_n=14, end_n=20):
     # Only for Hamiltonians of rotating wave form
@@ -76,10 +75,3 @@ def nonsec_check(eps, H, A, N):
     plt.xlabel(r"$\varphi_{ij}-\varphi_{kl}$")
     plt.ylabel(r"Dipole overlap of transitions $A_{ij}A_{kl}$")
     return TD, dipoles
-
-def plot_spectrum(dyn, t):
-    ss = dyn[-1]
-    gg = dyn-ss
-    spec = np.fft.fft(gg)
-    freq = np.fft.fftfreq(t.shape[-1])
-    plt.plot(freq, abs(spec.real))
