@@ -17,6 +17,11 @@ All the python files are written in Python 2.7. The modules will need to be at l
 - Scipy
 - Matplotlib
 
+# Getting started
+- Clone the repo and install the python dependencies
+- Open ME_plotting.py, choose some parameters and run it.
+- Check in the Notes/Images folder for default plots of dynamics and spectra, or alternatively use the data files in DATA to plot your own.
+
 # Bugs
 - In driving_liouv the nrwa Liouvillian does not work. I think it won't converge for a flat spectrum.
 
