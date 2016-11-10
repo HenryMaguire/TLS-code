@@ -16,12 +16,12 @@ def plot_dynamics():
         #ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
         ss_v = steadystate(H, [L_RC+L_s]).ptrace(0)
         ss_n = steadystate(H, [L_RC+L_naive]).ptrace(0)
-        #ss_g_ns = ss_ns.matrix_element(G.dag(), G)
+        ss_g_ns = ss_ns.matrix_element(G.dag(), G)
         ss_g_v = ss_v.matrix_element(G.dag(), G)
         ss_g_n = ss_n.matrix_element(G.dag(), G)
-        plt.axhline(1-ss_g_v, color='b', ls='--')
-        #plt.axhline(1-ss_g_ns, color='g', ls='--')
-        plt.axhline(1-ss_g_n, color='r', ls='--')
+        plt.axhline(1-ss_g_v.real, color='b', ls='--')
+        plt.axhline(1-ss_g_ns.real, color='g', ls='--')
+        plt.axhline(1-ss_g_n.real, color='r', ls='--')
 
     plt.title(r"$\omega_0=$""%i"r"$cm^{-1}$, $\alpha_{ph}=$""%f"r"$cm^{-1}$, $T_{EM}=$""%i K" %(w0, alpha_ph, T_EM))
     #plt.plot(timelist, 1-DATA_nrwa.expect[0], label='nrwa', color='y')
@@ -38,7 +38,7 @@ def plot_dynamics():
     plt.figure()
     plt.title(r"$\alpha_{ph}=$""%i"r"$cm^{-1}$, $T_{EM}=$""%i K" %(alpha_ph, T_EM))
     plt.plot(timelist, DATA_s.expect[1].real, label='Vib. Lindblad', color='b')
-    #plt.plot(timelist, DATA_ns.expect[1].real, label='Non-secular', color='g',alpha=0.7)
+    plt.plot(timelist, DATA_ns.expect[1].real, label='Non-secular', color='g',alpha=0.7)
     plt.plot(timelist, DATA_naive.expect[1].real, label='Simple Lindblad', color='r',alpha=0.4)
     plt.legend()
     plt.ylabel("Coherence")
@@ -71,20 +71,20 @@ def plot_dynamics_spec(DAT, t):
 
 if __name__ == "__main__":
 
-    N = 15
+    N = 14
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 8000. # TLS splitting
+    eps = 1000. # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
     alpha_EM = 0.3 # System-bath strength (optical)
 
-    T_ph = 100. # Phonon bath temperature
+    T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
-    alpha_ph = 100. # Ind.-Boson frame coupling
+    alpha_ph = 400. # Ind.-Boson frame coupling
 
     #Now we build all of the mapped operators and RC Liouvillian.
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
