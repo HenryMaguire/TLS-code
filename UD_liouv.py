@@ -26,7 +26,7 @@ def Ham_RC(sigma, eps, Omega, kap, N):
     H_S = eps*tensor(sigma.dag()*sigma, qeye(N)) + kap*tensor(sigma.dag()*sigma, (a + a.dag()))+tensor(qeye(2),Omega*a.dag()*a)
     A_em = tensor(sigma, qeye(N))
     A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
-    A_ph = tensor(sigma.dag()*sigma, qeye(N))
+    A_ph = tensor(qeye(2), (a + a.dag()))
     return H_S, A_em, A_nrwa, A_ph
 
 def RCME_operators(H_0, A, gamma, beta):

@@ -63,7 +63,7 @@ def plot_dynamics_spec(DAT, t):
     plt.ylabel("Magnitude" )
     plt.xlabel(r"Frequency- $\epsilon$ ($cm^{-1}$)")
     p_file_name = "Notes/Images/Spectra/Coh_spec_a{:d}_Tph{:d}_Tem{:d}_w0{:d}.pdf".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
-    plt.xlim(-0.13, 0.1)
+    plt.xlim(0, 0.5)
     plt.savefig(p_file_name)
     d_file_name = "DATA/Spectra/Coh_spec_a{:d}_Tph{:d}_TEM{:d}_w0{:d}.txt".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
     np.savetxt(d_file_name, np.array([spec, freq]), delimiter = ',', newline= '\n')
@@ -71,20 +71,20 @@ def plot_dynamics_spec(DAT, t):
 
 if __name__ == "__main__":
 
-    N = 10
+    N = 15
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 18000. # TLS splitting
+    eps = 8000. # TLS splitting
 
-    T_EM = 0. # Optical bath temperature
+    T_EM = 6000. # Optical bath temperature
     alpha_EM = 0.3 # System-bath strength (optical)
 
     T_ph = 100. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
-    alpha_ph = 400. # Ind.-Boson frame coupling
+    alpha_ph = 100. # Ind.-Boson frame coupling
 
     #Now we build all of the mapped operators and RC Liouvillian.
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)

@@ -26,11 +26,12 @@ def Occupation(omega, T, time_units='cm'):
         n = float(1./(sp.exp(omega*beta)-1))
     return n
 
-def Gamma_1(epsilon, N, alpha):
+def rate_up(epsilon, N, alpha):
     return 0.5*np.pi*alpha*N
 
-def Gamma_2(epsilon, N, alpha):
+def rate_down(epsilon, N, alpha):
     return 0.5*np.pi*alpha*(N+1)
+
 
 def J_ohmic(omega, alpha, wc=10000):
     return alpha*omega*np.exp(-omega/wc)
@@ -129,10 +130,10 @@ def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
             JI = evecs[j]*evecs[i].dag()
 
             if abs(sig_ij)>0 or abs(sig_ji)>0:
-                X3+= Gamma_2(eps_ij, Occ, alpha)*sig_ij*IJ
-                X4+= Gamma_1(eps_ij, Occ, alpha)*sig_ij*IJ
-                X1+= Gamma_1(eps_ij, Occ, alpha)*sig_ji*JI
-                X2+= Gamma_2(eps_ij, Occ, alpha)*sig_ji*JI
+                X3+= rate_down(eps_ij, Occ, alpha)*sig_ij*IJ
+                X4+= rate_up(eps_ij, Occ, alpha)*sig_ij*IJ
+                X1+= rate_up(eps_ij, Occ, alpha)*sig_ji*JI
+                X2+= rate_down(eps_ij, Occ, alpha)*sig_ji*JI
 
     L = spre(sig*X1) -sprepost(X1,sig)+spost(X2*sig)-sprepost(sig,X2)
     L+= spre(sig.dag()*X3)-sprepost(X3, sig.dag())+spost(X4*sig.dag())-sprepost(sig.dag(), X4)
@@ -169,10 +170,10 @@ def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
                 MM = eVecs[m]*eVecs[m].dag()
 
                 Occ = Occupation(eps_mn, T, time_units)
-                g2 = Gamma_1(eps_mn, Occ, alpha_em)
-                g1 = Gamma_2(eps_mn, Occ, alpha_em)
+                g2 = rate_up(eps_mn, Occ, alpha_em)
+                g1 = rate_down(eps_mn, Occ, alpha_em)
 
-                #T1 = 0.5*Gamma_1(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*Gamma_2(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
+                #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
                 T1 = g2*lam_nm_sq*(spre(MM))+g1*lam_nm_sq*(spre(NN))
                 T2 = g2.conjugate()*lam_nm_sq*(spost(MM))+g1.conjugate()*lam_nm_sq*(spost(NN))
                 T3 = 2*(g2*lam_nm_sq*sprepost(NM, MN)+g1*lam_nm_sq*(sprepost(MN,NM)))

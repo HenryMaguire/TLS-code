@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  8 NOV 2016 01:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  10 NOV 2016 11:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1369,13 +1369,13 @@ SpinsNotes/Images/SpectralDensities".pdf used on input line 89.
 
 
 LaTeX Warning: Reference `eq:interactionPictureOperator' on page 4 undefined on
- input line 112.
+ input line 113.
 
 [4 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spec
 tralDensities.pdf>]
 
 LaTeX Warning: Citation `OriginalRCJakeAhsan' on page 5 undefined on input line
- 128.
+ 129.
 
 [5] [6] [7]
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".png,
@@ -1386,11 +1386,11 @@ File: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity"
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".
 png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/NonSecularity".png used on input line 305.
+ages/NonSecularity".png used on input line 306.
 (pdftex.def)             Requested size: 375.80544pt x 280.44041pt.
  [8] [9 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularit
 y.png>]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 365--365
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 366--366
 [] 
  []
 
@@ -1403,7 +1403,7 @@ pulations/w300_a0p1_T6000".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a0p1_T6000".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a0p1_T6000".png used on input line 391.
+ages/Underdamped/Populations/w300_a0p1_T6000".png used on input line 392.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1414,7 +1414,7 @@ pulations/w300_a200_T6000".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a200_T6000".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a200_T6000".png used on input line 396.
+ages/Underdamped/Populations/w300_a200_T6000".png used on input line 397.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1425,7 +1425,7 @@ pulations/w30_a200_T6000".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w30_a200_T6000".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w30_a200_T6000".png used on input line 401.
+ages/Underdamped/Populations/w30_a200_T6000".png used on input line 402.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1436,7 +1436,7 @@ pulations/w300_a0p1_T0".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a0p1_T0".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a0p1_T0".png used on input line 409.
+ages/Underdamped/Populations/w300_a0p1_T0".png used on input line 410.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1447,7 +1447,7 @@ pulations/w300_a200_T0".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a200_T0".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a200_T0".png used on input line 414.
+ages/Underdamped/Populations/w300_a200_T0".png used on input line 415.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1458,7 +1458,7 @@ pulations/w30_a200_T0".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w30_a200_T0".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w30_a200_T0".png used on input line 419.
+ages/Underdamped/Populations/w30_a200_T0".png used on input line 420.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
  [11 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a0p1_T6000.png> </Users/henrymaguire/Dropbox/PhD/1st year/DrivenT
@@ -1507,7 +1507,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Vibronic_incoherent_notes.pdf (12 pages, 1458215 bytes).
+Output written on Vibronic_incoherent_notes.pdf (12 pages, 1458137 bytes).
 PDF statistics:
  141 PDF objects out of 1000 (max. 8388607)
  91 compressed objects within 1 object stream
