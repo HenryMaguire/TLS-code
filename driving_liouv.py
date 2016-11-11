@@ -145,6 +145,7 @@ def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
     Initially assuming that the vibronic eigenstructure has no
     degeneracy and the secular approximation has been made
     '''
+    ti = time.time()
     d = H_vib.shape[0]
     ti = time.time()
     L = 0

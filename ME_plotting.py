@@ -7,13 +7,15 @@ import ME_checking as check
 reload(RC)
 reload(diss)
 reload(check)
+plt.style.use('ggplot')
 
 
 
 def plot_dynamics():
     plt.figure()
+
     if T_EM>0.0: # No need to plot SS for T=0
-        #ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
+        ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
         ss_v = steadystate(H, [L_RC+L_s]).ptrace(0)
         ss_n = steadystate(H, [L_RC+L_naive]).ptrace(0)
         ss_g_ns = ss_ns.matrix_element(G.dag(), G)
@@ -48,22 +50,23 @@ def plot_dynamics():
     plt.savefig(file_name)
     plt.close()
 
-def plot_dynamics_spec(DAT, t):
-    dyn = 1-DAT.expect[1]
+def plot_dynamics_spec(DAT_ns, DAT_s, DAT_n,  t):
+    DAT_list, lab_list = [DAT_ns, DAT_s, DAT_n,], [r'$|S_ns|$', r'$|S_s|$', r'$|S_n|$']
     plt.figure()
-    ss = dyn[-1]
-    gg = dyn-ss
-    spec = np.fft.fft(gg)
-    freq = np.fft.fftfreq(t.shape[-1])
-    plt.plot(freq, abs(spec.real), label=r'$re(S)$')
-    plt.plot(freq, abs(spec.imag), linestyle="dotted", label=r'$im(S)$')
+    for DAT, lab in zip(DAT_list, lab_list):
+        dyn = 1-DAT.expect[1]
+        ss = dyn[-1]
+        gg = dyn-ss
+        spec = np.fft.fft(gg)
+        freq = np.fft.fftfreq(t.shape[-1])
+        plt.plot(freq, abs(spec), label=lab)
     #plt.plot(freq, abs(spec), linestyle='dotted')
     plt.title("Frequency spectrum of vibronic TLS coherence")
     plt.legend()
     plt.ylabel("Magnitude" )
     plt.xlabel(r"Frequency- $\epsilon$ ($cm^{-1}$)")
     p_file_name = "Notes/Images/Spectra/Coh_spec_a{:d}_Tph{:d}_Tem{:d}_w0{:d}.pdf".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
-    plt.xlim(0, 0.5)
+    plt.xlim(-0.2, 0.5)
     plt.savefig(p_file_name)
     d_file_name = "DATA/Spectra/Coh_spec_a{:d}_Tph{:d}_TEM{:d}_w0{:d}.txt".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0))
     np.savetxt(d_file_name, np.array([spec, freq]), delimiter = ',', newline= '\n')
@@ -71,12 +74,12 @@ def plot_dynamics_spec(DAT, t):
 
 if __name__ == "__main__":
 
-    N = 14
+    N = 3
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 1000. # TLS splitting
+    eps = 11000. # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
     alpha_EM = 0.3 # System-bath strength (optical)
@@ -84,7 +87,7 @@ if __name__ == "__main__":
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
-    alpha_ph = 400. # Ind.-Boson frame coupling
+    alpha_ph = 100. # Ind.-Boson frame coupling
 
     #Now we build all of the mapped operators and RC Liouvillian.
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
@@ -97,9 +100,9 @@ if __name__ == "__main__":
 
     # Set up the initial density matrix
     n_RC = diss.Occupation(wRC, T_ph)
-    #initial_sys = G*G.dag()
+    initial_sys = G*G.dag()
     #initial_sys = E*E.dag()
-    initial_sys = 0.5*(G+E)*(E.dag()+G.dag())
+    #initial_sys = 0.5*(G+E)*(E.dag()+G.dag())
     rho_0 = tensor(initial_sys, thermal_dm(N, n_RC))
 
     # Expectation values and time increments needed to calculate the dynamics
@@ -115,6 +118,6 @@ if __name__ == "__main__":
     plot_dynamics()
     #SS, nvals = check.SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=10)
     #plt.plot(nvals, SS)
-    plot_dynamics_spec(DATA_s, timelist)
+    plot_dynamics_spec(DATA_ns, DATA_s, DATA_naive, timelist)
 
     np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')

@@ -24,6 +24,8 @@ All the python files are written in Python 2.7. The modules will need to be at l
 
 # Bugs
 - In driving_liouv the nrwa Liouvillian does not work. I think it won't converge for a flat spectrum.
+- It seems like when you have a small RC frequency the coherences diverge and the dynamics exhibit weird revivals and chaos.
 
 # To do:
 - Put all of the globally run code in ME_plotting into an IPython notebook with a full discussion of what's going on.
+- Save data of a few relevant parameter regimes to file and load them into a pandas dataframe for easy analysis using matplotlib and seaborn.
