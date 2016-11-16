@@ -5,8 +5,8 @@ This repository will contain the notes and code for investigating a quantum Two-
 There is:
 - a central reaction coordinate Liouvillian builder called UD_liouv.py. It creates the master equation for the strongly coupled vibrations.
 - a module which deals with all of the different types of incoherent driving called driving_liouv.py.
-- a module with several different types of checks. Convergence, non-secularity etc.
-- a plotting module which takes in the other two and plots graphs of the dynamics, coherences and emission spectra. This could be extended into an ipython notebook as well.
+- a module with several different types of checks. The main feature is one which attempts to determine which systems are likely to be susceptible to non-secular effects.
+- a plotting module which takes in the other two and plots graphs of the dynamics, coherences and emission spectra. This could be extended into an IPython notebook as well.
 - a directory with all of the accompanying notes and figures for the investigation, read Vibronic_incoherent_notes.pdf to get some more physical insight.
 
 # Requirements
@@ -29,3 +29,4 @@ All the python files are written in Python 2.7. The modules will need to be at l
 # To do:
 - Put all of the globally run code in ME_plotting into an IPython notebook with a full discussion of what's going on.
 - Save data of a few relevant parameter regimes to file and load them into a pandas dataframe for easy analysis using matplotlib and seaborn.
+- Maybe create a TLS class, which has methods to analyse different parts of the dynamics/steady states.

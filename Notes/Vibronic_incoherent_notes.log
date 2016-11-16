@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  10 NOV 2016 11:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  16 NOV 2016 17:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1219,6 +1219,9 @@ LaTeX Warning: Label `eq:VibronicSecular2' multiply defined.
 
 LaTeX Warning: Label `fig:a300_T6000' multiply defined.
 
+
+LaTeX Warning: Label `' multiply defined.
+
 )
 \openout1 = `Vibronic_incoherent_notes.aux'.
 
@@ -1403,7 +1406,7 @@ pulations/w300_a0p1_T6000".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a0p1_T6000".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a0p1_T6000".png used on input line 392.
+ages/Underdamped/Populations/w300_a0p1_T6000".png used on input line 393.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1414,7 +1417,7 @@ pulations/w300_a200_T6000".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a200_T6000".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a200_T6000".png used on input line 397.
+ages/Underdamped/Populations/w300_a200_T6000".png used on input line 398.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1425,7 +1428,7 @@ pulations/w30_a200_T6000".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w30_a200_T6000".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w30_a200_T6000".png used on input line 402.
+ages/Underdamped/Populations/w30_a200_T6000".png used on input line 403.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1436,7 +1439,7 @@ pulations/w300_a0p1_T0".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a0p1_T0".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a0p1_T0".png used on input line 410.
+ages/Underdamped/Populations/w300_a0p1_T0".png used on input line 411.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1447,7 +1450,7 @@ pulations/w300_a200_T0".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w300_a200_T0".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w300_a200_T0".png used on input line 415.
+ages/Underdamped/Populations/w300_a200_T0".png used on input line 416.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
 
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populat
@@ -1458,21 +1461,56 @@ pulations/w30_a200_T0".png Graphic file (type png)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
 ulations/w30_a200_T0".png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/Underdamped/Populations/w30_a200_T0".png used on input line 420.
+ages/Underdamped/Populations/w30_a200_T0".png used on input line 421.
 (pdftex.def)             Requested size: 152.66895pt x 113.92603pt.
- [11 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Pop
-ulations/w300_a0p1_T6000.png> </Users/henrymaguire/Dropbox/PhD/1st year/DrivenT
-LS/Images/Underdamped/Populations/w300_a200_T6000.png> </Users/henrymaguire/Dro
-pbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w30_a200_T6000.png> 
-</Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populati
-ons/w300_a0p1_T0.png> </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Image
-s/Underdamped/Populations/w300_a200_T0.png> </Users/henrymaguire/Dropbox/PhD/1s
-t year/DrivenTLS/Images/Underdamped/Populations/w30_a200_T0.png>] (./Vibronic_i
-ncoherent_notes.bbl
+
+<"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
+_a300_N6_Tem6000_w050_eps10000".pdf, id=69, 867.24pt x 433.62pt>
+File: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamic
+s/Pop_a300_N6_Tem6000_w050_eps10000".pdf Graphic file (type pdf)
+
+<use "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics
+/Pop_a300_N6_Tem6000_w050_eps10000".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
+otes/Images/Dynamics/Pop_a300_N6_Tem6000_w050_eps10000".pdf used on input line 
+432.
+(pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
+_a300_N6_Tem6000_w0300_eps".pdf, id=70, 867.24pt x 433.62pt>
+File: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamic
+s/Pop_a300_N6_Tem6000_w0300_eps".pdf Graphic file (type pdf)
+
+<use "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics
+/Pop_a300_N6_Tem6000_w0300_eps".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
+otes/Images/Dynamics/Pop_a300_N6_Tem6000_w0300_eps".pdf used on input line 438.
+
+(pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Popu
+lations/w300_a0p1_T6000.png> </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTL
+S/Images/Underdamped/Populations/w300_a200_T6000.png> </Users/henrymaguire/Drop
+box/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w30_a200_T6000.png> <
+/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populatio
+ns/w300_a0p1_T0.png> </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images
+/Underdamped/Populations/w300_a200_T0.png> </Users/henrymaguire/Dropbox/PhD/1st
+ year/DrivenTLS/Images/Underdamped/Populations/w30_a200_T0.png>]
+(./Vibronic_incoherent_notes.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [12] (./Vibronic_incoherent_notes.aux)
+) [12 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamic
+s/Pop_a300_N6_Tem6000_w050_eps10000.pdf>] [13 </Users/henrymaguire/Documents/ph
+d-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N6_Tem6000_w0300_eps.pdf>]
+(./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1481,13 +1519,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9791 strings out of 493089
- 177713 string characters out of 6134842
- 235363 words of memory out of 5000000
- 13177 multiletter control sequences out of 15000+600000
+ 9803 strings out of 493089
+ 178785 string characters out of 6134842
+ 236373 words of memory out of 5000000
+ 13186 multiletter control sequences out of 15000+600000
  10908 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,19n,39p,10422b,295s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 45i,19n,39p,10422b,291s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -1507,10 +1545,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Vibronic_incoherent_notes.pdf (12 pages, 1458137 bytes).
+Output written on Vibronic_incoherent_notes.pdf (13 pages, 1543562 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
+ 278 PDF objects out of 1000 (max. 8388607)
+ 122 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

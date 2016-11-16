@@ -1,13 +1,12 @@
 from qutip import ket
-from driving_liouv import L_vib_lindblad
 from qutip import ket, mesolve, qeye, tensor, thermal_dm, destroy, steadystate
 import matplotlib.pyplot as plt
 import numpy as np
 import UD_liouv as RC
-import driving_liouv as diss
+import driving_liouv as EM
 
 reload(RC)
-reload(diss)
+reload(EM)
 
 def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     timelist = np.linspace(0,5,20000)
@@ -27,29 +26,43 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     plt.legend()
 
 
-def SS_convergence_check(eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_operator='excited', time_units='cm', start_n=14, end_n=20):
+def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_op='excited', time_units='cm', start_n=14, end_n=20):
+    """
+
+    """
     # Only for Hamiltonians of rotating wave form
     G = ket([0])
     E = ket([1])
-    ss_list = [] # steady states
-    expect_operator = E*E.dag()
-    if expect_operator == 'coherence':
-        expect_operator = G*E.dag()
+    ss_list_s,ss_list_ns,ss_list_naive  = [],[],[] # steady states
+    r_vector = E # r_vector is the ket vector on the right in the .matrix_element operation. Default is E.
+    l_vector = E.dag()
+    N_values = range(start_n,end_n)
+    if expect_op == 'coherence':
+        l_vector = G.dag()
     else:
         pass
-    for n in range(start_n,end_n):
-        L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(G*E.dag()+E*G.dag(), eps, T_ph, wc, w0, alpha_ph, n)
-        L_s = L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
-        expects = []
-        ss = steadystate(H, [L_RC+L_s]).ptrace(0)
-        ss_E = (ss*expect_operator).tr()
-        ss_list.append(ss_E)
+    for n in N_values:
+        L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, n)
+        L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
+        L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
+        L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
+        ss_s = steadystate(H, [L_RC+L_s]).ptrace(0)
+        ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
+        ss_naive = steadystate(H, [L_RC+L_naive]).ptrace(0)
+        ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
+        ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
+        ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
         print "N=", n, "\n -----------------------------"
-    return ss_list, range(start_n,end_n)
-    plt.figure()
-    plt.plot(range(15,25), ss_list)
+    plt.ylim(0,1)
+    plt.plot(N_values, ss_list_s, label='secular')
+    plt.plot(N_values, ss_list_ns, label='non-secular')
+    plt.plot(N_values, ss_list_naive, label='non-secular')
+    plt.legend()
+    plt.ylabel("Excited state population")
+    plt.xlabel("RC Hilbert space dimension")
+    return ss_list_s,ss_list_ns,ss_list_naive
 
-def nonsec_check(eps, H, A, N):
+def nonsec_check_H(H, A, N):
     """
     Plots a scatter graph with a crude representation of how dominant non-secular terms are.
     The idea is that 'slowly' oscillating terms with large coefficients
@@ -75,3 +88,74 @@ def nonsec_check(eps, H, A, N):
     plt.xlabel(r"$\varphi_{ij}-\varphi_{kl}$")
     plt.ylabel(r"Dipole overlap of transitions $A_{ij}A_{kl}$")
     return TD, dipoles
+
+def nonsec_check_comb(H, A, alpha, T, N):
+    """
+    Plots a scatter graph with a crude representation of how dominant non-secular terms are.
+    Ahsan's results suggest that it is in regimes where the occupation number is so large that Gamma(1 + 2N(w0)) becomes
+    comparable to w0 then we are no longer able to approximate it looks like the secular
+    approximation would break down in such cases that non-secularity becomes important.
+    """
+    dipoles = []
+    TD = []
+    evals, evecs = H.eigenstates()
+    for i in range(2*N):
+        for j in range(2*N):
+            for k in range(2*N):
+                for l in range(2*N):
+                    eps_ij = evals[i]-evals[j]
+                    eps_kl = evals[k]-evals[l]
+                    A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
+                    A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
+                    N_occ = EM.Occupation(abs(eps_kl), T,)
+                    TD.append(eps_ij-eps_kl)
+                    dipoles.append(EM.rate_down(abs(eps_kl), N_occ, alpha)*A_ij*A_kl_conj.real)
+    return TD, dipoles
+
+def nonsec_check_A(H, A, alpha, T, N):
+    """
+    Plots a scatter graph with a crude representation of how dominant non-secular terms are.
+    Ahsan's results suggest that it is in regimes where the occupation number is so large that Gamma(1 + 2N(w0)) becomes
+    comparable to w0 then we are no longer able to approximate it looks like the secular
+    approximation would break down in such cases that non-secularity becomes important.
+    """
+    rates = []
+    TD = []
+    evals, evecs = H.eigenstates()
+    for i in range(2*N):
+        for j in range(2*N):
+                eps_ij = evals[i]-evals[j]
+                A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
+                N_occ = EM.Occupation(abs(eps_ij), T,)
+                TD.append(eps_ij)
+                rates.append(EM.rate_down(abs(eps_ij), N_occ, alpha))
+    return TD, rates
+
+if __name__ == "__main__":
+    #N = 10
+    G = ket([0])
+    E = ket([1])
+    sigma = G*E.dag() # Definition of a sigma_- operator.
+
+    eps = 2000. # TLS splitting
+
+    T_EM = 6000. # Optical bath temperature
+    alpha_EM = 0.3 # System-bath strength (optical)
+
+    T_ph = 300. # Phonon bath temperature
+    wc = 53. # Ind.-Boson frame phonon cutoff freq
+    w0 = 300. # underdamped SD parameter omega_0
+    alpha_ph = 300. # Ind.-Boson frame coupling
+
+    #Now we build all the operators
+    """
+    L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
+    TD, rates  = nonsec_check_A(H, A_EM, alpha_EM, T_EM, N)
+    plt.figure()
+    plt.scatter(TD, rates)
+    plt.show()
+    """
+    plt.figure()
+    SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=5, end_n=18)
+    p_file_name = "Notes/Images/Checks/Pop_Convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
+    plt.savefig(p_file_name)
