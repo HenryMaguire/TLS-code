@@ -91,7 +91,7 @@ Thus $\Omega = \omega_0$, $\lambda=\sqrt{\pi \alpha \omega_0/2}$ and $\gamma=\Ga
 	\caption{Comparison of underdamped (solid lines) and overdamped (dashed line) spectral densities. Parameters are $\omega_c=53cm^{-1}$, $\alpha=100cm^{-1}$ and $\Gamma=\omega_0^2\omega_c^{-1}$.}
 \end{figure}
 \subsection{The reaction coordinate master equation}
-Defining $A= (a + a^{\dagger})$, we get the master equation $\abs{expression}$
+Defining $A= (a + a^{\dagger})$, we get the master equation
 \begin{align}
 	\begin{split}
 		\label{eq:ReactionMasterExpansion4}
@@ -138,21 +138,10 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 \end{itemize}
 
 \subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
-Firstly, assuming high temperature (6000K) and fairly strong coupling (300$cm^{-1}$)
-\begin{itemize}
-	\item Large splitting (10000$cm^{-1}$), the secular and non-secular theories converge. Large enough splitting, all three converge.
-	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease even more with respect to the naive. The difference between secular and non-secular increases.
-\end{itemize}
 
-Discuss why the messy manifolds cause the three dissipative theories to differ? Specifically, why are the steady state excited state populations \textit{lower} when taking into account the vibrational eigenstructure?
 
 \subsection{Underdamped Lorentzian Spectral Density (Localised vibrations)}
-\begin{itemize}
-	\item 
-\end{itemize}
-\begin{figure}
-	
-\end{figure}
+
 
 \subsection{Fluorescence spectra}
 Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively. The electromagnetic bath should be $k_B T\ll \hbar\omega$ to let the vibrational levels decay back to the potential minima of the electronic levels.
@@ -397,45 +386,59 @@ See Jake's notes for full details.
 \pagebreak
 \section{Analysis}
 \subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
-Firstly, assuming high temperature (6000K) and fairly strong coupling (300$cm^{-1}$)
+Firstly, assuming high temperature (6000K) and fairly strong coupling (300$cm^{-1}$), see figure \ref{fig:steadyStatevsSplitting}
 \begin{itemize}
-	\item Large splitting (10000$cm^{-1}$), the secular and non-secular theories converge. Large enough splitting, all three converge.
-	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease even more with respect to the naive. The difference between secular and non-secular increases.
+	\item At large splitting, all three theories converge.
+	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease with respect to the naive. The difference between secular and non-secular increases and the two dip to a local minimum.
+	\item Around some small splitting, the secular and non-secular steady states then sharply return to rough agreement with the naive theory (need to make a smoother curve in the small splitting region to properly analyse)
 \end{itemize}
+When the splitting is small w.r.t. phonon coupling, thermal energy and the width of the phonon distribution, the excitations have more decay pathways due to overlapping vibronic wavefunctions on neighbouring manifolds. This allows the system to reach different lower steady states, with a non-monotonic dependency on splitting. The naive theory does not \emph{see} these vibronic levels, since each manifold is treated like the ground and excited state of the TLS and the dissipation mixes the two.
+
+In single molecular transitions these effects may not be important, since the splittings are often on the order of $8000-20000 cm^{-1}$, so the vibronic manifolds are well defined, with little overlap even at large phonon couplings. In multi-site systems, nearly-resonant neighbouring molecules may interact so that small electronic dipolar transition frequencies are present in the system eigenstructure, this may have a large effect on the steady states.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
-	\caption{Population where $\alpha_{ph}=5$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=10000$}
-	\label{}
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
+	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$}
+	\label{fig:steadyStatevsSplitting}
 \end{figure}
-Discuss why the messy manifolds cause the three dissipative theories to differ? Specifically, why are the steady state excited state populations \textit{lower} when taking into account the vibrational eigenstructure?
+
 
 \subsection{Underdamped Lorentzian Spectral Density (Localised vibrations)}
 \begin{itemize}
-	\item 
+	\item Large splitting, everything converges.
+	\item As splitting decreases, the NS and S start to diverge from the naive. NS and S remain close until very small splitting, at which point the NS appears to return towards agreement with naive.
 \end{itemize}
 
-\begin{comment}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
+	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$}
+	\label{fig:steadyStatevsSplitting}
+\end{figure}
+
+
+
 \begin{figure}[h]
 	\centering
 	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w300_a0p1_T6000".png}
+		\includegraphics[width=\textwidth]{"Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000".pdf}
 		\caption{}
-		\label{fig:a0p01_T6000}
+		\label{fig:manifold_weakcoupling}
 	\end{minipage}
 	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w300_a200_T6000".png}
+		\includegraphics[width=\textwidth]{"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000".pdf}
 		\caption{}
-		\label{fig:a100_T6000}
+		\label{fig:manifold_stronglargesplitting}
 	\end{minipage}
 	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w30_a200_T6000".png}
+		\includegraphics[width=\textwidth]{"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500".pdf}
 		\caption{}
-		\label{fig:a500_T6000}
+		\label{fig:manifold_strongsmallsplitting}
 	\end{minipage}
+\caption{ The vibronic manifold structure of the TLS with an underdamped Phonon spectral density. It can be seen that strong-coupling as well as small splitting can cause mixing of the vibronic levels. \textbf{Style} I want to let these three plots share a y axis, with some boundary separating each one. Try to work out a way for the manifolds in figure \ref{fig:manifold_strongsmallsplitting} to have the separate colours.}
 \end{figure}
-\end{comment}
+
 \subsection{Equivalence of non-secular and secular theories}
 
 \begin{figure}[h]

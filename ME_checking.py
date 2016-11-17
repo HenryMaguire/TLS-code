@@ -181,7 +181,7 @@ if __name__ == "__main__":
 
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
-    w0 = 300. # underdamped SD parameter omega_0
+    w0 = 30. # underdamped SD parameter omega_0
     alpha_ph = 300. # Ind.-Boson frame coupling
 
     #Now we build all the operators
@@ -197,3 +197,4 @@ if __name__ == "__main__":
     plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, start_eps=500, end_eps=15000)
     p_file_name = "Notes/Images/Checks/Pop_SS_divergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
+    plt.close()

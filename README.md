@@ -27,8 +27,7 @@ All the python files are written in Python 2.7. The modules will need to be at l
 - It seems like when you have a small RC frequency the coherences diverge and the dynamics exhibit weird revivals and chaos.
 
 # To do:
-- For a fixed phonon coupling strength. Look at relationship between TLS splitting, difference between secular and non-secular steady states.
-- Try to find the "smoking gun" for needing to use the non-secular treatment. E.g does a well defined manifold always mean secular works?
+- Try to find the "smoking gun" for needing to use the non-secular treatment. E.g does the structure of a manifold and occupation number dictate exactly when secular works?
 - I still haven't accounted for the resonance effects in the Secular master equation (FRET)
 - Choose a better optical field spectral density which allows the Principal parts to converge for FRET and renormalisation terms.
 - Put all of the globally run code in ME_plotting into an IPython notebook with a full discussion of what's going on.
