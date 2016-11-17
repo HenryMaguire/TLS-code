@@ -73,7 +73,7 @@ Things I still want to cover:
 	\item Discuss RC regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
 \end{itemize}
 
-We restrict ourselves to a Lorentzian spectral density, 
+\textbf{TODO: start the RC model from scratch}. We restrict ourselves to a Lorentzian spectral density, 
 \begin{equation}
 \label{eq:DrudeLorentzUnderdamped}
 J_{SB}(\omega) = \frac{\alpha \Gamma \omega_0^2\omega}{(\omega_0^2-\omega^2)^2 + \Gamma^2\omega^2},
@@ -410,6 +410,8 @@ In single molecular transitions these effects may not be important, since the sp
 	\item As splitting decreases, the NS and S start to diverge from the naive. NS and S remain close until very small splitting, at which point the NS appears to return towards agreement with naive.
 \end{itemize}
 
+For moderate splitting and an underdamped phonon spectral density, the excited and ground states vibronic manifolds are well separated, see figures \ref{fig:manifold_weakcoupling}-\ref{fig:manifold_strongsmallsplitting}. This means that the dynamics are well approximated by the naive, electronic Lindblad theory of dissipation. However, if the electronic splitting becomes sufficiently small then the two manifolds can overlap and we start to observe the complex behaviour seen in the overdamped case. This happens at a much smaller splitting size since the ladder spacing of the vibronic states is so much smaller.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
@@ -436,7 +438,7 @@ In single molecular transitions these effects may not be important, since the sp
 		\caption{}
 		\label{fig:manifold_strongsmallsplitting}
 	\end{minipage}
-\caption{ The vibronic manifold structure of the TLS with an underdamped Phonon spectral density. It can be seen that strong-coupling as well as small splitting can cause mixing of the vibronic levels. \textbf{Style} I want to let these three plots share a y axis, with some boundary separating each one. Try to work out a way for the manifolds in figure \ref{fig:manifold_strongsmallsplitting} to have the separate colours.}
+\caption{The vibronic manifold structure of the TLS with an underdamped Phonon spectral density. It can be seen that strong-coupling as well as small splitting can cause mixing of the vibronic levels. \textbf{Style} I want to let these three plots share a y axis, with some boundary separating each one. Try to work out a way for the manifolds in figure \ref{fig:manifold_strongsmallsplitting} to have the separate colours.}
 \end{figure}
 
 \subsection{Equivalence of non-secular and secular theories}

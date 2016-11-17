@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  17 NOV 2016 15:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  17 NOV 2016 15:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1427,7 +1427,7 @@ Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
 op_SS_divergence_a300_Tem6000_w030_eps2000".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
 otes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf used on inp
-ut line 415.
+ut line 417.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
 
 <"Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000".pdf, id=120, 578.16p
@@ -1437,7 +1437,7 @@ e (type pdf)
 
 <use "Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000".pdf>
 Package pdftex.def Info: "Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps20
-00".pdf used on input line 425.
+00".pdf used on input line 427.
 (pdftex.def)             Requested size: 152.66895pt x 114.49852pt.
 
 <"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000".pdf, id=121, 578.1
@@ -1447,7 +1447,7 @@ ile (type pdf)
 
 <use "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000".pdf>
 Package pdftex.def Info: "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps
-2000".pdf used on input line 430.
+2000".pdf used on input line 432.
 (pdftex.def)             Requested size: 152.66895pt x 114.49852pt.
 
 <"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500".pdf, id=122, 578.16
@@ -1457,7 +1457,7 @@ le (type pdf)
 
 <use "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500".pdf>
 Package pdftex.def Info: "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps
-500".pdf used on input line 435.
+500".pdf used on input line 437.
 (pdftex.def)             Requested size: 152.66895pt x 114.49852pt.
 
 
@@ -1473,7 +1473,7 @@ s/Pop_a5_N15_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
 /Pop_a5_N15_Tem6000_w0300_eps2000".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
 otes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf used on input line 4
-46.
+48.
 (pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
 
 
@@ -1489,7 +1489,7 @@ s/Pop_a300_N15_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
 /Pop_a300_N15_Tem6000_w0300_eps2000".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
 otes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf used on input line
- 452.
+ 454.
 (pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
 
 
@@ -1505,20 +1505,20 @@ s/Pop_a300_N15_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
 /Pop_a300_N15_Tem6000_w030_eps2000".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
 otes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf used on input line 
-458.
+460.
 (pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[12 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Po
+p_SS_divergence_a300_Tem6000_w030_eps2000.pdf>]
 (./Vibronic_incoherent_notes.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [12 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/
-Pop_SS_divergence_a300_Tem6000_w030_eps2000.pdf>] [13 <./Images/Spectra/Manifol
-ds_a1_Tph300_Tem6000_w030_eps2000.pdf> <./Images/Spectra/Manifolds_a200_Tph300_
-Tem6000_w030_eps2000.pdf
+) [13 <./Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000.pdf> <./Images
+/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Images/Spectra/Manifolds_a
 200_Tph300_Tem6000_w030_eps2000.pdf): PDF inclusion: multiple pdfs with page gr
@@ -1528,20 +1528,15 @@ oup included in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Images/Spectra/Manifolds_a
 200_Tph300_Tem6000_w030_eps500.pdf): PDF inclusion: multiple pdfs with page gro
 up included in a single page
-> </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Po
-p_a5_N15_Tem6000_w0300_eps2000.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file /Users/henrymaguire/Document
-s/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000.
-pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >] [14 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynami
-cs/Pop_a300_N15_Tem6000_w0300_eps2000.pdf> </Users/henrymaguire/Documents/phd-w
-ork/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000.pdf
+cs/Pop_a5_N15_Tem6000_w0300_eps2000.pdf> </Users/henrymaguire/Documents/phd-wor
+k/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file /Users/henrymaguire/Document
-s/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000
-.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->] (./Vibronic_incoherent_notes.aux)
+s/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps200
+0.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] [15 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynami
+cs/Pop_a300_N15_Tem6000_w030_eps2000.pdf>] (./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1576,10 +1571,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Vibronic_incoherent_notes.pdf (14 pages, 1418342 bytes).
+Output written on Vibronic_incoherent_notes.pdf (15 pages, 1419254 bytes).
 PDF statistics:
- 622 PDF objects out of 1000 (max. 8388607)
- 224 compressed objects within 3 object streams
+ 626 PDF objects out of 1000 (max. 8388607)
+ 227 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
