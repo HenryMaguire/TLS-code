@@ -3,6 +3,7 @@
 \usepackage{physics}
 \usepackage{graphicx}
 \usepackage{color,soul}
+\usepackage{comment}
 \usepackage[toc,page]{appendix}
 \usepackage[nottoc]{tocbibind}
 \usepackage[english]{isodate}
@@ -136,14 +137,23 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 	\item What do these manifolds mean in the context of the reaction coordinate mapping? How can the decay between vibrational levels be interpreted? Does it accurately represent the physics? (i.e. are the of the low-frequency delocalised phonons strongly coupled to the system in biomolecular systems?)
 \end{itemize}
 
-\subsection{Underdamped Lorentzian Spectral Density (Localised vibrations)}
+\subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
+Firstly, assuming high temperature (6000K) and fairly strong coupling (300$cm^{-1}$)
 \begin{itemize}
-	\item Do the well defined manifolds cause the three dissipative theories to converge? Discuss what is happening.
-	
+	\item Large splitting (10000$cm^{-1}$), the secular and non-secular theories converge. Large enough splitting, all three converge.
+	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease even more with respect to the naive. The difference between secular and non-secular increases.
 \end{itemize}
 
-\subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
-Discuss why the well defined manifolds cause the three dissipative theories to differ? Specifically, why are the steady state excited state populations \textit{lower} when taking into account the vibrational eigenstructure?
+Discuss why the messy manifolds cause the three dissipative theories to differ? Specifically, why are the steady state excited state populations \textit{lower} when taking into account the vibrational eigenstructure?
+
+\subsection{Underdamped Lorentzian Spectral Density (Localised vibrations)}
+\begin{itemize}
+	\item 
+\end{itemize}
+\begin{figure}
+	
+\end{figure}
+
 \subsection{Fluorescence spectra}
 Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively. The electromagnetic bath should be $k_B T\ll \hbar\omega$ to let the vibrational levels decay back to the potential minima of the electronic levels.
 
@@ -384,9 +394,29 @@ The simplest way to define the dissipation due to the electromagnetic bath is to
 	\item Sketch the derivation of the Lindblads
 \end{enumerate}
 See Jake's notes for full details.
+\pagebreak
 \section{Analysis}
-Here we will discuss the dynamics of the various theories. 
+\subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
+Firstly, assuming high temperature (6000K) and fairly strong coupling (300$cm^{-1}$)
+\begin{itemize}
+	\item Large splitting (10000$cm^{-1}$), the secular and non-secular theories converge. Large enough splitting, all three converge.
+	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease even more with respect to the naive. The difference between secular and non-secular increases.
+\end{itemize}
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
+	\caption{Population where $\alpha_{ph}=5$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=10000$}
+	\label{}
+\end{figure}
+Discuss why the messy manifolds cause the three dissipative theories to differ? Specifically, why are the steady state excited state populations \textit{lower} when taking into account the vibrational eigenstructure?
+
+\subsection{Underdamped Lorentzian Spectral Density (Localised vibrations)}
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\begin{comment}
 \begin{figure}[h]
 	\centering
 	\begin{minipage}[b]{0.325\textwidth}
@@ -405,38 +435,25 @@ Here we will discuss the dynamics of the various theories.
 		\label{fig:a500_T6000}
 	\end{minipage}
 \end{figure}
-\begin{figure}[h]
-	\centering
-	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w300_a0p1_T0".png}
-		\caption{}
-		\label{fig:a300_T6000}
-	\end{minipage}
-	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w300_a200_T0".png}
-		\caption{}
-		\label{fig:a300_T300}
-	\end{minipage}
-	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/Underdamped/Populations/w30_a200_T0".png}
-		\caption{}
-		\label{fig:a300_T6000}
-	\end{minipage}
-\end{figure}
+\end{comment}
 \subsection{Equivalence of non-secular and secular theories}
-\begin{itemize}
-	\item Describe all regimes in which the various theories are equal. 
-\end{itemize}
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N6_Tem6000_w050_eps10000".pdf}
-	\caption{Population where $\alpha=300$, $T_{EM} =6000$, $\omega_0 = 50$, $\epsilon=10000$}
+	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf}
+	\caption{Population where $\alpha_{ph}=5$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=10000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N6_Tem6000_w0300_eps".pdf}
-	\caption{Population where $\alpha=300$, $T_{EM} =6000$, $\omega_0 = 50$, $\epsilon=2000$}
+	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf}
+	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=2000$}
+	\label{}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf}
+	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $\epsilon=2000$}
 	\label{}
 \end{figure}
 \subsection{Validity of RWA}

@@ -2,16 +2,18 @@
 \contentsline {section}{\numberline {2}Introduction}{2}
 \contentsline {section}{\numberline {3}Non-perturbative Electron-Phonon coupling}{3}
 \contentsline {subsection}{\numberline {3.1}The reaction coordinate master equation}{4}
-\contentsline {subsection}{\numberline {3.2}Underdamped Lorentzian Spectral Density (Localised vibrations)}{5}
-\contentsline {subsection}{\numberline {3.3}Drude-Lorentz Spectral Density (Delocalised phonons)}{5}
+\contentsline {subsection}{\numberline {3.2}Drude-Lorentz Spectral Density (Delocalised phonons)}{5}
+\contentsline {subsection}{\numberline {3.3}Underdamped Lorentzian Spectral Density (Localised vibrations)}{5}
 \contentsline {subsection}{\numberline {3.4}Fluorescence spectra}{5}
-\contentsline {section}{\numberline {4}Vibronic dissipation due to an electromagnetic bath}{5}
+\contentsline {section}{\numberline {4}Vibronic dissipation due to an electromagnetic bath}{6}
 \contentsline {subsection}{\numberline {4.1}Non-Rotating Wave Approximation}{6}
 \contentsline {subsection}{\numberline {4.2}Vibronic non-secular theory}{7}
 \contentsline {subsection}{\numberline {4.3}Vibronic Lindblad theory}{10}
 \contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{11}
-\contentsline {section}{\numberline {5}Analysis}{11}
-\contentsline {subsection}{\numberline {5.1}Equivalence of non-secular and secular theories}{11}
-\contentsline {subsection}{\numberline {5.2}Validity of RWA}{12}
-\contentsline {subsection}{\numberline {5.3}Bath dynamics}{12}
-\contentsline {section}{References}{12}
+\contentsline {section}{\numberline {5}Analysis}{12}
+\contentsline {subsection}{\numberline {5.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{12}
+\contentsline {subsection}{\numberline {5.2}Underdamped Lorentzian Spectral Density (Localised vibrations)}{12}
+\contentsline {subsection}{\numberline {5.3}Equivalence of non-secular and secular theories}{13}
+\contentsline {subsection}{\numberline {5.4}Validity of RWA}{13}
+\contentsline {subsection}{\numberline {5.5}Bath dynamics}{13}
+\contentsline {section}{References}{13}

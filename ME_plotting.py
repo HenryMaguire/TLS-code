@@ -72,6 +72,42 @@ def plot_dynamics_spec(DAT_ns, DAT_s, DAT_n,  t):
     np.savetxt(d_file_name, np.array([spec, freq]), delimiter = ',', newline= '\n')
     plt.close()
 
+
+def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, expect_op='excited', time_units='cm', start_eps=500, end_eps=20500):
+    # Set up a loop over different system splittings
+    # Calculate all of the liouvillians and steady-states for each system
+    G = ket([0])
+    E = ket([1])
+    ss_list_s,ss_list_ns,ss_list_naive  = [],[],[] # steady states
+    r_vector = E # r_vector is the ket vector on the right in the .matrix_element operation. Default is E.
+    l_vector = E.dag()
+    eps_values = range(500,20500,1000)
+    if expect_op == 'coherence':
+        l_vector = G.dag()
+    else:
+        pass
+    for eps in eps_values:
+        L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
+        L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
+        L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
+        L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
+        ss_s = steadystate(H, [L_RC+L_s]).ptrace(0)
+        ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
+        ss_naive = steadystate(H, [L_RC+L_naive]).ptrace(0)
+        ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
+        ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
+        ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
+        print "N=", n, "\n -----------------------------"
+    plt.ylim(0,1)
+    plt.plot(eps_values, ss_list_s, label='secular')
+    plt.plot(eps_values, ss_list_ns, label='non-secular')
+    plt.plot(eps_values, ss_list_naive, label='non-secular')
+    plt.legend()
+    plt.ylabel("Excited state population")
+    plt.xlabel(r"TLS splitting $(cm^{-1})$")
+    return ss_list_s,ss_list_ns,ss_list_naive
+
+
 def plot_nonsec(ax, TD, dipoles):
     ax.scatter(TD, dipoles)
     ax.grid()
@@ -94,7 +130,7 @@ if __name__ == "__main__":
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
-    alpha_ph = 300. # Ind.-Boson frame coupling
+    alpha_ph = 1. # Ind.-Boson frame coupling
 
     #Now we build all of the mapped operators and RC Liouvillian.
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)

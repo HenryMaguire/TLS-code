@@ -53,13 +53,50 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
         ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
         ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
         print "N=", n, "\n -----------------------------"
+    plt.figure()
     plt.ylim(0,1)
     plt.plot(N_values, ss_list_s, label='secular')
     plt.plot(N_values, ss_list_ns, label='non-secular')
-    plt.plot(N_values, ss_list_naive, label='non-secular')
+    plt.plot(N_values, ss_list_naive, label='naive')
     plt.legend()
     plt.ylabel("Excited state population")
     plt.xlabel("RC Hilbert space dimension")
+    p_file_name = "Notes/Images/Checks/Pop_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
+    plt.savefig(p_file_name)
+    return ss_list_s,ss_list_ns,ss_list_naive
+
+def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, expect_op='excited', time_units='cm', start_eps=500, end_eps=20500):
+    # Set up a loop over different system splittings
+    # Calculate all of the liouvillians and steady-states for each system
+    G = ket([0])
+    E = ket([1])
+    ss_list_s,ss_list_ns,ss_list_naive  = [],[],[] # steady states
+    r_vector = E # r_vector is the ket vector on the right in the .matrix_element operation. Default is E.
+    l_vector = E.dag()
+    eps_values = range(start_eps,end_eps,500)
+    if expect_op == 'coherence':
+        l_vector = G.dag()
+    else:
+        pass
+    for eps in eps_values:
+        L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
+        L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
+        L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
+        L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
+        ss_s = steadystate(H, [L_RC+L_s]).ptrace(0)
+        ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
+        ss_naive = steadystate(H, [L_RC+L_naive]).ptrace(0)
+        ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
+        ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
+        ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
+        print "Splitting =", eps, "\n -----------------------------"
+    plt.ylim(0,1)
+    plt.plot(eps_values, ss_list_s, label='secular')
+    plt.plot(eps_values, ss_list_ns, label='non-secular')
+    plt.plot(eps_values, ss_list_naive, label='naive')
+    plt.legend()
+    plt.ylabel("Excited state population")
+    plt.xlabel(r"TLS splitting $(cm^{-1})$")
     return ss_list_s,ss_list_ns,ss_list_naive
 
 def nonsec_check_H(H, A, N):
@@ -132,7 +169,7 @@ def nonsec_check_A(H, A, alpha, T, N):
     return TD, rates
 
 if __name__ == "__main__":
-    #N = 10
+    N = 12
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -156,6 +193,7 @@ if __name__ == "__main__":
     plt.show()
     """
     plt.figure()
-    SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=5, end_n=18)
-    p_file_name = "Notes/Images/Checks/Pop_Convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
+    #SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=5, end_n=18)
+    plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, start_eps=500, end_eps=15000)
+    p_file_name = "Notes/Images/Checks/Pop_SS_divergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
