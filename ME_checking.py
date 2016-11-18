@@ -63,7 +63,7 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
     plt.xlabel("RC Hilbert space dimension")
     p_file_name = "Notes/Images/Checks/Pop_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
-    return ss_list_s,ss_list_ns,ss_list_naive
+    return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
 
 def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, expect_op='excited', time_units='cm', start_eps=500, end_eps=20500):
     # Set up a loop over different system splittings
@@ -97,7 +97,8 @@ def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, e
     plt.legend()
     plt.ylabel("Excited state population")
     plt.xlabel(r"TLS splitting $(cm^{-1})$")
-    return ss_list_s,ss_list_ns,ss_list_naive
+    p_file_name = "Notes/Images/Checks/Pop_SS_divergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
+    return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
 
 def nonsec_check_H(H, A, N):
     """
@@ -193,8 +194,7 @@ if __name__ == "__main__":
     plt.show()
     """
     plt.figure()
-    #SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=5, end_n=18)
-    plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, start_eps=500, end_eps=15000)
-    p_file_name = "Notes/Images/Checks/Pop_SS_divergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=5, end_n=40)
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, start_eps=500, end_eps=15000)
     plt.savefig(p_file_name)
     plt.close()

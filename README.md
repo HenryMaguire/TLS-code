@@ -28,6 +28,7 @@ All the python files are written in Python 2.7. The modules will need to be at l
 
 # To do:
 - Try to find the "smoking gun" for needing to use the non-secular treatment. E.g does the structure of a manifold and occupation number dictate exactly when secular works?
+- Locate each manifold in the NE_checking.plot_manifold() and plot them a different colour.
 - I still haven't accounted for the resonance effects in the Secular master equation (FRET)
 - Choose a better optical field spectral density which allows the Principal parts to converge for FRET and renormalisation terms.
 - Put all of the globally run code in ME_plotting into an IPython notebook with a full discussion of what's going on.

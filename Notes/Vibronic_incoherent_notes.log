@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  17 NOV 2016 15:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  18 NOV 2016 17:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1374,18 +1374,13 @@ pectralDensities".pdf Graphic file (type pdf)
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Sp
 ectralDensities".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/Two
-SpinsNotes/Images/SpectralDensities".pdf used on input line 90.
+SpinsNotes/Images/SpectralDensities".pdf used on input line 100.
 (pdftex.def)             Requested size: 234.8775pt x 146.14769pt.
-
-
-LaTeX Warning: Reference `eq:interactionPictureOperator' on page 4 undefined on
- input line 114.
-
-[4 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spec
-tralDensities.pdf>]
+ [4 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spe
+ctralDensities.pdf>]
 
 LaTeX Warning: Citation `OriginalRCJakeAhsan' on page 5 undefined on input line
- 130.
+ 140.
 
 [5] [6] [7]
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".png,
@@ -1396,42 +1391,49 @@ File: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity"
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".
 png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/NonSecularity".png used on input line 305.
+ages/NonSecularity".png used on input line 308.
 (pdftex.def)             Requested size: 375.80544pt x 280.44041pt.
  [8] [9 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularit
 y.png>]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 365--365
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 368--368
 [] 
  []
 
 [10]
-<"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_S
-S_divergence_a300_Tem6000_w0300_eps2000".pdf, id=63, 578.16pt x 433.62pt>
-File: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/
-Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_div
+ergence_a300_Tem6000_w0300_eps2000".pdf, id=63, 578.16pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_S
+S_divergence_a300_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
 
-<use "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/P
-op_SS_divergence_a300_Tem6000_w0300_eps2000".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
-otes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf used on in
-put line 401.
-(pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
- [11 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/P
-op_SS_divergence_a300_Tem6000_w0300_eps2000.pdf>]
-<"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_S
-S_divergence_a300_Tem6000_w030_eps2000".pdf, id=119, 578.16pt x 433.62pt>
-File: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/
-Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
-
-<use "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/P
-op_SS_divergence_a300_Tem6000_w030_eps2000".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
-otes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf used on inp
-ut line 417.
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS
+_divergence_a300_Tem6000_w0300_eps2000".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf used on input l
+ine 399.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
 
-<"Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000".pdf, id=120, 578.16p
-t x 433.62pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_div
+ergence_a300_Tem6000_w030_eps2000".pdf, id=64, 578.16pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_S
+S_divergence_a300_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
+
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS
+_divergence_a300_Tem6000_w030_eps2000".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf used on input li
+ne 419.
+(pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<"Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000".pdf, id=65, 578.16pt
+ x 433.62pt>
 File: "Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000".pdf Graphic fil
 e (type pdf)
 
@@ -1440,8 +1442,8 @@ Package pdftex.def Info: "Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps20
 00".pdf used on input line 427.
 (pdftex.def)             Requested size: 152.66895pt x 114.49852pt.
 
-<"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000".pdf, id=121, 578.1
-6pt x 433.62pt>
+<"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000".pdf, id=66, 578.16
+pt x 433.62pt>
 File: "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000".pdf Graphic f
 ile (type pdf)
 
@@ -1450,8 +1452,8 @@ Package pdftex.def Info: "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps
 2000".pdf used on input line 432.
 (pdftex.def)             Requested size: 152.66895pt x 114.49852pt.
 
-<"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500".pdf, id=122, 578.16
-pt x 433.62pt>
+<"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500".pdf, id=67, 578.16p
+t x 433.62pt>
 File: "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500".pdf Graphic fi
 le (type pdf)
 
@@ -1464,61 +1466,64 @@ Package pdftex.def Info: "Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-<"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
-_a5_N15_Tem6000_w0300_eps2000".pdf, id=123, 867.24pt x 433.62pt>
-File: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamic
-s/Pop_a5_N15_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N
+15_Tem6000_w0300_eps2000".pdf, id=68, 867.24pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
+_a5_N15_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
 
-<use "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics
-/Pop_a5_N15_Tem6000_w0300_eps2000".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
-otes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf used on input line 4
-48.
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_
+a5_N15_Tem6000_w0300_eps2000".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf used on input line 446.
 (pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-<"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
-_a300_N15_Tem6000_w0300_eps2000".pdf, id=124, 867.24pt x 433.62pt>
-File: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamic
-s/Pop_a300_N15_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300
+_N15_Tem6000_w0300_eps2000".pdf, id=69, 867.24pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
+_a300_N15_Tem6000_w0300_eps2000".pdf Graphic file (type pdf)
 
-<use "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics
-/Pop_a300_N15_Tem6000_w0300_eps2000".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
-otes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf used on input line
- 454.
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_
+a300_N15_Tem6000_w0300_eps2000".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf used on input line 452.
+
 (pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-<"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
-_a300_N15_Tem6000_w030_eps2000".pdf, id=125, 867.24pt x 433.62pt>
-File: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamic
-s/Pop_a300_N15_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300
+_N15_Tem6000_w030_eps2000".pdf, id=70, 867.24pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
+_a300_N15_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
 
-<use "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics
-/Pop_a300_N15_Tem6000_w030_eps2000".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Documents/phd-work/vibronic-TLS/N
-otes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf used on input line 
-460.
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_
+a300_N15_Tem6000_w030_eps2000".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf used on input line 458.
 (pdftex.def)             Requested size: 469.75502pt x 234.87912pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[12 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Po
-p_SS_divergence_a300_Tem6000_w030_eps2000.pdf>]
-(./Vibronic_incoherent_notes.bbl
+Excluding 'comment' comment. [11] (./Vibronic_incoherent_notes.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [13 <./Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000.pdf> <./Images
-/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000.pdf
+) [12 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_S
+S_divergence_a300_Tem6000_w0300_eps2000.pdf>] [13 </Users/henrymaguire/Work/phd
+-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2
+000.pdf> <./Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Images/Spectra/Manifolds_a
+1_Tph300_Tem6000_w030_eps2000.pdf): PDF inclusion: multiple pdfs with page grou
+p included in a single page
+> <./Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Images/Spectra/Manifolds_a
 200_Tph300_Tem6000_w030_eps2000.pdf): PDF inclusion: multiple pdfs with page gr
@@ -1528,15 +1533,15 @@ oup included in a single page
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Images/Spectra/Manifolds_a
 200_Tph300_Tem6000_w030_eps500.pdf): PDF inclusion: multiple pdfs with page gro
 up included in a single page
->] [14 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynami
-cs/Pop_a5_N15_Tem6000_w0300_eps2000.pdf> </Users/henrymaguire/Documents/phd-wor
-k/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000.pdf
+>] [14 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Po
+p_a5_N15_Tem6000_w0300_eps2000.pdf> </Users/henrymaguire/Work/phd-work/vibronic
+-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000.pdf
 
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file /Users/henrymaguire/Document
-s/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps200
-0.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->] [15 </Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynami
-cs/Pop_a300_N15_Tem6000_w030_eps2000.pdf>] (./Vibronic_incoherent_notes.aux)
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file /Users/henrymaguire/Work/phd
+-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000.pdf
+): PDF inclusion: multiple pdfs with page group included in a single page
+>] [15 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Po
+p_a300_N15_Tem6000_w030_eps2000.pdf>] (./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1546,8 +1551,8 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  9839 strings out of 493089
- 179373 string characters out of 6134842
- 236269 words of memory out of 5000000
+ 179242 string characters out of 6134842
+ 236271 words of memory out of 5000000
  13217 multiletter control sequences out of 15000+600000
  10908 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1571,10 +1576,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Vibronic_incoherent_notes.pdf (15 pages, 1419254 bytes).
+Output written on Vibronic_incoherent_notes.pdf (15 pages, 1421159 bytes).
 PDF statistics:
- 626 PDF objects out of 1000 (max. 8388607)
- 227 compressed objects within 3 object streams
+ 625 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

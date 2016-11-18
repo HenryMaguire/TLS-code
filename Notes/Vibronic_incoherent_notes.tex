@@ -25,9 +25,9 @@ In these notes we aim to investigate the interplay between vibrational and elect
  
 \section{TODO:}
 \begin{itemize}
-	\item Have another pass of the content to get an idea of what is missing.
-	\item Reference as much as possible
-	\item Draw the vibronic manifolds
+	\item Put the dynamics and manifold plots side-by-side
+	\item Make smoother steady state plots
+	\item Shift the sharp peak up in energy and investigate dynamics
 \end{itemize}
 \section{Introduction}
 \textbf{Questions we need to answer for introduction:}
@@ -38,7 +38,7 @@ In these notes we aim to investigate the interplay between vibrational and elect
 	\item Potential nanosystems which harvest or manipulate light are likely to be fabricated in the solid state, where low-frequency phonon modes are likely to interact strongly with electronic degrees of freedom. Give a few examples of potential architectures.
 	\item The size of natural light harvesting systems means that the peak solar frequencies are likely to have wavelengths that span many molecular sites. This leads to various collective excitation and emission effects. In the strong vibrational regime this leads to rich dynamics and steady states which are likely to affect the operational efficiency of a machine.
 \end{itemize}
-In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In the limit of strong and intermediate exciton-phonon coupling, a weak interaction between an incoherent optical field and the effective system eigenstructure gives rise to rich dynamical and steady state behaviour. 
+In these notes I will investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In the limit of strong and intermediate exciton-phonon coupling, a weak interaction between an incoherent optical field and the effective system eigenstructure gives rise to rich dynamical and steady state behaviour. 
 
 The references[]  discuss proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations of the system are known as excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised vibrations lead to many interesting observable effects:
 \begin{itemize}
@@ -73,11 +73,21 @@ Things I still want to cover:
 	\item Discuss RC regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
 \end{itemize}
 
-\textbf{TODO: start the RC model from scratch}. We restrict ourselves to a Lorentzian spectral density, 
+ Considering only the system and phonon bath initially we have $H = H_S + H_I^{ph}$
+\begin{equation}
+H = \epsilon \dyad{X} + \alpha_{ph}\dyad{X}\sum_{k}(C^{\dagger}_k+C_k) + \sum_{k}\omega_k C^{\dagger}_k C_k.
+\end{equation}
+We apply a normal mode transformation in order to exactly map the normal independent boson model to the collective coordinate model
+\begin{equation}
+H = \epsilon \dyad{X} + \eta a^{\dagger}a + \lambda\dyad{X}(a^{\dagger}+a) + \sum_{k}h_k(a^{\dagger}+a)(c^{\dagger}_k+c_k) + \sum_{k}\omega_k c^{\dagger}_k c_k,
+\end{equation}
+whereby we define an oscillator which  is a collective representation of the entire bath and incorporate it into our system Hamiltonian, coupled coherently to the system of interest. The oscillator is then coupled weakly to a phonon residual bath. In this setting, we enlarge our system Hamiltonian since we now explicitly keep track of the collective coordinate, but we do Performing this mapping has been shown to recover valid dynamics for similar problems, well into the strong-coupling regime.
+We restrict ourselves to a Lorentzian spectral density, 
 \begin{equation}
 \label{eq:DrudeLorentzUnderdamped}
 J_{SB}(\omega) = \frac{\alpha \Gamma \omega_0^2\omega}{(\omega_0^2-\omega^2)^2 + \Gamma^2\omega^2},
 \end{equation}
+
 which in the reaction-coordinate frame maps exactly to the ohmic spectral density $J_{RC} = \gamma \omega \exp(-\omega/\Lambda)$ in the limit that $\Lambda\to\infty$.
 \begin{equation}
 \label{eq:DrudeLorentzUnderdamped1}
@@ -111,7 +121,7 @@ We then write the system operators in the basis of RC-TLS eigenstates $\ket{\phi
 \begin{equation}
 A = \sum_{ij}\bra{\phi_i}A\ket{\phi_j} \dyad{\phi_i}{\phi_j}
 \end{equation}
-where $H_0\ket{\phi_n} = \phi_n\ket{\phi_n}$. Transforming to the interaction picture via (\ref{eq:interactionPictureOperator}), the system operators become
+where $H_0\ket{\phi_n} = \phi_n\ket{\phi_n}$. Transforming to the interaction picture with respect to $H_0$, the system operators become
 \begin{equation}
 \tilde{A}(t) = \sum_{ij}\bra{\phi_i}A\ket{\phi_j} e^{i(\phi_i-\phi_j)t}\dyad{\phi_i}{\phi_j}.
 \end{equation}
@@ -132,7 +142,7 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 \pdv{\rho(t)}{t} = -i\left[H_0, \rho(t)\right] - \left[A, \left[\chi, \rho(t)\right]\right] + \left[A, \big\lbrace\Xi, \rho(t)\big\rbrace\right].
 \end{equation}
 \begin{itemize}
-	\item One picture showing the plot of eigenenergies with small $\omega_0$ and one with very large $\omega_0$. Does an underdamped SD give more localised vibration-like manifolds?  No, SD must be peaked around low-frequencies and  must be sharply peaked. What does this mean?
+	\item One picture showing the plot of eigenenergies with small $\omega_0$ and one with very large $\omega_0$. Does an underdamped SD give more localised vibration-like manifolds?
 	\item Picture showing the dynamics of the coherences in underdamped and overdamped case. Check dynamics of reaction coordinates too.
 	\item What do these manifolds mean in the context of the reaction coordinate mapping? How can the decay between vibrational levels be interpreted? Does it accurately represent the physics? (i.e. are the of the low-frequency delocalised phonons strongly coupled to the system in biomolecular systems?)
 \end{itemize}
@@ -141,10 +151,6 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 
 
 \subsection{Underdamped Lorentzian Spectral Density (Localised vibrations)}
-
-
-\subsection{Fluorescence spectra}
-Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively. The electromagnetic bath should be $k_B T\ll \hbar\omega$ to let the vibrational levels decay back to the potential minima of the electronic levels.
 
 \section{Vibronic dissipation due to an electromagnetic bath}
 \begin{itemize}
@@ -155,7 +161,7 @@ H = \epsilon \dyad{X} + \sum_{k}h_k(a^{\dagger}+a)(c^{\dagger}_k+c_k) + \sum_{k}
 \end{equation}
 We being by looking at the model of a single electronic molecular transition coupled to a broadened vibrational mode, where the electronic transition is coupled to the surrounding electromagnetic environment. The total Hamiltonian is of the form
 \begin{equation}
-H = \epsilon \dyad{X} + \eta a^{\dagger}a + v\sigma_x(a^{\dagger}+a) + \sum_{k}h_k(a^{\dagger}+a)(c^{\dagger}_k+c_k) + \sum_{k}\omega_k c^{\dagger}_k c_k + \sum_{j}\sigma_x(g^*_jb^{\dagger}_j+g_jb_j) + \sum_{j}\omega_j b^{\dagger}_jb_j,
+H = \epsilon \dyad{X} + \eta a^{\dagger}a + \lambda\sigma_z(a^{\dagger}+a) + \sum_{k}h_k(a^{\dagger}+a)(c^{\dagger}_k+c_k) + \sum_{k}\omega_k c^{\dagger}_k c_k + \sum_{j}\sigma_x(g^*_jb^{\dagger}_j+g_jb_j) + \sum_{j}\omega_j b^{\dagger}_jb_j,
 \end{equation}
 where the first five terms constitute the electronic and vibrational degrees of freedom and the couplings between them and the final two terms are the interaction of the electronic part and the optical bath. If we consider the electronic transition and vibrational mode to be the system of interest we can deal with the system-bath interactions in an open-quantum systems framework,
 \begin{equation}
@@ -234,9 +240,6 @@ The rates can be evaluated using \ref{eq:Sokhotski}
 \end{itemize}
 \subsection{Vibronic non-secular theory}
 \label{ssec:nsec}
-\begin{itemize}
-	\item Make proper argument for the RWA? Or make the standard argument and then show how it's wrong?
-\end{itemize}
 Starting from \ref{eq:H_nrwa} we make a Rotating-Wave-Approximation (RWA) by discarding the counter rotating terms in the $H^{EM}_I$, yielding
 \begin{align}
 	\begin{split}
@@ -375,18 +378,13 @@ here we can see that making the secular approximation has resulted in a summatio
 
 \subsection{Electronic Lindblad theory}
 \label{ssec:electronic}
-Here we make the most severe approximation, whereby we leave the vibrational degrees of freedom out of the system Hamiltonian altogether. This means that we write the system operators in the master equation in the uncoupled electronic eigenbasis rather than the dressed vibronic eigenbasis. This is akin to introducing the optical and vibrational couplings to the system on the same order, namely that they are both weak and the internal system dynamics can be described accurately by the eigenstructure of the electronic degrees of freedom only. Since we want to calculate the dynamics for the system 
+Here we make the most severe approximation, whereby we leave the vibrational degrees of freedom out of the system Hamiltonian altogether. This means that we write the system operators in the master equation in the uncoupled electronic eigenbasis rather than the dressed vibronic eigenbasis. This is akin to introducing the optical and vibrational couplings to the system on the same order, namely that they are both weak and the internal system dynamics can be described accurately by the eigenstructure of the electronic degrees of freedom only. Since we want to calculate the dynamics for the system in
 
 The simplest way to define the dissipation due to the electromagnetic bath is to assume that the interaction energy of electron-vibration coupling is a small parameter so that it's effect can be neglected in the system eigenstructure, therefore we can write down the system operators in the Born-Markov master equation in terms of the electronic system eigenstates only.
-\begin{enumerate}
-	\item Write down the eigenstates
-	\item Sketch the derivation of the Lindblads
-\end{enumerate}
-See Jake's notes for full details.
-\pagebreak
+\textbf{TODO}
 \section{Analysis}
 \subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
-Firstly, assuming high temperature (6000K) and fairly strong coupling (300$cm^{-1}$), see figure \ref{fig:steadyStatevsSplitting}
+Firstly, assuming a flat optical spectrum $J(\omega) = \alpha_{EM}$, high temperature (6000K) and fairly strong coupling (300$cm^{-1}$), see figure \ref{fig:steadyStatevsSplitting}
 \begin{itemize}
 	\item At large splitting, all three theories converge.
 	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease with respect to the naive. The difference between secular and non-secular increases and the two dip to a local minimum.
@@ -398,7 +396,7 @@ In single molecular transitions these effects may not be important, since the sp
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
 	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
@@ -412,14 +410,16 @@ In single molecular transitions these effects may not be important, since the sp
 
 For moderate splitting and an underdamped phonon spectral density, the excited and ground states vibronic manifolds are well separated, see figures \ref{fig:manifold_weakcoupling}-\ref{fig:manifold_strongsmallsplitting}. This means that the dynamics are well approximated by the naive, electronic Lindblad theory of dissipation. However, if the electronic splitting becomes sufficiently small then the two manifolds can overlap and we start to observe the complex behaviour seen in the overdamped case. This happens at a much smaller splitting size since the ladder spacing of the vibronic states is so much smaller.
 
+\begin{itemize}
+	\item Is this occurring because the system is so far off resonance with the phonons? (Reducing the splitting so it is closer to the peak of the spectral density indeed means vibronic theories diverge from the naive.)
+\end{itemize}
+
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
-	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$}
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
+	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $k_B T_{EM}=4170cm^{-1}$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
-
-
 
 \begin{figure}[h]
 	\centering
@@ -438,39 +438,45 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 		\caption{}
 		\label{fig:manifold_strongsmallsplitting}
 	\end{minipage}
-\caption{The vibronic manifold structure of the TLS with an underdamped Phonon spectral density. It can be seen that strong-coupling as well as small splitting can cause mixing of the vibronic levels. \textbf{Style} I want to let these three plots share a y axis, with some boundary separating each one. Try to work out a way for the manifolds in figure \ref{fig:manifold_strongsmallsplitting} to have the separate colours.}
+\caption{The vibronic manifold structure of the TLS with an underdamped Phonon spectral density. It can be seen that strong-coupling as well as small splitting can cause mixing of the vibronic levels.}
 \end{figure}
-
-\subsection{Equivalence of non-secular and secular theories}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf}
 	\caption{Population where $\alpha_{ph}=5$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=10000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf}
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=2000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Documents/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf}
+	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf}
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $\epsilon=2000$}
 	\label{}
 \end{figure}
+\begin{comment}
 \subsection{Validity of RWA}
 \begin{itemize}
 	\item Comparing \ref{ssec:nrwa} and \ref{ssec:nsec} find regimes where the two different Hamiltonians yield the same dynamics. Within these regimes, do they agree with the secular theories too? Therefore, does secular imply rotating-wave (at least in the dissipators)?
 	\item It seems like the underdamped spectral density reduces the temperature dependence of the dynamics. For strong phonon coupling, non-secular is never equivalent to the secular theory.
 \end{itemize}
-\subsection{Bath dynamics}
+\end{comment}
+\section{Future work}
+
+\subsection{Polaron shifts, phonon dynamics and optical spectra}
+
 \begin{itemize}
 	\item Does non-secularity alter the dynamics predicted by the Franck-Condon model for $T_{EM}=0$?
-	\item As temperature increases, what happens the equilibrium phonon positions?
+	\item As temperature increases, what happens to the equilibrium phonon positions?
+	\item Think about polaron shifts. Does this cause the overlaps of excited and ground states to decrease? Does this lead to excessive loss between absorption and emission spectra?
+	\item Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively. The electromagnetic bath should be $k_B T\ll \hbar\omega$ to let the vibrational levels decay back to the potential minima of the electronic levels.
 \end{itemize}
+
 
 \bibliographystyle{abbrv}
 \bibliography{}

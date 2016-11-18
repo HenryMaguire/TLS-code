@@ -72,11 +72,10 @@ def plot_dynamics_spec(DAT_ns, DAT_s, DAT_n,  t):
     np.savetxt(d_file_name, np.array([spec, freq]), delimiter = ',', newline= '\n')
     plt.close()
 
-def plot_manifolds(H):
+def plot_manifolds(ax, H):
     eigs = H.eigenenergies()
-    plt.figure()
     p_title = "Vibronic manifolds: " + r"$\alpha_{ph}$="+"{:d}".format(int(alpha_ph))+ "$\epsilon$={:d}, $\omega_0=${:d}".format(int(eps), int(w0))
-    plt.title(p_title)
+    #ax.title(p_title)
     plt.ylabel(r"Energy ($cm^{-1}$)")
     j = 0
     for i in eigs:
@@ -87,12 +86,12 @@ def plot_manifolds(H):
         else:
             col = 'r'
         """
-        plt.axhline(i, color = col)
+        ax.axhline(i, color = col)
         j+=1
-    p_file_name = "Notes/Images/Spectra/Manifolds_a{:d}_Tph{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0), int(eps))
-    plt.savefig(p_file_name)
-    print "Plot saved: ", p_file_name
-    plt.show()
+    #p_file_name = "Notes/Images/Spectra/Manifolds_a{:d}_Tph{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_ph), int(T_EM), int(w0), int(eps))
+    #plt.savefig(p_file_name)
+    #print "Plot saved: ", p_file_name
+    #plt.show()
 
 
 def plot_nonsec(ax, TD, dipoles):
@@ -104,12 +103,12 @@ def plot_nonsec(ax, TD, dipoles):
 
 if __name__ == "__main__":
 
-    N = 15
+    N = 30
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 500. # TLS splitting
+    eps = 2000. # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
     alpha_EM = 0.3 # System-bath strength (optical)
@@ -123,7 +122,7 @@ if __name__ == "__main__":
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
 
     # electromagnetic bath liouvillians
-    """
+
     L_nrwa = EM.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
     L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
     L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
@@ -138,7 +137,7 @@ if __name__ == "__main__":
 
     # Expectation values and time increments needed to calculate the dynamics
     expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N))]
-    timelist = np.linspace(0,10,20000) # you need lots of points so that coherences are well defined -> spectra
+    timelist = np.linspace(0,10,30000) # you need lots of points so that coherences are well defined -> spectra
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
 
     # Calculate dynamics
@@ -151,15 +150,11 @@ if __name__ == "__main__":
     ax1 = fig.add_subplot(121)
     ax2 = fig.add_subplot(122)
     plot_dynamics(ax1)
+    plot_manifolds(ax2, H)
 
-    N = N/3 # The checking process scales very badly with N, so we need to make it smaller
-    L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
-    TD, dipoles = check.nonsec_check_comb(H, A_EM, alpha_EM, T_EM, N)
-    plot_nonsec(ax2, TD, dipoles)
-    p_file_name = "Notes/Images/Dynamics/Pop_a{:d}_N{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(3*N), int(T_EM), int(w0), int(eps))
+    p_file_name = "Notes/Images/Dynamics/Pop_a{:d}_N{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(N), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
     print "Figure saved: ", p_file_name
     #plot_dynamics_spec(DATA_ns, DATA_s, DATA_naive, timelist)
 
     #np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')
-    """
