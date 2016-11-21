@@ -65,7 +65,7 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
     plt.savefig(p_file_name)
     return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
 
-def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, expect_op='excited', time_units='cm', start_eps=500, end_eps=20500):
+def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, eps_values, expect_op='excited', time_units='cm'):
     # Set up a loop over different system splittings
     # Calculate all of the liouvillians and steady-states for each system
     G = ket([0])
@@ -73,7 +73,6 @@ def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, e
     ss_list_s,ss_list_ns,ss_list_naive  = [],[],[] # steady states
     r_vector = E # r_vector is the ket vector on the right in the .matrix_element operation. Default is E.
     l_vector = E.dag()
-    eps_values = range(start_eps,end_eps,500)
     if expect_op == 'coherence':
         l_vector = G.dag()
     else:
@@ -97,7 +96,7 @@ def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, e
     plt.legend()
     plt.ylabel("Excited state population")
     plt.xlabel(r"TLS splitting $(cm^{-1})$")
-    p_file_name = "Notes/Images/Checks/Pop_SS_divergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
+    p_file_name = "Notes/Images/Checks/Pop_SS_divergence_a{:d}_Tem{:d}_w0{:d}_N{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(N))
     return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
 
 def nonsec_check_H(H, A, N):
@@ -175,7 +174,7 @@ if __name__ == "__main__":
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 2000. # TLS splitting
+    eps = 1000. # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
     alpha_EM = 0.3 # System-bath strength (optical)
@@ -194,7 +193,10 @@ if __name__ == "__main__":
     plt.show()
     """
     plt.figure()
-    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n=5, end_n=40)
-    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, start_eps=500, end_eps=15000)
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 20, end_n=30)
+    eps_values = range(500, 1000, 100)+ range(1000, 2000, 200)+range(2000, 4000, 500)+range(4000, 14000, 1000)
+
+    #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, eps_values)
+    print "Plot saved: ",p_file_name
     plt.savefig(p_file_name)
     plt.close()

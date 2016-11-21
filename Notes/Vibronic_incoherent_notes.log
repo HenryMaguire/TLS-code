@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  18 NOV 2016 17:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  18 NOV 2016 19:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1416,16 +1416,16 @@ ine 399.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_div
-ergence_a300_Tem6000_w030_eps2000".pdf, id=64, 578.16pt x 433.62pt>
-File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_S
-S_divergence_a300_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/RealPop_SS
+_divergence_a300_Tem6000_w030_eps2000".pdf, id=64, 578.16pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/RealP
+op_SS_divergence_a300_Tem6000_w030_eps2000".pdf Graphic file (type pdf)
 
-<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS
-_divergence_a300_Tem6000_w030_eps2000".pdf>
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/RealPo
+p_SS_divergence_a300_Tem6000_w030_eps2000".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
-Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2000".pdf used on input li
-ne 419.
+Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_eps2000".pdf used on inpu
+t line 419.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
 
 
@@ -1517,8 +1517,8 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
 ) [12 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_S
 S_divergence_a300_Tem6000_w0300_eps2000.pdf>] [13 </Users/henrymaguire/Work/phd
--work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w030_eps2
-000.pdf> <./Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000.pdf
+-work/vibronic-TLS/Notes/Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_
+eps2000.pdf> <./Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000.pdf
 
 pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./Images/Spectra/Manifolds_a
 1_Tph300_Tem6000_w030_eps2000.pdf): PDF inclusion: multiple pdfs with page grou
@@ -1551,7 +1551,7 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  9839 strings out of 493089
- 179242 string characters out of 6134842
+ 179262 string characters out of 6134842
  236271 words of memory out of 5000000
  13217 multiletter control sequences out of 15000+600000
  10908 words of font info for 39 fonts, out of 8000000 for 9000
@@ -1576,7 +1576,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Vibronic_incoherent_notes.pdf (15 pages, 1421159 bytes).
+Output written on Vibronic_incoherent_notes.pdf (15 pages, 1421172 bytes).
 PDF statistics:
  625 PDF objects out of 1000 (max. 8388607)
  226 compressed objects within 3 object streams
