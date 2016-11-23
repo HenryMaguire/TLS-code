@@ -102,7 +102,6 @@ def plot_nonsec(ax, TD, dipoles):
     ax.set_ylabel(r"Down rate weighted by dipole of transitions $A_{ij}A_{kl}$")
 
 if __name__ == "__main__":
-
     N = 30
     G = ket([0])
     E = ket([1])
@@ -117,7 +116,7 @@ if __name__ == "__main__":
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 30. # underdamped SD parameter omega_0
     alpha_ph = 200. # Ind.-Boson frame coupling
-
+    print "eps={:d}, T_EM={:d}, w_0={:d}, alpha_ph={:d}".format(int(eps), int(T_EM), int(w0), int(alpha_ph))
     #Now we build all of the mapped operators and RC Liouvillian.
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
 
@@ -155,6 +154,7 @@ if __name__ == "__main__":
     p_file_name = "Notes/Images/Dynamics/Pop_a{:d}_N{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(N), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
     print "Figure saved: ", p_file_name
+
     #plot_dynamics_spec(DATA_ns, DATA_s, DATA_naive, timelist)
 
     #np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')

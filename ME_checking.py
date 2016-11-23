@@ -25,10 +25,8 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
         plt.plot(i.expect[0])
     plt.legend()
 
-
 def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_op='excited', time_units='cm', start_n=14, end_n=20):
     """
-
     """
     # Only for Hamiltonians of rotating wave form
     G = ket([0])
@@ -54,7 +52,7 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
         ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
         print "N=", n, "\n -----------------------------"
     plt.figure()
-    plt.ylim(0,1)
+    plt.ylim(0,0.4)
     plt.plot(N_values, ss_list_s, label='secular')
     plt.plot(N_values, ss_list_ns, label='non-secular')
     plt.plot(N_values, ss_list_naive, label='naive')
@@ -63,6 +61,10 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
     plt.xlabel("RC Hilbert space dimension")
     p_file_name = "Notes/Images/Checks/Pop_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
+    return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
+
+def sec_nonsec_agreement():
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = None, None, None, None
     return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
 
 def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, eps_values, expect_op='excited', time_units='cm'):
@@ -89,7 +91,7 @@ def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, e
         ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
         ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
         print "Splitting =", eps, "\n -----------------------------"
-    plt.ylim(0,1)
+    plt.ylim(0,0.4)
     plt.plot(eps_values, ss_list_s, label='secular')
     plt.plot(eps_values, ss_list_ns, label='non-secular')
     plt.plot(eps_values, ss_list_naive, label='naive')
@@ -181,7 +183,7 @@ if __name__ == "__main__":
 
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
-    w0 = 30. # underdamped SD parameter omega_0
+    w0 = 300. # underdamped SD parameter omega_0
     alpha_ph = 300. # Ind.-Boson frame coupling
 
     #Now we build all the operators
@@ -193,7 +195,7 @@ if __name__ == "__main__":
     plt.show()
     """
     plt.figure()
-    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 20, end_n=30)
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 15, end_n=30)
     eps_values = range(500, 1000, 100)+ range(1000, 2000, 200)+range(2000, 4000, 500)+range(4000, 14000, 1000)
 
     #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N, eps_values)
