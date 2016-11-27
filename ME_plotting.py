@@ -102,7 +102,7 @@ def plot_nonsec(ax, TD, dipoles):
     ax.set_ylabel(r"Down rate weighted by dipole of transitions $A_{ij}A_{kl}$")
 
 if __name__ == "__main__":
-    N = 30
+    N = 15
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -114,8 +114,8 @@ if __name__ == "__main__":
 
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
-    w0 = 30. # underdamped SD parameter omega_0
-    alpha_ph = 200. # Ind.-Boson frame coupling
+    w0 = 300. # underdamped SD parameter omega_0
+    alpha_ph = 400. # Ind.-Boson frame coupling
     print "eps={:d}, T_EM={:d}, w_0={:d}, alpha_ph={:d}".format(int(eps), int(T_EM), int(w0), int(alpha_ph))
     #Now we build all of the mapped operators and RC Liouvillian.
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
