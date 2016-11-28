@@ -25,7 +25,7 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
         plt.plot(i.expect[0])
     plt.legend()
 
-def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_op='excited', time_units='cm', start_n=14, end_n=20):
+def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, expect_op='excited', time_units='cm', start_n=14, end_n=20, method='direct'):
     """
     """
     # Only for Hamiltonians of rotating wave form
@@ -44,9 +44,9 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
         L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
         L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
         L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
-        ss_s = steadystate(H, [L_RC+L_s]).ptrace(0)
-        ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
-        ss_naive = steadystate(H, [L_RC+L_naive]).ptrace(0)
+        ss_s = steadystate(H, [L_RC+L_s], method=method).ptrace(0)
+        ss_ns = steadystate(H, [L_RC+L_ns], method=method).ptrace(0)
+        ss_naive = steadystate(H, [L_RC+L_naive], method=method).ptrace(0)
         ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
         ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
         ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
@@ -69,7 +69,7 @@ def sec_nonsec_agreement(ss_list_s,ss_list_ns):
 
     return ss_list_diff, p_file_name
 
-def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_values, eps_values, expect_op='excited', time_units='cm'):
+def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_values, eps_values, expect_op='excited', time_units='cm', method='direct'):
     # Set up a loop over different system splittings
     # Calculate all of the liouvillians and steady-states for each system
     G = ket([0])
@@ -88,9 +88,9 @@ def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_va
         L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
         L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
         L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
-        ss_s = steadystate(H, [L_RC+L_s]).ptrace(0)
-        ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
-        ss_naive = steadystate(H, [L_RC+L_naive]).ptrace(0)
+        ss_s = steadystate(H, [L_RC+L_s], method=method).ptrace(0)
+        ss_ns = steadystate(H, [L_RC+L_ns], method=method).ptrace(0)
+        ss_naive = steadystate(H, [L_RC+L_naive], method=method).ptrace(0)
         ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
         ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
         ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
@@ -201,9 +201,10 @@ if __name__ == "__main__":
     """
     plt.figure()
     #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 30, end_n=45)
-    eps_values = range(1000, 2000, 50)+range(2000, 4000, 500)+range(4000, 14000, 1000)
+    eps_values = range(1000, 2000, 50)+range(2000, 4000, 500)#+range(4000, 14000, 1000)
     N_values = [30]*len(range(1000, 2000, 50)) + [20]*len(range(2000, 4000, 500)) + [12]*len(range(4000, 14000, 1000))
-    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_values, eps_values)
+    solver_method = 'eigen'
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_values, eps_values, method=solver_method)
     print "Plot saved: ",p_file_name
     plt.savefig(p_file_name)
     plt.close()
