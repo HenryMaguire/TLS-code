@@ -26,12 +26,17 @@ def Occupation(omega, T, time_units='cm'):
         n = float(1./(sp.exp(omega*beta)-1))
     return n
 
+def rate_up_super(epsilon, N, alpha):
+    return 0.5*np.pi*alpha*N*(epsilon**3)
+
+def rate_down_super(epsilon, N, alpha):
+    return 0.5*np.pi*alpha*(N+1)*(epsilon**3)
+
 def rate_up(epsilon, N, alpha):
     return 0.5*np.pi*alpha*N
 
 def rate_down(epsilon, N, alpha):
     return 0.5*np.pi*alpha*(N+1)
-
 
 def J_ohmic(omega, alpha, wc=10000):
     return alpha*omega*np.exp(-omega/wc)
@@ -130,10 +135,10 @@ def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
             JI = evecs[j]*evecs[i].dag()
 
             if abs(sig_ij)>0 or abs(sig_ji)>0:
-                X3+= rate_down(eps_ij, Occ, alpha)*sig_ij*IJ
-                X4+= rate_up(eps_ij, Occ, alpha)*sig_ij*IJ
-                X1+= rate_up(eps_ij, Occ, alpha)*sig_ji*JI
-                X2+= rate_down(eps_ij, Occ, alpha)*sig_ji*JI
+                X3+= rate_down_super(eps_ij, Occ, alpha)*sig_ij*IJ
+                X4+= rate_up_super(eps_ij, Occ, alpha)*sig_ij*IJ
+                X1+= rate_up_super(eps_ij, Occ, alpha)*sig_ji*JI
+                X2+= rate_down_super(eps_ij, Occ, alpha)*sig_ji*JI
 
     L = spre(sig*X1) -sprepost(X1,sig)+spost(X2*sig)-sprepost(sig,X2)
     L+= spre(sig.dag()*X3)-sprepost(X3, sig.dag())+spost(X4*sig.dag())-sprepost(sig.dag(), X4)
@@ -171,8 +176,8 @@ def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
                 MM = eVecs[m]*eVecs[m].dag()
 
                 Occ = Occupation(eps_mn, T, time_units)
-                g2 = rate_up(eps_mn, Occ, alpha_em)
-                g1 = rate_down(eps_mn, Occ, alpha_em)
+                g2 = rate_up_super(eps_mn, Occ, alpha_em)
+                g1 = rate_down_super(eps_mn, Occ, alpha_em)
 
                 #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
                 T1 = g2*lam_nm_sq*(spre(MM))+g1*lam_nm_sq*(spre(NN))
@@ -190,7 +195,7 @@ def L_EM_lindblad(splitting, col_em, alpha, T, time_units='cm'):
     ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
-    L+= np.pi*alpha*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
-    L+= np.pi*alpha*(EMnb)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    L+= np.pi*alpha*(EMnb+1)*(splitting**3)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
+    L+= np.pi*alpha*(EMnb)*(splitting**3)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
     print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L
