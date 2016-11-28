@@ -102,7 +102,7 @@ def plot_nonsec(ax, TD, dipoles):
     ax.set_ylabel(r"Down rate weighted by dipole of transitions $A_{ij}A_{kl}$")
 
 if __name__ == "__main__":
-    N = 30
+    N = 40
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
     # electromagnetic bath liouvillians
 
-    L_nrwa = EM.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
+    #L_nrwa = EM.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
     L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
     L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
     L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)

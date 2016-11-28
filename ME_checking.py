@@ -59,7 +59,7 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
     plt.legend()
     plt.ylabel("Excited state population")
     plt.xlabel("RC Hilbert space dimension")
-    p_file_name = "Notes/Images/Checks/Pop_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}_{}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps), method)
+    p_file_name = "Notes/Images/Checks/SuperPop_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}_{}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps), method)
     plt.savefig(p_file_name)
     return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
 
@@ -181,7 +181,7 @@ if __name__ == "__main__":
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 1500. # TLS splitting
+    eps = 2000. # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
     alpha_EM = 0.3 # System-bath strength (optical)
@@ -194,17 +194,21 @@ if __name__ == "__main__":
     #Now we build all the operators
     """
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
-    TD, rates  = nonsec_check_A(H, A_EM, alpha_EM, T_EM, N)
-    plt.figure()
-    plt.scatter(TD, rates)
-    plt.show()
+    L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
+    L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
+    L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
+    ss_naive = steadystate(H, [L_RC+L_naive]).ptrace(0)
+    #TD, rates  = nonsec_check_A(H, A_EM, alpha_EM, T_EM, N)
+    #plt.figure()
+    #plt.scatter(TD, rates)
+    #plt.show()
     """
     plt.figure()
-    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 30, end_n=45)
-    eps_values = range(1000, 2000, 50)+range(2000, 4000, 500)+range(4000, 14000, 1000)
-    N_values = [30]*len(range(1000, 2000, 50)) + [20]*len(range(2000, 4000, 500)) + [12]*len(range(4000, 14000, 1000))
-    solver_method = 'power'
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 20, end_n=35)
+    #eps_values = range(1000, 2000, 50)+range(2000, 4000, 500)+range(4000, 14000, 1000)
+    #N_values = [30]*len(range(1000, 2000, 50)) + [20]*len(range(2000, 4000, 500)) + [12]*len(range(4000, 14000, 1000))
+    #solver_method = 'power'
     #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_values, eps_values, method=solver_method)
-    #print "Plot saved: ",p_file_name
+    print "Plot saved: ",p_file_name
     plt.savefig(p_file_name)
     plt.close()
