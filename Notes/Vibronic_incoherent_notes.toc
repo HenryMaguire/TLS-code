@@ -7,10 +7,10 @@
 \contentsline {section}{\numberline {4}Vibronic dissipation due to an electromagnetic bath}{5}
 \contentsline {subsection}{\numberline {4.1}Non-Rotating Wave Approximation}{6}
 \contentsline {subsection}{\numberline {4.2}Vibronic non-secular theory}{7}
-\contentsline {subsection}{\numberline {4.3}Vibronic Lindblad theory}{10}
-\contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{11}
-\contentsline {section}{\numberline {5}Analysis}{11}
-\contentsline {subsection}{\numberline {5.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{11}
+\contentsline {subsection}{\numberline {4.3}Vibronic Lindblad theory}{9}
+\contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{10}
+\contentsline {section}{\numberline {5}Analysis}{10}
+\contentsline {subsection}{\numberline {5.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{10}
 \contentsline {subsection}{\numberline {5.2}Underdamped Lorentzian Spectral Density (Localised vibrations)}{11}
 \contentsline {section}{\numberline {6}Future work}{12}
 \contentsline {subsection}{\numberline {6.1}Polaron shifts, phonon dynamics and optical spectra}{12}
