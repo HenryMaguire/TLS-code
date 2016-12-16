@@ -5,6 +5,7 @@ This repository will contain the notes and code for investigating a quantum Two-
 There is:
 - a central reaction coordinate Liouvillian builder called UD_liouv.py. It creates the master equation for the strongly coupled vibrations.
 - a module which deals with all of the different types of incoherent driving called driving_liouv.py.
+- a module called superdriving_liouv.py which does the same as driving_liouv.py but for a superohmic spectral density (this is a cheap hack)
 - a module with several different types of checks. The main feature is one which attempts to determine which systems are likely to be susceptible to non-secular effects.
 - a plotting module which takes in the other two and plots graphs of the dynamics, coherences and emission spectra. This could be extended into an IPython notebook as well.
 - a directory with all of the accompanying notes and figures for the investigation, read Vibronic_incoherent_notes.pdf to get some more physical insight.
@@ -24,7 +25,7 @@ All the python files are written in Python 2.7. The modules will need to be at l
 
 # Bugs
 - In driving_liouv the nrwa Liouvillian does not work. I think it won't converge for a flat spectrum.
-- It seems like when you have a small RC frequency the coherences diverge and the dynamics exhibit weird revivals and chaos.
+- When using superdriving_liouv.py the dynamics do not converge.
 
 # To do:
 - Try to find the "smoking gun" for needing to use the non-secular treatment. E.g does the structure of a manifold and occupation number dictate exactly when secular works?
