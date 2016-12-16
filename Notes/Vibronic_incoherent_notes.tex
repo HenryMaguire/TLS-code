@@ -1,13 +1,16 @@
 \documentclass[]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{physics}
-\usepackage{graphicx}
 \usepackage{color,soul}
 \usepackage{comment}
 \usepackage[toc,page]{appendix}
 \usepackage[nottoc]{tocbibind}
 \usepackage[english]{isodate}
 \usepackage{authblk}
+
+\usepackage{graphicx}
+\graphicspath{{Images/}}
+
 
 \title{Vibronic effects on incoherent excitation in molecular systems}
 \author[1]{H. Maguire}
@@ -97,7 +100,7 @@ Thus $\Omega = \omega_0$, $\lambda=\sqrt{\pi \alpha \omega_0/2}$ and $\gamma=\Ga
 
 \begin{figure}
 	%\includegraphics[width=0.5\textwidth]{"C:/Users/mbcxrhm2/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
-	\includegraphics[width=0.5\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
+	\includegraphics[width=0.5\textwidth]{Images/SDs/SpectralDensities.pdf}
 	\caption{Comparison of underdamped (solid lines) and overdamped (dashed line) spectral densities. Parameters are $\omega_c=53cm^{-1}$, $\alpha=100cm^{-1}$ and $\Gamma=\omega_0^2\omega_c^{-1}$.}
 \end{figure}
 \subsection{The reaction coordinate master equation}
@@ -304,11 +307,7 @@ Moving back to the Schrodinger picture gives
 	\end{split}
 \end{align}
 In order to justify the secular approximation in this case, we would have to show that an overdamped spectral density always gives negligible overlap coefficients $A_{l,m}A_{p,q}^{*}$ for nearly resonant transitions $\xi_{lm}\approx \xi_{pq}$.
-\begin{figure}
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".png}
-	\caption{Inspecting the validity of the secular approximation. There are many slowly evolving terms with large coefficients.}
-	\label{fig:}
-\end{figure}
+
 There is no dipole-moment associated with transitions between vibrational states within the same electronic state manifold, therefore in the uncoupled basis
 \begin{align}
 	\begin{split}
@@ -396,7 +395,7 @@ In single molecular transitions these effects may not be important, since the sp
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=0.8\textwidth]{Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000.pdf}
 	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
@@ -416,7 +415,7 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
+	\includegraphics[width=0.8\textwidth]{Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_eps2000.pdf}
 	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $k_B T_{EM}=4170cm^{-1}$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
@@ -424,42 +423,42 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 \begin{figure}[h]
 	\centering
 	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000".pdf}
+		\includegraphics[width=\textwidth]{Images/Spectra/Manifolds_a1_Tph300_Tem6000_w030_eps2000.pdf}
 		\caption{}
 		\label{fig:manifold_weakcoupling}
 	\end{minipage}
 	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000".pdf}
+		\includegraphics[width=\textwidth]{Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps2000.pdf}
 		\caption{}
 		\label{fig:manifold_stronglargesplitting}
 	\end{minipage}
 	\begin{minipage}[b]{0.325\textwidth}
-		\includegraphics[width=\textwidth]{"Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500".pdf}
+		\includegraphics[width=\textwidth]{Images/Spectra/Manifolds_a200_Tph300_Tem6000_w030_eps500.pdf}
 		\caption{}
 		\label{fig:manifold_strongsmallsplitting}
 	\end{minipage}
 \caption{The vibronic manifold structure of the TLS with an underdamped Phonon spectral density. It can be seen that strong-coupling as well as small splitting can cause mixing of the vibronic levels.}
 \end{figure}
-
+\begin{comment}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=\textwidth]{Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000.pdf}
 	\caption{Population where $\alpha_{ph}=5$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=10000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=\textwidth]{Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000.pdf}
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=2000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf}
+	\includegraphics[width=\textwidth]{Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000.pdf}
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $\epsilon=2000$}
 	\label{}
 \end{figure}
-\begin{comment}
+
 \subsection{Validity of RWA}
 \begin{itemize}
 	\item Comparing \ref{ssec:nrwa} and \ref{ssec:nsec} find regimes where the two different Hamiltonians yield the same dynamics. Within these regimes, do they agree with the secular theories too? Therefore, does secular imply rotating-wave (at least in the dissipators)?
