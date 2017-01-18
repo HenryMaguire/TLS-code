@@ -20,17 +20,24 @@
 \begin{document}
 \tableofcontents
 \section*{Preface}
-Electron-phonon coupling theory from the book chapters \cite{} \cite{}.
+Electron-phonon coupling theory from the book chapters.
 \maketitle
 \begin{abstract}
+The conversion of incoherent electromagnetic energy into useful work in photovoltaic cells can be viewed in a heat-engine picture, with electrons being excited to the conduction band by hot, solar photons and electron-hole recombination occurring radiatively and non-radiatively due to cold phonon baths and the ambient vacuum. In this simplified classical scenario, all recombination effects (apart from those occurring across the target load) detract from the photocell efficiency, since they result in an unavoidable dissipation of energy.
+
+Attempting to generate photocurrent via the same method in systems of just a few molecules works in much the same way, however now the likelihood of quantum coherence being present in the dynamics increases somewhat (due to the ) In the quantum picture, the presence of electronic coherence means that , some of these noise processes are thought to bring abo
 In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths at different orders of perturbation. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states. Aim to answer the question, "what effect does having a well defined vibronic manifold have on the discrepancies between secular and non-secular optical master equations?" How does the reaction coordinate picture relate to the theory of delocalised (phonon?) vs localised vibrations (from the electron-phonon chapter). 
+
+Recently, many models for novel nanoscopic photocells have been proposed based on architectures similar to those found in photosynthetic organisms. These natural light harvesting systems are considered to be highly efficient machines and more recently have exhibited quantum coherence on similar timescales to the underlying charge dynamics. Although its precise origin is unknown, theoretical work has considered whether this coherence may contribute to the high efficiency. Some suggest that the coherent signatures observed in time-resolved spectroscopy may be due to strong interactions between vibrational and electronic degrees of freedom within the underlying molecular system. 
+Previous work has assumed weakly-coupled molecular vibrations and introduced decoherence via simple rate equations. In this work, we show that strongly-coupled vibrations change the way that the molecules interact with the incident solar photons and hence fundamentally alter the charge dynamics in molecular systems. Even for single molecules, this strong vibronic coupling can lead to rich non-equilibrium effects and qualitatively different steady states to the weak-coupling theory. In principle, this will affect the operational efficiency of photocells. \\
+
 \end{abstract}
  
 \section{TODO:}
 \begin{itemize}
 	\item Put the dynamics and manifold plots side-by-side
 	\item Make smoother steady state plots
-	\item Shift the sharp peak up in energy and investigate dynamics
+	\item Shift the sharp peak up in energy and investigate dynamics when a localised vibration is near resonance with a transition
 \end{itemize}
 \section{Introduction}
 \textbf{Questions we need to answer for introduction:}
@@ -43,13 +50,15 @@ In these notes we aim to investigate the interplay between vibrational and elect
 \end{itemize}
 In these notes I will investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In the limit of strong and intermediate exciton-phonon coupling, a weak interaction between an incoherent optical field and the effective system eigenstructure gives rise to rich dynamical and steady state behaviour. 
 
-The references[]  discuss proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations of the system are known as excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised vibrations lead to many interesting observable effects:
+The references \cite{Creatore2013}\cite{Dorfman}[Amir's published paper] discuss proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}(check reference), leading to pigment-pigment couplings strong enough to cause excitations to delocalise. In this case the electronic excitations of the system are known as excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised vibrations lead to many interesting observable effects.
+
+Excitation of a electronic molecular transition leads to a reconfiguration of the equilibrium position of the nucleus. WE assume that the nuclear motion is far slower than that of the electron, so this electronic excitation amounts to a vertical transition to a higher lying potential well. In a typical diagram, nuclear displacement would be along the x-axis, so the upper potential well will be shifted to the right by some amount - related to vibronic coupling strength. Vibrational states in the upper potential well are occupied according to the vibronic transitional moment, or Franck-Condon overlap factors. Generally the nuclear configuration will be compressed in the excited electronic state, so molecule will occupy many vibrational modes which will in turn dissipate energy, causing the surrounding environment to heat up and the population to move to the vibrational ground state.The higher lying vibrational states then relax back to the potential minimum (assuming low-temperature) of the excited state on a fast timescale. This energy, dissipated to the vibrational environment, is called the reorganisation energy.
 \begin{itemize}
-	\item Homogeneous broadening of the emission and absorption spectra (why is is specifically homogeneous?)
-	\item Excitation of a electronic molecular transition leads to a reconfiguration of the equilibrium position of the relative nuclear coordinate which means the vibrational modes are out of equilibrium. The higher lying vibrational states then relax back to the potential minimum (assuming low-temperature) of the excited state on a fast timescale. This energy, dissipated to the vibrational environment, is called the reorganisation energy.
+	\item Homogeneous broadening of the emission and absorption spectra. Homogeneous due to the fact that the noise processes are resolved over experimental timescales?
 	\item A renormalisation of system transition energies.
 \end{itemize}
 
+In the case where vibrations couple strongly to electronic transitions, it has been shown that 
  In these systems, it is thought that the strength of exciton-phonon interactions is on the same order as the excitonic energies and intermolecule couplings, which means that we cannot use a perturbative treatment of this interaction. We therefore use the Reaction Coordinate method, which allows for strong coupling to low-frequency environment modes and a degree of non-Markovianity. 
 \\ 
 
@@ -71,8 +80,6 @@ Things I still want to cover:
 \end{description}
 \section{Non-perturbative Electron-Phonon coupling}
 \begin{itemize}
-	\item As we have mentioned, strong-coupling to vibrations can occur in biomolecular and solid state systems.
-	\item Reaction coordinate method shown to be effective in modelling the broad and sharply peaked lorentzian sprectral densities, strong-coupling and non-Markovianity \cite{keylist}.
 	\item Discuss RC regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
 \end{itemize}
 
@@ -326,7 +333,7 @@ In reality, numerically calculating each of these terms is going to be expensive
 We now substitute in \ref{eq:Adecomposition} and bring the integrals into new operators
 \begin{align}
 	\begin{split}
-		\pdv{\rho(t)}{t} = -i[H_S, \rho(t)] - \int_{0}^{\infty}& d\tau  \left[A, \chi_1 \rho(t)\right]  + \left[\rho(t)\chi_2,A\right] + h.c.
+		\pdv{\rho(t)}{t} = -i[H_S, \rho(t)] - \left[A, \chi_1 \rho(t)\right]  + \left[\rho(t)\chi_2,A\right] + h.c.
 	\end{split}
 \end{align}
 where 
@@ -470,13 +477,13 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 \subsection{Polaron shifts, phonon dynamics and optical spectra}
 
 \begin{itemize}
-	\item Does non-secularity alter the dynamics predicted by the Franck-Condon model for $T_{EM}=0$?
+	\item Does non-secularity alter the dynamics predicted by the Franck-Condon model for $T_{EM}=0$? No, at low temperature the theory is well approximated by the 
 	\item As temperature increases, what happens to the equilibrium phonon positions?
 	\item Think about polaron shifts. Does this cause the overlaps of excited and ground states to decrease? Does this lead to excessive loss between absorption and emission spectra?
 	\item Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively. The electromagnetic bath should be $k_B T\ll \hbar\omega$ to let the vibrational levels decay back to the potential minima of the electronic levels.
 \end{itemize}
 
 
-\bibliographystyle{abbrv}
-\bibliography{}
+\bibliographystyle{ieeetr}
+\bibliography{/Users/henrymaguire/Work/phd-work/BibTex/library}
 \end{document}
