@@ -200,7 +200,7 @@ def rates(H, A, Gamma, omega_0, T, N):
     return rates, frequencies
 
 if __name__ == "__main__":
-    N = 25
+    N = 12
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.

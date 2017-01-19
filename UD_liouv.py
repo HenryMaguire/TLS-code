@@ -85,7 +85,7 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
     L=L-spost(Xi*A)
     return L
 
-def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N):
+def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
 
     # we define all of the RC parameters by the underdamped spectral density
     Gamma = (wRC**2)/wc
@@ -93,6 +93,6 @@ def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N):
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
     print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "gamma=", gamma, " N=",N
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
-    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph)
+    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph, time_units='cm')
 
     return L_RC, H, A_em, A_nrwa, wRC, kappa
