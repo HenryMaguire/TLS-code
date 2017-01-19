@@ -138,7 +138,7 @@ if __name__ == "__main__":
     expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N))]
     timelist = np.linspace(0,10,30000) # you need lots of points so that coherences are well defined -> spectra
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
-
+    """
     # Calculate dynamics
     #DATA_nrwa = mesolve(H, rho_0, timelist, [L_RC+L_nrwa], expects, progress_bar=True)
     DATA_ns = mesolve(H, rho_0, timelist, [L_RC+L_ns], expects, progress_bar=True)
@@ -158,3 +158,4 @@ if __name__ == "__main__":
     #plot_dynamics_spec(DATA_ns, DATA_s, DATA_naive, timelist)
 
     #np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')
+    """

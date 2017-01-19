@@ -7,6 +7,11 @@ import driving_liouv as EM
 
 reload(RC)
 reload(EM)
+def J_multipolar(omega, Gamma, omega_0):
+    return Gamma*(omega**3)/(2*np.pi*(omega_0**3))
+
+def J_minimal(omega, Gamma, omega_0):
+    return Gamma*omega/(2*np.pi*omega_0)
 
 def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     timelist = np.linspace(0,5,20000)
@@ -175,6 +180,25 @@ def nonsec_check_A(H, A, alpha, T, N):
                 rates.append(EM.rate_down(abs(eps_ij), N_occ, alpha))
     return TD, rates
 
+def rates(H, A, Gamma, omega_0, T, N):
+    """
+    """
+    rates = []
+    frequencies = []
+    evals, evecs = H.eigenstates()
+    for i in range(2*N):
+        for j in range(2*N):
+            for k in range(2*N):
+                for l in range(2*N):
+                    eps_ij = evals[i]-evals[j]
+                    eps_kl = evals[k]-evals[l]
+                    A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
+                    A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
+                    #N_occ = EM.Occupation(abs(eps_kl), T, time_units='ps')
+                    frequencies.append(eps_ij-eps_kl)
+                    rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+    return rates, frequencies
+
 if __name__ == "__main__":
     N = 25
     G = ket([0])
@@ -192,13 +216,14 @@ if __name__ == "__main__":
     alpha_ph = 400. # Ind.-Boson frame coupling
 
     #Now we build all the operators
-    """
+
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
+    """
     TD, rates  = nonsec_check_A(H, A_EM, alpha_EM, T_EM, N)
     plt.figure()
     plt.scatter(TD, rates)
     plt.show()
-    """
+
     plt.figure()
     #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 30, end_n=45)
     eps_values = range(1000, 2000, 50)+range(2000, 4000, 500)#+range(4000, 14000, 1000)
@@ -208,3 +233,7 @@ if __name__ == "__main__":
     print "Plot saved: ",p_file_name
     plt.savefig(p_file_name)
     plt.close()
+    """
+    Gamma = 4e-8
+    omega_0 = 2
+    rates, frequencies = rates(H, A_EM, Gamma, omega_0, T_EM, N)

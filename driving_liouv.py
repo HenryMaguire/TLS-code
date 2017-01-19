@@ -161,7 +161,7 @@ def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
         for n in range(int(d)):
             t_0 = time.time() # initial time reference for tracking slow calculations
             lam_nm = A.matrix_element(eVecs[m].dag(), eVecs[n])
-            #lam_mn = A.matrix_element(eVecs[n].dag(), eVecs[m])
+            #lam_mn = (A.dag()).matrix_element(eVecs[n].dag(), eVecs[m])
             lam_nm_sq = lam_nm*lam_nm.conjugate()
             eps_mn = abs(eVals[m]-eVals[n])
             if lam_nm_sq>0:
