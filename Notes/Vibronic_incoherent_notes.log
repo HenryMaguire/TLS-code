@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  23 JAN 2017 15:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  23 JAN 2017 18:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1220,15 +1220,6 @@ LaTeX Warning: Label `eq:Adecomposition' multiply defined.
 
 LaTeX Warning: Label `eq:VibronicSecular2' multiply defined.
 
-
-LaTeX Warning: Label `fig:steadyStatevsSplitting' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
 )
 \openout1 = `Vibronic_incoherent_notes.aux'.
 
@@ -1399,7 +1390,12 @@ Overfull \hbox (28.06235pt too wide) in paragraph at lines 368--368
 [] 
  []
 
-[10] Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl
+[10]
+
+LaTeX Warning: Reference `fig:steadyStatevsSplitting' on page 11 undefined on i
+nput line 387.
+
+Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
@@ -1412,10 +1408,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9796 strings out of 493089
- 175626 string characters out of 6134842
- 236271 words of memory out of 5000000
- 13185 multiletter control sequences out of 15000+600000
+ 9792 strings out of 493089
+ 175527 string characters out of 6134842
+ 236225 words of memory out of 5000000
+ 13181 multiletter control sequences out of 15000+600000
  10908 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,19n,39p,10422b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1438,7 +1434,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Vibronic_incoherent_notes.pdf (12 pages, 1252839 bytes).
+Output written on Vibronic_incoherent_notes.pdf (12 pages, 1252658 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  91 compressed objects within 1 object stream

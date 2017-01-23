@@ -102,41 +102,47 @@ def plot_nonsec(ax, TD, dipoles):
     ax.set_ylabel(r"Down rate weighted by dipole of transitions $A_{ij}A_{kl}$")
 
 if __name__ == "__main__":
-    N = 15
+    """
+    Define all system and environment  parameters
+    """
+    N = 7
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 2000. # TLS splitting
+    eps = 2000.*8.066 # TLS splitting
 
-    T_EM = 6000. # Optical bath temperature
-    alpha_EM = 0.3 # System-bath strength (optical)
-
+    T_EM = 0. # Optical bath temperature
+    #alpha_EM = 0.3 # System-bath strength (optical)
+    Gamma = 6.582E-4*8.066 #bare decay of electronic transition in inv. cm
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
-    alpha_ph = 400. # Ind.-Boson frame coupling
+    alpha_ph = 1. # Ind.-Boson frame coupling
+
     print "eps={:d}, T_EM={:d}, w_0={:d}, alpha_ph={:d}".format(int(eps), int(T_EM), int(w0), int(alpha_ph))
-    #Now we build all of the mapped operators and RC Liouvillian.
+    """
+    Now we build the sys-RC Hamiltonian and residual bath Liouvillian as well as generate mapped parameters
+    """
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
 
     # electromagnetic bath liouvillians
 
-    L_nrwa = EM.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
-    L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
-    L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
-    L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
+    #L_nrwa = EM.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
+    L_ns = EM.L_nonsecular(H, A_EM, eps, Gamma, T_EM)
+    L_s = EM.L_vib_lindblad(H, A_EM, eps, Gamma, T_EM)
+    L_naive = EM.L_EM_lindblad(eps, A_EM, Gamma, T_EM)
 
     # Set up the initial density matrix
     n_RC = EM.Occupation(wRC, T_ph)
-    initial_sys = G*G.dag()
+    initial_sys = E*E.dag()
     #initial_sys = E*E.dag()
     #initial_sys = 0.5*(G+E)*(E.dag()+G.dag())
     rho_0 = tensor(initial_sys, thermal_dm(N, n_RC))
 
     # Expectation values and time increments needed to calculate the dynamics
-    expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N))]
-    timelist = np.linspace(0,10,30000) # you need lots of points so that coherences are well defined -> spectra
+    expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N)), tensor(qeye(2), destroy(N).dag()+destroy(N))]
+    timelist = np.linspace(0,100,15000) # you need lots of points so that coherences are well defined -> spectra
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
 
     # Calculate dynamics
@@ -158,4 +164,3 @@ if __name__ == "__main__":
     #plot_dynamics_spec(DATA_ns, DATA_s, DATA_naive, timelist)
 
     #np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')
-    

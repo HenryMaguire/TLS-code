@@ -327,14 +327,14 @@ In reality, numerically calculating each of these terms is going to be expensive
 We now substitute in \ref{eq:Adecomposition} and bring the integrals into new operators
 \begin{align}
 	\begin{split}
-		\pdv{\rho(t)}{t} = -i[H_S, \rho(t)] - right]  + \left[\rho(t)\chi_2,A\right] + h.c.
+		\pdv{\rho(t)}{t} = -i[H_S, \rho(t)] - \left[A, \chi_1\rho(t)\right]  + \left[\rho(t)\chi_2,A\right] + h.c.
 	\end{split}
 \end{align}
 where 
 \begin{align}
 	\begin{split}
-\chi_1 &= \sum_{i j}\int_{0}^{\infty}d\tau\int_{0}^{\infty}d\omega J(\omega)N(\omega)e^{i\omega\tau}A_{i,j}^* e^{i\xi_{mn}t}\dyad{\varphi_m}{\varphi_n} \\
-\chi_2 &= \int_{0}^{\infty}d\tau\int_{0}^{\infty}d\omega J(\omega)(1+N(\omega))e^{-i\omega\tau}A_{i,j}^* e^{i\xi_{mn}t}\dyad{\varphi_m}{\varphi_n} 
+\chi_1 &= \sum_{m n}\int_{0}^{\infty}d\tau\int_{0}^{\infty}d\omega J(\omega)N(\omega)e^{i\omega\tau}A_{i,j}^* e^{i\xi_{mn}t}\dyad{\varphi_m}{\varphi_n} \\
+\chi_2 &= \sum_{m n}\int_{0}^{\infty}d\tau\int_{0}^{\infty}d\omega J(\omega)(1+N(\omega))e^{-i\omega\tau}A_{i,j}^* e^{i\xi_{mn}t}\dyad{\varphi_m}{\varphi_n} 
 	\end{split}
 \end{align}
 
