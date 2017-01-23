@@ -14,15 +14,15 @@ import time
 
 def Occupation(omega, T, time_units='cm'):
     conversion = 0.695
-    if time_units == 'ps': # allows conversion to picoseconds, I can't remember what the exact number is though and cba to find it
-        conversion == 7.13
+    if time_units == 'ps': # allows conversion to picoseconds, I can't remember what the exact number is though
+        conversion == 1/7.638
     else:
         pass
     n =0.
     if T ==0. or omega ==0.: # stop divergences safely
         n = 0.
     else:
-        beta = 1. / (conversion* T)
+        beta = 1. / (conversion*T)
         n = float(1./(sp.exp(omega*beta)-1))
     return n
 

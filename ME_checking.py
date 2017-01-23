@@ -183,7 +183,8 @@ def nonsec_check_A(H, A, alpha, T, N):
 def rates(H, A, Gamma, omega_0, T, N):
     """
     """
-    rates = []
+    multipolar_rates = []
+    minimal_rates = []
     frequencies = []
     evals, evecs = H.eigenstates()
     for i in range(2*N):
@@ -196,28 +197,30 @@ def rates(H, A, Gamma, omega_0, T, N):
                     A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
                     #N_occ = EM.Occupation(abs(eps_kl), T, time_units='ps')
                     frequencies.append(eps_ij-eps_kl)
-                    rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
-    return rates, frequencies
+                    multipolar_rates.append(2*np.pi*J_multipolar(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                    minimal_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+    return multipolar_rates, minimal_rates, frequencies
 
 if __name__ == "__main__":
-    N = 12
+    N = 5
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 1000. # TLS splitting
+    eps = 2000.*8.066 # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
-    alpha_EM = 0.3 # System-bath strength (optical)
+    #alpha_EM = 0.3 # System-bath strength (optical)
 
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
-    w0 = 300. # underdamped SD parameter omega_0
+    w0 = 300. # overdamped SD parameter omega_0
     alpha_ph = 400. # Ind.-Boson frame coupling
 
     #Now we build all the operators
 
-    L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
+    L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N, time_units='cm')
+
     """
     TD, rates  = nonsec_check_A(H, A_EM, alpha_EM, T_EM, N)
     plt.figure()
@@ -234,6 +237,6 @@ if __name__ == "__main__":
     plt.savefig(p_file_name)
     plt.close()
     """
-    Gamma = 4e-8
-    omega_0 = 2
-    rates, frequencies = rates(H, A_EM, Gamma, omega_0, T_EM, N)
+    
+    Gamma = 6.582E-4*8.066 #inv. cm
+    multipolar_rates, minimal_rates, frequencies = rates(H, A_EM, Gamma, eps, T_EM, N)

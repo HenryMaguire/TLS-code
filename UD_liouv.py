@@ -60,7 +60,7 @@ def RCME_operators(H_0, A, gamma, beta):
 def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
     conversion = 0.695
     if time_units == 'ps':
-        conversion == 7.13
+        conversion == 1/7.638
     else:
         pass
 
