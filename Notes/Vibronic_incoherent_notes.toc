@@ -1,12 +1,12 @@
 \contentsline {section}{\numberline {1}TODO:}{2}
 \contentsline {section}{\numberline {2}Introduction}{2}
-\contentsline {section}{\numberline {3}Non-perturbative Electron-Phonon coupling}{3}
+\contentsline {section}{\numberline {3}Non-perturbative Electron-Phonon coupling}{4}
 \contentsline {subsection}{\numberline {3.1}The reaction coordinate master equation}{4}
-\contentsline {subsection}{\numberline {3.2}Drude-Lorentz Spectral Density (Delocalised phonons)}{5}
-\contentsline {subsection}{\numberline {3.3}Underdamped Lorentzian Spectral Density (Localised vibrations)}{5}
-\contentsline {section}{\numberline {4}Vibronic dissipation due to an electromagnetic bath}{5}
+\contentsline {subsection}{\numberline {3.2}Drude-Lorentz Spectral Density (Delocalised phonons)}{6}
+\contentsline {subsection}{\numberline {3.3}Underdamped Lorentzian Spectral Density (Localised vibrations)}{6}
+\contentsline {section}{\numberline {4}Vibronic dissipation due to an electromagnetic bath}{6}
 \contentsline {subsection}{\numberline {4.1}Non-Rotating Wave Approximation}{6}
-\contentsline {subsection}{\numberline {4.2}Vibronic non-secular theory}{7}
+\contentsline {subsection}{\numberline {4.2}Vibronic non-secular theory}{8}
 \contentsline {subsection}{\numberline {4.3}Vibronic Lindblad theory}{10}
 \contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{11}
 \contentsline {section}{\numberline {5}Analysis}{11}

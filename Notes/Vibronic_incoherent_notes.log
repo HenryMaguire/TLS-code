@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  24 JAN 2017 13:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  27 JAN 2017 16:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1353,53 +1353,54 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--52
 
  []
 
-
-LaTeX Warning: Citation `keylist' on page 3 undefined on input line 72.
-
 [3]
+
+LaTeX Warning: Citation `keylist' on page 4 undefined on input line 77.
+
+
 <"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spectr
-alDensities".pdf, id=21, 361.35pt x 224.84pt>
+alDensities".pdf, id=22, 361.35pt x 224.84pt>
 File: "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/S
 pectralDensities".pdf Graphic file (type pdf)
 
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Sp
 ectralDensities".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/Two
-SpinsNotes/Images/SpectralDensities".pdf used on input line 100.
+SpinsNotes/Images/SpectralDensities".pdf used on input line 105.
 (pdftex.def)             Requested size: 234.8775pt x 146.14769pt.
- [4 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spe
-ctralDensities.pdf>]
+ [4]
 
 LaTeX Warning: Citation `OriginalRCJakeAhsan' on page 5 undefined on input line
- 140.
+ 145.
 
-[5] [6] [7]
+[5 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spec
+tralDensities.pdf>] [6] [7] [8]
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".png,
- id=50, 578.16pt x 431.4519pt>
+ id=54, 578.16pt x 431.4519pt>
 File: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity"
 .png Graphic file (type png)
 
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".
 png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/NonSecularity".png used on input line 308.
+ages/NonSecularity".png used on input line 313.
 (pdftex.def)             Requested size: 375.80544pt x 280.44041pt.
- [8] [9 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularit
-y.png>]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 368--368
+ [9 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity.pn
+g>]
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 373--373
 [] 
  []
 
 [10]
 
 LaTeX Warning: Reference `fig:steadyStatevsSplitting' on page 11 undefined on i
-nput line 387.
+nput line 392.
 
-Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl
+Excluding 'comment' comment. [11] (./Vibronic_incoherent_notes.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [11] [12] (./Vibronic_incoherent_notes.aux)
+) [12] (./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1410,7 +1411,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  9792 strings out of 493089
  175527 string characters out of 6134842
- 236225 words of memory out of 5000000
+ 238225 words of memory out of 5000000
  13181 multiletter control sequences out of 15000+600000
  10908 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1434,7 +1435,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Vibronic_incoherent_notes.pdf (12 pages, 1252833 bytes).
+Output written on Vibronic_incoherent_notes.pdf (12 pages, 1254832 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  91 compressed objects within 1 object stream

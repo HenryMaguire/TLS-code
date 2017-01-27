@@ -12,7 +12,7 @@ plt.style.use('ggplot')
 
 
 def plot_dynamics(ax):
-
+    """
     #if T_EM>0.0: # No need to plot SS for T=0
     ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
     ss_v = steadystate(H, [L_RC+L_s]).ptrace(0)
@@ -23,9 +23,9 @@ def plot_dynamics(ax):
     ax.axhline(1-ss_g_v.real, color='b', ls='--')
     ax.axhline(1-ss_g_ns.real, color='g', ls='--')
     ax.axhline(1-ss_g_n.real, color='r', ls='--')
-
+    """
     #ax.title(r"$\omega_0=$""%i"r"$cm^{-1}$, $\alpha_{ph}=$""%f"r"$cm^{-1}$, $T_{EM}=$""%i K" %(w0, alpha_ph, T_EM))
-    #plt.plot(timelist, 1-DATA_nrwa.expect[0], label='nrwa', color='y')
+    #ax.plot(timelist, 1-DATA_nrwa.expect[0], label='nrwa', color='y')
     ax.plot(timelist, 1-DATA_ns.expect[0].real, label='Non-secular', color='g')
     ax.plot(timelist, 1-DATA_s.expect[0].real, label='Vib. Lindblad', color='b')
     ax.plot(timelist, 1-DATA_naive.expect[0].real, label='Simple Lindblad', color='r')
@@ -105,20 +105,20 @@ if __name__ == "__main__":
     """
     Define all system and environment  parameters
     """
-    N = 12
+    N = 3
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 2000.*8.066 # TLS splitting
+    eps = 1000.*8.066 # TLS splitting
 
-    T_EM = 0. # Optical bath temperature
+    T_EM = 1000. # Optical bath temperature
     #alpha_EM = 0.3 # System-bath strength (optical)
     Gamma = 50*6.582E-4*8.066 #bare decay of electronic transition in inv. cm
-    T_ph = 100. # Phonon bath temperature
+    T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
-    alpha_ph = 0.001 # Ind.-Boson frame coupling
+    alpha_ph = 400 # Ind.-Boson frame coupling
 
     print "eps={:d}, T_EM={:d}, w_0={:d}, alpha_ph={:d}".format(int(eps), int(T_EM), int(w0), int(alpha_ph))
     """
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     # electromagnetic bath liouvillians
 
-    #L_nrwa = EM.L_nonrwa(H, A_nrwa, alpha_EM, T_EM) # Ignore this for now as it just doesn't work
+    #L_nrwa = EM.L_nonrwa(H, A_nrwa, eps, Gamma, T_EM) # Ignore this for now as it just doesn't work
     L_ns = EM.L_nonsecular(H, A_EM, eps, Gamma, T_EM)
     L_s = EM.L_vib_lindblad(H, A_EM, eps, Gamma, T_EM)
     L_naive = EM.L_EM_lindblad(eps, A_EM, Gamma, T_EM)

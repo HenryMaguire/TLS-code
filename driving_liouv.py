@@ -65,13 +65,13 @@ def Gamma(omega, beta, J):
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
     return G
 
-def decay_rate(omega, J, alpha, T, time_units):
+def decay_rate(J, omega, Gamma, omega_0, T, time_units):
     """
     Decay rate for non-secular master equation. In my notes, this is called Gamma.
     """
     conversion = 0.695
     if time_units == 'ps': # allows conversion to picoseconds
-        conversion == 7.13
+        conversion == 1/7.638
     else:
         pass
 
@@ -81,17 +81,17 @@ def decay_rate(omega, J, alpha, T, time_units):
     else:
         beta = 1. / (conversion* T)
 
-    Gamma = 0
-    coth = lambda x : (sp.exp(2*alpha)+1)/(sp.exp(2*alpha)-1)
+    Decay = 0 # Initialise decay rate variable
+    coth = lambda x : (sp.exp(2*x)+1)/(sp.exp(2*x)-1)
     if omega>0:
-        Gamma = np.pi*0.5*J(omega, alpha)*(coth(beta*omega/2)-1)
+        Decay = np.pi*0.5*J(omega, Gamma, omega_0)*(coth(beta*omega/2)-1)
     elif omega ==0:
-        Gamma = np.pi*J(1, alpha) #/beta I thought this was supposed to be just J(1), but mathematica says otherwise
+        Decay = np.pi*J(1, Gamma, omega_0) #/beta I thought this was supposed to be just J(1), but mathematica says otherwise
     else:
-        Gamma = 0.5*J(omega, alpha)*(coth(beta*omega/2)+1)
-    return Gamma
+        Decay = 0.5*J(omega, Gamma, omega_0)*(coth(beta*omega/2)+1)
+    return Decay
 
-def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
+def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, time_units='cm', J=J_minimal):
     ti = time.time()
     d = H_vib.shape[0]
     evals, evecs = H_vib.eigenstates()
@@ -105,8 +105,8 @@ def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
             IJ = evecs[i]*evecs[j].dag()
             JI = evecs[j]*evecs[i].dag()
             if abs(sig_ij) >0:
-                Z+= decay_rate(eps_ij, J_ohmic, alpha, T, time_units)*sig_ij*IJ
-                Z_dag += decay_rate(eps_ij, J_ohmic, alpha, T, time_units).conjugate()*sig_ji*JI
+                Z+= decay_rate(J, eps_ij, Gamma, omega_0, T, time_units)*sig_ij*IJ
+                Z_dag += decay_rate(J, eps_ij, Gamma, omega_0, T, time_units).conjugate()*sig_ji*JI
     L = spre(sig_x*Z) - sprepost(Z, sig_x) + spost(Z_dag*sig_x) - sprepost(sig_x, Z_dag)
     print "It took ", time.time()-ti, " seconds to build the non-RWA Liouvillian"
     return -L
@@ -174,10 +174,10 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, time_units='cm'):
                 r_down = 2*np.pi*J_minimal(eps_ij, Gamma, eps)*(Occ+1)
 
                 #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
-                T1 = r_up*lam_ij_sq*(spre(II))+r_down*lam_ij_sq*(spre(JJ))
-                T2 = r_down.conjugate()*lam_ij_sq*(spost(II))+r_up.conjugate()*lam_ij_sq*(spost(JJ))
-                T3 = 2*(r_up*lam_ij_sq*sprepost(JI, IJ)+r_down*lam_ij_sq*(sprepost(IJ,JI)))
-                L += (T1 + T2 - T3)
+                T1 = r_up*spre(II)+r_down*spre(JJ)
+                T2 = r_up.conjugate()*spost(II)+r_down.conjugate()*spost(JJ)
+                T3 = 2*(r_up*sprepost(JI, IJ)+r_down*sprepost(IJ,JI))
+                L += lam_ij_sq*(T1 + T2 - T3)
                 l+=1
 
     print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
