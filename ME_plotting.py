@@ -13,16 +13,16 @@ plt.style.use('ggplot')
 
 def plot_dynamics(ax):
 
-    if T_EM>0.0: # No need to plot SS for T=0
-        ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
-        ss_v = steadystate(H, [L_RC+L_s]).ptrace(0)
-        ss_n = steadystate(H, [L_RC+L_naive]).ptrace(0)
-        ss_g_ns = ss_ns.matrix_element(G.dag(), G)
-        ss_g_v = ss_v.matrix_element(G.dag(), G)
-        ss_g_n = ss_n.matrix_element(G.dag(), G)
-        ax.axhline(1-ss_g_v.real, color='b', ls='--')
-        ax.axhline(1-ss_g_ns.real, color='g', ls='--')
-        ax.axhline(1-ss_g_n.real, color='r', ls='--')
+    #if T_EM>0.0: # No need to plot SS for T=0
+    ss_ns = steadystate(H, [L_RC+L_ns]).ptrace(0)
+    ss_v = steadystate(H, [L_RC+L_s]).ptrace(0)
+    ss_n = steadystate(H, [L_RC+L_naive]).ptrace(0)
+    ss_g_ns = ss_ns.matrix_element(G.dag(), G)
+    ss_g_v = ss_v.matrix_element(G.dag(), G)
+    ss_g_n = ss_n.matrix_element(G.dag(), G)
+    ax.axhline(1-ss_g_v.real, color='b', ls='--')
+    ax.axhline(1-ss_g_ns.real, color='g', ls='--')
+    ax.axhline(1-ss_g_n.real, color='r', ls='--')
 
     #ax.title(r"$\omega_0=$""%i"r"$cm^{-1}$, $\alpha_{ph}=$""%f"r"$cm^{-1}$, $T_{EM}=$""%i K" %(w0, alpha_ph, T_EM))
     #plt.plot(timelist, 1-DATA_nrwa.expect[0], label='nrwa', color='y')
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     """
     Define all system and environment  parameters
     """
-    N = 7
+    N = 12
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -114,11 +114,11 @@ if __name__ == "__main__":
 
     T_EM = 0. # Optical bath temperature
     #alpha_EM = 0.3 # System-bath strength (optical)
-    Gamma = 6.582E-4*8.066 #bare decay of electronic transition in inv. cm
-    T_ph = 300. # Phonon bath temperature
+    Gamma = 50*6.582E-4*8.066 #bare decay of electronic transition in inv. cm
+    T_ph = 100. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # underdamped SD parameter omega_0
-    alpha_ph = 1. # Ind.-Boson frame coupling
+    alpha_ph = 0.001 # Ind.-Boson frame coupling
 
     print "eps={:d}, T_EM={:d}, w_0={:d}, alpha_ph={:d}".format(int(eps), int(T_EM), int(w0), int(alpha_ph))
     """
@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
     # Expectation values and time increments needed to calculate the dynamics
     expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N)), tensor(qeye(2), destroy(N).dag()+destroy(N))]
-    timelist = np.linspace(0,100,15000) # you need lots of points so that coherences are well defined -> spectra
+    timelist = np.linspace(0,20,30000) # you need lots of points so that coherences are well defined -> spectra
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
 
     # Calculate dynamics
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     p_file_name = "Notes/Images/Dynamics/Pop_a{:d}_N{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(N), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
     print "Figure saved: ", p_file_name
-
+    plt.show()
     #plot_dynamics_spec(DATA_ns, DATA_s, DATA_naive, timelist)
 
     #np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')

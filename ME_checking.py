@@ -186,6 +186,8 @@ def rates(H, A, Gamma, omega_0, T, N):
     multipolar_rates = []
     minimal_rates = []
     frequencies = []
+    frequencies_zero=[]
+    sec_rates = []
     evals, evecs = H.eigenstates()
     for i in range(2*N):
         for j in range(2*N):
@@ -193,13 +195,51 @@ def rates(H, A, Gamma, omega_0, T, N):
                 for l in range(2*N):
                     eps_ij = evals[i]-evals[j]
                     eps_kl = evals[k]-evals[l]
-                    A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
-                    A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
-                    #N_occ = EM.Occupation(abs(eps_kl), T, time_units='ps')
-                    frequencies.append(eps_ij-eps_kl)
-                    multipolar_rates.append(2*np.pi*J_multipolar(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
-                    minimal_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
-    return multipolar_rates, minimal_rates, frequencies
+                    if abs(eps_kl)>0:
+                        A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
+                        A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
+                        #N_occ = EM.Occupation(abs(eps_kl), T, time_units='ps')
+                        frequencies.append(eps_ij-eps_kl)
+                        multipolar_rates.append(2*np.pi*J_multipolar(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                        minimal_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                        if abs(eps_ij-eps_kl)==0:
+                            sec_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                    else:
+                        frequencies_zero.append(eps_ij-eps_kl)
+
+    return multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero
+
+def secular_approx_check(H, A, Gamma, omega_0, T, N):
+    """
+    """
+    lazy_rates = []
+    rig_rates = []
+    lazy_freq = []
+    rig_freq = []
+    evals, evecs = H.eigenstates()
+    for i in range(2*N):
+        for j in range(2*N):
+            for k in range(2*N):
+                for l in range(2*N):
+                    eps_ij = evals[i]-evals[j]
+                    eps_kl = evals[k]-evals[l]
+                    if abs(eps_kl)>0:
+                        A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
+                        A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
+                        #N_occ = EM.Occupation(abs(eps_kl), T, time_units='ps')
+
+                        if abs(eps_ij-eps_kl)==0:
+                            rig_freq.append(eps_ij-eps_kl)
+                            rig_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                        else:
+                            pass
+                        if (i==k and j==l):
+                            lazy_freq.append(eps_ij-eps_kl)
+                            lazy_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+
+    return lazy_rates, rig_rates, lazy_freq, rig_freq
+
+
 
 if __name__ == "__main__":
     N = 5
@@ -211,11 +251,11 @@ if __name__ == "__main__":
 
     T_EM = 6000. # Optical bath temperature
     #alpha_EM = 0.3 # System-bath strength (optical)
-
+    Gamma = 6.582E-4*8.066 #inv. cm
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # overdamped SD parameter omega_0
-    alpha_ph = 400. # Ind.-Boson frame coupling
+    alpha_ph = 400 # Ind.-Boson frame coupling
 
     #Now we build all the operators
 
@@ -237,6 +277,15 @@ if __name__ == "__main__":
     plt.savefig(p_file_name)
     plt.close()
     """
-    
-    Gamma = 6.582E-4*8.066 #inv. cm
-    multipolar_rates, minimal_rates, frequencies = rates(H, A_EM, Gamma, eps, T_EM, N)
+    multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero = rates(H, A_EM, Gamma, eps, T_EM, N)
+    plt.figure()
+    plt.scatter(frequencies, minimal_rates, color='r')
+    plt.scatter(np.zeros(len(sec_rates)), sec_rates, color='b')
+    plt.scatter(frequencies_zero,np.zeros(len(frequencies_zero)),color='y')
+    """
+    plt.figure()
+    lazy_rates, rig_rates, lazy_freq, rig_freq = secular_approx_check(H, A_EM, Gamma, eps, T_EM, N)
+    plt.scatter(lazy_rates, lazy_freq, color='b')
+    plt.scatter(rig_rates, rig_freq, color='r')
+    """
+    plt.show()

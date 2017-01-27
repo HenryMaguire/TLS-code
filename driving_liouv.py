@@ -172,7 +172,7 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, time_units='cm'):
                 Occ = Occupation(eps_ij, T, time_units)
                 r_up = 2*np.pi*J_minimal(eps_ij, Gamma, eps)*Occ
                 r_down = 2*np.pi*J_minimal(eps_ij, Gamma, eps)*(Occ+1)
-                #g2 = rate_up
+
                 #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
                 T1 = r_up*lam_ij_sq*(spre(II))+r_down*lam_ij_sq*(spre(JJ))
                 T2 = r_down.conjugate()*lam_ij_sq*(spost(II))+r_up.conjugate()*lam_ij_sq*(spost(JJ))
@@ -189,7 +189,7 @@ def L_EM_lindblad(splitting, col_em, Gamma, T, time_units='cm'):
     ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
-    L+= 4*np.pi*J_minimal(splitting, Gamma, splitting)*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
-    L+= 4*np.pi*J_minimal(splitting, Gamma, splitting)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*(EMnb+1)*(2*sprepost(col_em, col_em.dag())-(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
+    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*EMnb*(2*sprepost(col_em.dag(), col_em)-(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
     print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L
