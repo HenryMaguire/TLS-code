@@ -105,7 +105,7 @@ if __name__ == "__main__":
     """
     Define all system and environment  parameters
     """
-    N = 3
+    N = 12
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
     # Expectation values and time increments needed to calculate the dynamics
     expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N)), tensor(qeye(2), destroy(N).dag()+destroy(N))]
-    timelist = np.linspace(0,20,30000) # you need lots of points so that coherences are well defined -> spectra
+    timelist = np.linspace(0,0.1,10) # you need lots of points so that coherences are well defined -> spectra
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
 
     # Calculate dynamics

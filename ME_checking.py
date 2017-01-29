@@ -1,6 +1,7 @@
-from qutip import ket
+
 from qutip import ket, mesolve, qeye, tensor, thermal_dm, destroy, steadystate
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 import numpy as np
 import UD_liouv as RC
 import driving_liouv as EM
@@ -239,6 +240,32 @@ def secular_approx_check(H, A, Gamma, omega_0, T, N):
 
     return lazy_rates, rig_rates, lazy_freq, rig_freq
 
+def func(x, a, b, c, d):
+    return a * np.exp(-b * x) + c*x + d
+
+def ladder_spacing(N_check=4, N_max=40):
+    fig = plt.figure()
+    av_spacings= []
+    n_list = []
+    for n in range(4,N_max):
+        L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, n, time_units='cm')
+        n_list.append(n)
+        spectrum= H.eigenenergies()
+
+        sorted_spectrum = sorted(spectrum)[n:]
+        print len(sorted_spectrum)
+        spacings = []
+        #diff_check = sorted_spectrum[N_check-1]-sorted_spectrum[N_check]
+        for i in range(len(sorted_spectrum)-1):
+            spacings.append(abs(sorted_spectrum[i]-sorted_spectrum[i+1]))
+        #plt.scatter(n, diff_check, color='y')
+        av_spacings.append(np.mean(spacings))
+    n_list=np.arange(len(av_spacings))
+    av_spacings=np.array(av_spacings)
+    #plt.plot(n_list, func(n_list, *popt), 'r-', label="Fitted Curve")
+    return n_list, av_spacings
+
+
 
 
 if __name__ == "__main__":
@@ -277,15 +304,22 @@ if __name__ == "__main__":
     plt.savefig(p_file_name)
     plt.close()
     """
+    """
     multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero = rates(H, A_EM, Gamma, eps, T_EM, N)
     plt.figure()
     plt.scatter(frequencies, minimal_rates, color='r')
     plt.scatter(np.zeros(len(sec_rates)), sec_rates, color='b')
     plt.scatter(frequencies_zero,np.zeros(len(frequencies_zero)),color='y')
     """
+    """
     plt.figure()
     lazy_rates, rig_rates, lazy_freq, rig_freq = secular_approx_check(H, A_EM, Gamma, eps, T_EM, N)
     plt.scatter(lazy_rates, lazy_freq, color='b')
     plt.scatter(rig_rates, rig_freq, color='r')
     """
+
+    n_list, av_spacings = ladder_spacing()
+    plt.scatter(n_list, av_spacings)
+    popt, pcov = curve_fit(func, n_list, av_spacings, p0=[300,0.3,0.001,500])
+    plt.plot(np.arange(40), func(np.arange(40), *popt))
     plt.show()
