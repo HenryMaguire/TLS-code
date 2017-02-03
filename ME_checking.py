@@ -5,7 +5,8 @@ from scipy.optimize import curve_fit
 import numpy as np
 import UD_liouv as RC
 import driving_liouv as EM
-
+from math import factorial
+from scipy.special import genlaguerre
 reload(RC)
 reload(EM)
 def J_multipolar(omega, Gamma, omega_0):
@@ -180,38 +181,9 @@ def nonsec_check_A(H, A, alpha, T, N):
                 TD.append(eps_ij)
                 rates.append(EM.rate_down(abs(eps_ij), N_occ, alpha))
     return TD, rates
-
-def rates(H, A, Gamma, omega_0, T, N):
+def secular_approx_check(H, A, Gamma, omega_0, T, N_max):
     """
-    """
-    multipolar_rates = []
-    minimal_rates = []
-    frequencies = []
-    frequencies_zero=[]
-    sec_rates = []
-    evals, evecs = H.eigenstates()
-    for i in range(2*N):
-        for j in range(2*N):
-            for k in range(2*N):
-                for l in range(2*N):
-                    eps_ij = evals[i]-evals[j]
-                    eps_kl = evals[k]-evals[l]
-                    if abs(eps_kl)>0:
-                        A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
-                        A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
-                        #N_occ = EM.Occupation(abs(eps_kl), T, time_units='ps')
-                        frequencies.append(eps_ij-eps_kl)
-                        multipolar_rates.append(2*np.pi*J_multipolar(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
-                        minimal_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
-                        if abs(eps_ij-eps_kl)==0:
-                            sec_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
-                    else:
-                        frequencies_zero.append(eps_ij-eps_kl)
-
-    return multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero
-
-def secular_approx_check(H, A, Gamma, omega_0, T, N):
-    """
+    Checks whether frequency based or number state based arguments are equivalent in the TLS (no degeneracies.)
     """
     lazy_rates = []
     rig_rates = []
@@ -240,6 +212,40 @@ def secular_approx_check(H, A, Gamma, omega_0, T, N):
 
     return lazy_rates, rig_rates, lazy_freq, rig_freq
 
+def rates(H, A, Gamma, eps, g, omega_0, T, N_max):
+    """
+    """
+    multipolar_rates = []
+    minimal_rates = []
+    frequencies = []
+    frequencies_zero=[]
+    forbidden = []
+    sec_rates = []
+    ground, excited, evals, evecs = numerical_spectrum(H, eps, g, omega_0, N_max=N_max)
+    print len(evals)
+    for i in range(2*N_max):
+        for j in range(2*N_max):
+            for k in range(2*N_max):
+                for l in range(2*N_max):
+                    eps_ij = evals[i]-evals[j]
+                    eps_kl = evals[k]-evals[l]
+                    if abs(eps_kl)>0:
+                        A_ij = A.matrix_element(evecs[i].dag(),evecs[j])
+                        A_kl_conj = (A.dag()).matrix_element(evecs[l].dag(),evecs[k])
+                        if A_ij==0.0 or A_kl_conj==0.0:
+                            forbidden.append(eps_ij-eps_kl)
+                        #N_occ = EM.Occupation(abs(eps_kl), T, time_units='ps')
+                        frequencies.append(eps_ij-eps_kl)
+                        multipolar_rates.append(2*np.pi*J_multipolar(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                        minimal_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                        if abs(eps_ij-eps_kl)==0:
+                            sec_rates.append(2*np.pi*J_minimal(abs(eps_kl), Gamma, omega_0)*A_ij*A_kl_conj)
+                    else:
+                        frequencies_zero.append(eps_ij-eps_kl)
+
+    return multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero, forbidden
+
+
 def func(x, a, b, c, d):
     return a * np.exp(-b * x) + c*x + d
 
@@ -265,11 +271,82 @@ def ladder_spacing(N_check=4, N_max=40):
     #plt.plot(n_list, func(n_list, *popt), 'r-', label="Fitted Curve")
     return n_list, av_spacings
 
+def numerical_spectrum(H, epsilon, g, omega_0, N_max=6):
+    energies, vecs = H.eigenstates()
+    eps_prime = epsilon - (g**2)/omega_0
+    ground = []
+    excited = []
+    enrgs = []
+    vctrs = []
+    # Creates a truncated spectrum so frequencies are all linearly spaced
+    for state in zip(energies, vecs):
+        E_i, v_i = state[0], state[1]
+        if E_i > (eps_prime -10) and E_i<eps_prime+N_max*omega_0: # -1 is to so vib grnd is included
+            excited.append((E_i,v_i))
+            enrgs.append(E_i)
+            vctrs.append(v_i)
+        elif E_i< (N_max*omega_0):
+            ground.append((E_i,v_i))
+            enrgs.append(E_i)
+            vctrs.append(v_i)
+        else:
+            pass
+    return ground, excited, enrgs, vctrs
 
+def analytic_spectrum(H, epsilon, g, omega_0, N_max=6):
+    # Firstly just the center
+    an_freqs = []
+    num_freqs = []
+    eps_prime = epsilon - (g**2)/omega_0
+    an_freqs_calc = []
+    for n in range(N_max-2):
+        an_freqs_calc.append(n*omega_0)
+        an_freqs_calc.append(eps_prime+n*omega_0)
+        for m in range(N_max-2):
+            for p in range(N_max-2):
+                for q in range(N_max-2):
+                    an_freqs.append((n-m)*omega_0 - (p-q)*omega_0)
+                    #an_freqs.append((m-n)*omega_0 - (q-p)*omega_0)
+    energies = H.eigenenergies()
+    num_energies = []
+    for E_i in energies:
+        if E_i > (eps_prime -20) and E_i<eps_prime+N_max*omega_0:
+            num_energies.append(np.round(E_i))
+        elif E_i< (N_max*omega_0):
+            num_energies.append(np.round(E_i))
+        else:
+            pass
+    for E_i in num_energies:
+        for E_j in num_energies:
+            if abs(E_i-E_j)<epsilon/2:
+                num_freqs.append(E_i-E_j)
+    #print an_freqs_calc
+    #print num_energies
+    return np.array(an_freqs), np.array(num_freqs)
 
+def associated_laguerre(n, k, x):
+    L = 0
+    for j in range(n+1):
+        L+= ((-1)**j)*(factorial(n+k)/(factorial(n-j)*factorial(k+j)*factorial(j)))*(x**j)
+    return L
+
+def wavefunction_overlap(n, m, alpha):
+    overlap = 0
+    if m>=n:
+        L_n_k = associated_laguerre(n, (m-n), abs(alpha)**2)
+        return np.sqrt(factorial(n)/factorial(m))*(alpha**(m-n))*np.exp(-0.5*abs(alpha)**2)*L_n_k
+    else:
+        return ValueError("Only valid for m>=n.")
+
+def num_wavefunction_overlap(energies, n, m):
+    overlap = 0
+    if m>=n:
+        return
+    else:
+        return ValueError("Only valid for m>=n.")
 
 if __name__ == "__main__":
-    N = 5
+    N = 15
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
@@ -303,23 +380,47 @@ if __name__ == "__main__":
     print "Plot saved: ",p_file_name
     plt.savefig(p_file_name)
     plt.close()
+
     """
-    """
-    multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero = rates(H, A_EM, Gamma, eps, T_EM, N)
+    multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero, forbidden = rates(H, A_EM, Gamma, eps, kappa, wRC, T_EM, 6)
     plt.figure()
     plt.scatter(frequencies, minimal_rates, color='r')
     plt.scatter(np.zeros(len(sec_rates)), sec_rates, color='b')
-    plt.scatter(frequencies_zero,np.zeros(len(frequencies_zero)),color='y')
+    plt.scatter(forbidden, np.zeros(len(forbidden)),color='y')
+    plt.axvline(eps-(kappa**2/wRC))
+    plt.axvline(-eps+(kappa**2/wRC))
+    plt.axvline(2*(eps-(kappa**2/wRC)))
+    plt.axvline(-2*(eps-(kappa**2/wRC)))
+    plt.title("Vibronic Transition Rates at "r"$\alpha_{ph}=400cm^{-1}$")
     """
-    """
+
     plt.figure()
     lazy_rates, rig_rates, lazy_freq, rig_freq = secular_approx_check(H, A_EM, Gamma, eps, T_EM, N)
     plt.scatter(lazy_rates, lazy_freq, color='b')
     plt.scatter(rig_rates, rig_freq, color='r')
-    """
 
     n_list, av_spacings = ladder_spacing()
     plt.scatter(n_list, av_spacings)
     popt, pcov = curve_fit(func, n_list, av_spacings, p0=[300,0.3,0.001,500])
     plt.plot(np.arange(40), func(np.arange(40), *popt))
     plt.show()
+
+    an_freqs, num_freqs = analytic_spectrum(H, eps, kappa, wRC)
+    #print sorted(an_freqs)
+    #print sorted(num_freqs)
+    print wavefunction_overlap(0, 0, kappa/wRC)
+    print wavefunction_overlap(0, 1, kappa/wRC)
+    print wavefunction_overlap(0, 2, kappa/wRC)
+    A = np.zeros((10, 10))
+    for n in range(10):
+        for m in range(10):
+            if m>n:
+                A[n][m] = abs(wavefunction_overlap(n, m, 5.))**2
+            else:
+                A[n][m] = abs(wavefunction_overlap(m, n, 5.))**2
+    plt.imshow(A)
+    plt.colorbar()
+    plt.show()
+    """
+
+    exc = numerical_spectrum(H, eps, kappa, wRC)
