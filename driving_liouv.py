@@ -137,7 +137,7 @@ def L_nonsecular(H_vib, A, eps, Gamma, T, time_units='cm'):
     L = spre(A*X1) -sprepost(X1,A)+spost(X2*A)-sprepost(A,X2)
     L+= spre(A.dag()*X3)-sprepost(X3, A.dag())+spost(X4*A.dag())-sprepost(A.dag(), X4)
     print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
-    return -L
+    return -0.5*L
 
 def L_vib_lindblad(H_vib, A, eps, Gamma, T, time_units='cm'):
     '''
@@ -176,8 +176,8 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, time_units='cm'):
                 #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
                 T1 = r_up*spre(II)+r_down*spre(JJ)
                 T2 = r_up.conjugate()*spost(II)+r_down.conjugate()*spost(JJ)
-                T3 = 2*(r_up*sprepost(JI, IJ)+r_down*sprepost(IJ,JI))
-                L += lam_ij_sq*(T1 + T2 - T3)
+                T3 = (r_up*sprepost(JI, IJ)+r_down*sprepost(IJ,JI))
+                L += lam_ij_sq*(0.5*(T1 + T2) - T3)
                 l+=1
 
     print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
@@ -189,7 +189,7 @@ def L_EM_lindblad(splitting, col_em, Gamma, T, time_units='cm'):
     ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
-    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*(EMnb+1)*(2*sprepost(col_em, col_em.dag())-(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
-    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*EMnb*(2*sprepost(col_em.dag(), col_em)-(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
+    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*EMnb*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
     print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L

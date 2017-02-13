@@ -9,7 +9,7 @@
 \usepackage[english]{isodate}
 \usepackage{authblk}
 
-\title{Vibronic effects on incoherent excitation in molecular systems}
+\title{Vibronic effects on the incoherently excited molecules}
 \author[1]{H. Maguire}
 \affil[1]{Photon Science Institute and School of Physics and Astronomy, The University of Manchester, Oxford Road,
 	Manchester M13 9PL, United Kingdom}
@@ -17,64 +17,60 @@
 \begin{document}
 \tableofcontents
 \section*{Preface}
-Electron-phonon coupling theory from the book chapters \cite{} \cite{}.
+
 \maketitle
 \begin{abstract}
-In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths at different orders of perturbation. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states. Aim to answer the question, "what effect does having a well defined vibronic manifold have on the discrepancies between secular and non-secular optical master equations?" How does the reaction coordinate picture relate to the theory of delocalised (phonon?) vs localised vibrations (from the electron-phonon chapter). 
+Here we study a single electronic transition in a molecule, which is interacting strongly with broad low-frequency phonons. Specifically, we aim to investigate how incoherent excitation from a weakly-coupled thermal radiation field affects these systems. We apply the Reaction Coordinate mapping to the electron-phonon coupling in order to extend the validity of a Born-Markov master equation. This method essentially redraws the boundary of system and bath to include a collective phonon within the system. The eigenstates of the new Hamiltonian therefore represent \textit{vibronic} excitations - each state interacting with the ambient electromagnetic field differently. At strong system-environment coupling and high thermal field temperature, we see that the secular approximation breaks down in the quantum optical master equation, leading to different dynamics and steady states.
 \end{abstract}
  
-\section{TODO:}
+\section{Plan:}
+\begin{enumerate}
+	\item Overview of the field and what is the motivation for studying this.
+	\item Quick introduction to electron-vibrational interactions and molecular physics.
+	\item Reaction coordinate things
+	\item Electromagnetic field things.
+	\item Vibronic physics. In this chapter I will write about all of the current checks I have been doing to understand the physics. Discuss what happens to manifolds when splitting becomes small, which states are populated for realistic temperatures. Analysis of dynamics in different regimes.
+	\item Emission Spectra - what does this say about the nature of electron-phonon interaction?
+\end{enumerate}
+\subsection{Questions}
 \begin{itemize}
-	\item Put the dynamics and manifold plots side-by-side
-	\item Make smoother steady state plots
-	\item Shift the sharp peak up in energy and investigate dynamics
-\end{itemize}
-\section{Introduction}
-\textbf{Questions we need to answer for introduction:}
-\begin{itemize}
+	\item How does bare coupling strength relate to Huang-Rhys Parameter
 	\item Where does it say that exciton-phonon/vibration interactions are strong in biomolecular light-harvesting systems?
 	\item Is it the low-frequency delocalised continuum of phonon modes that are strongly coupled? Or specific resonant vibrational modes?
 	\item What motivates the use of the reaction coordinate method? What does it allow? What are the restrictions?
 	\item Potential nanosystems which harvest or manipulate light are likely to be fabricated in the solid state, where low-frequency phonon modes are likely to interact strongly with electronic degrees of freedom. Give a few examples of potential architectures.
 	\item The size of natural light harvesting systems means that the peak solar frequencies are likely to have wavelengths that span many molecular sites. This leads to various collective excitation and emission effects. In the strong vibrational regime this leads to rich dynamics and steady states which are likely to affect the operational efficiency of a machine.
 \end{itemize}
-In these notes I will investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In the limit of strong and intermediate exciton-phonon coupling, a weak interaction between an incoherent optical field and the effective system eigenstructure gives rise to rich dynamical and steady state behaviour. 
+In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths at different orders of perturbation. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states. Aim to answer the question, "what effect does having a well defined vibronic manifold have on the discrepancies between secular and non-secular optical master equations?" How does the reaction coordinate picture relate to the theory of delocalised (phonon?) vs localised vibrations (from the electron-phonon chapter). 
 
-The references[]  discuss proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations of the system are known as excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised vibrations lead to many interesting observable effects:
+\subsection{TODO:}
 \begin{itemize}
-	\item Homogeneous broadening of the emission and absorption spectra (why is is specifically homogeneous?)
-	\item Excitation of a electronic molecular transition leads to a reconfiguration of the equilibrium position of the relative nuclear coordinate which means the vibrational modes are out of equilibrium. The higher lying vibrational states then relax back to the potential minimum (assuming low-temperature) of the excited state on a fast timescale. This energy, dissipated to the vibrational environment, is called the reorganisation energy.
-	\item A renormalisation of system transition energies.
+	\item 
 \end{itemize}
+\section{Introduction}
 
- In these systems, it is thought that the strength of exciton-phonon interactions is on the same order as the excitonic energies and intermolecule couplings, which means that we cannot use a perturbative treatment of this interaction. We therefore use the Reaction Coordinate method, which allows for strong coupling to low-frequency environment modes and a degree of non-Markovianity. 
-\\ 
+Recently, several papers have discussed proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures\cite{Dorfman}\cite{Creatore2013}\cite{Killoran2015}\cite{Fruchtman2016}. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations are excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised, inter-molecular vibrations lead to many interesting observable effects:
+\begin{itemize}
+	\item Homogeneous broadening of the emission and absorption spectra.
+	\item Dissipation of electronic energy into the vibrational environment as heat - known as the reorganisation energy.
+	\item Dephasing of the excitonic wavefunction, leading to decoherence.
+	\item A renormalisation of system transition energies and a polaron shifted excited state manifold.
+\end{itemize}
+In these systems, it is thought that the strength of exciton-vibration interactions is on the same order as the excitonic energies and intermolecular couplings, which means that a perturbative treatment of this interaction may not be valid. We therefore use the Reaction Coordinate method, which allows for strong coupling to low-frequency environment modes and a degree of non-Markovianity. 
+\\
+Light-harvesting systems also operate under incoherent driving by the incident electromagnetic field from the Sun. In organic systems, the average photon number at any time is usually very low, often motivating the study of dynamics in only the single-excitation subspace. This also means that often the process of absorption is ignored and the system is initially considered to be in an electronically excited state - with electromagnetic relaxation treated phenomenologically. Preparing the system in this way is also justified by the process of absorption occurring at a far shorter time-scale ($\sim fs$) than other molecular dynamics, such as fluorescence ($\sim ns$) and vibrational relaxation ($\sim ps$). 
 
-Vibronic transitions are simultaneous electronic and vibrational transitions, most commonly found in molecular and quantum dot systems. Molecular vibrations can be thought of as the oscillations around the equilibrium distribution of an electron and the nucleus. When an electron is excited in a molecule it moves out further from the nucleus so it has a different distribution thus exerting a different force on it. Nuclei respond and the whole system changes its vibrational character, often breaking into more vigorous motion. In the Franck-Condon picture, nuclei take far longer to move than electrons so electronic transitions are essentially \emph{instantaneous}. IN a typical diagram, with equilbrium nuclear displacement along the x axis and energy along the y-axis, both the ground and excited electronic states represent large potential wells, with vibrations forming separate ladders of states within each of them. The upper state is normally displaced to the right, since the entire potential energy of the molecule and thus the displacement is increased.
+We are interested in how vibronic systems continually interact with the electromagnetic field and so derive a Born-Markov master in the Reaction-Coordinate picture. We treat this master equation at various levels of approximation in order to understand which processes are likely to contribute in real systems.
+\subsection{Electron-vibration interaction}
 
-Since the nuclei adjust much more slowly than the electrons, the transition to the upper state occurs vertically. The conformation of the upper state is compressed so will often vibrate more vigorously, occupying higher lying vibrational states. Excitation energy is dissipated on a fast timescale into the vibrational modes of the molecule. Downward transitions occur causing the excitation to relax to the bottom of the upper potential well.
+Vibronic transitions are simultaneous electronic and vibrational transitions, most commonly found in molecular and quantum dot systems. Molecular vibrations can be thought of as the oscillations around the equilibrium distribution of an electron and the nucleus. When an electron is excited in a molecule it moves out further from the nucleus so it has a different distribution thus exerting a different force. The nuclei respond and the whole system changes its vibrational character, often breaking into more vigorous motion. In the Franck-Condon picture, it is assumed that nuclei take far longer to move than electrons so electronic transitions are essentially \emph{instantaneous}. In a typical diagram, with equilibrium nuclear displacement along the x axis and energy along the y-axis, both the ground and excited electronic states represent large potential wells, with vibrations forming separate ladders of states within each of them. The upper state is normally displaced to the right, since the entire potential energy of the molecule and thus the displacement is increased.
 
+Since the nuclei adjust much more slowly than the electrons, the transition to the upper state occurs vertically. The upper state is usually compressed out of equilibrium so will vibrate more vigorously, occupying higher lying vibrational states. Excitation energy is then dissipated on a fast timescale into the vibrational modes of the molecular environment causing the excitation to relax to the bottom of the upper potential well (assuming $KT\ll\hbar\epsilon$ where T is temperature and $\epsilon$ is the TlS splitting). WE should expect to see the expected displacement of the phonons (in the Reaction-Coordinate density matrix) move between the two potential wells over the excited state life-time.
 
-%\\ \textbf{How I'm going to write this thing:}
-%\begin{itemize}
-%	\item Go through and loosely write out the algebra and a loose discussion.
-%	\item Read Ahsan and Jake's notes and try to include the types of arguments that they make.
-%	\item Flesh out the discussion.
-%	\item Choose a consistent notation and vocabulary.
-%\end{itemize}
-
-Things I still want to cover:
-\begin{description}
-	\item[Light-Harvesting] - 
-	\item[Exciton-phonon coupling] - How does bare coupling strength relate to that electron-phonon coupling number they use in the literature?
-	\item[Strong-coupling] - 
-	\item[Incoherent driving] - 
-	\item[TYPICAL PARAMETERS] - I need to have a range of parameters which are typical for the types of systems I am interested in. System splitting, electron-phonon coupling strength, phonon frequencies, vibrational frequencies, phonon cutoff frequency. Let's assume that natural systems are the most efficient and use these values.
-\end{description}
-\section{Non-perturbative Electron-Phonon coupling}
+\section{Non-perturbative Exciton-Phonon coupling}
 \begin{itemize}
 	\item As we have mentioned, strong-coupling to vibrations can occur in biomolecular and solid state systems.
-	\item Reaction coordinate method shown to be effective in modelling the broad and sharply peaked lorentzian sprectral densities, strong-coupling and non-Markovianity \cite{keylist}.
+	\item Reaction coordinate method shown to be effective in modelling the broad and sharply peaked lorentzian sprectral densities, strong-coupling and non-Markovianity \cite{Iles-Smith2014}.
 	\item Discuss RC regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
 \end{itemize}
 
@@ -146,11 +142,6 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 \begin{equation}
 \pdv{\rho(t)}{t} = -i\left[H_0, \rho(t)\right] - \left[A, \left[\chi, \rho(t)\right]\right] + \left[A, \big\lbrace\Xi, \rho(t)\big\rbrace\right].
 \end{equation}
-\begin{itemize}
-	\item One picture showing the plot of eigenenergies with small $\omega_0$ and one with very large $\omega_0$. Does an underdamped SD give more localised vibration-like manifolds?
-	\item Picture showing the dynamics of the coherences in underdamped and overdamped case. Check dynamics of reaction coordinates too.
-	\item What do these manifolds mean in the context of the reaction coordinate mapping? How can the decay between vibrational levels be interpreted? Does it accurately represent the physics? (i.e. are the of the low-frequency delocalised phonons strongly coupled to the system in biomolecular systems?)
-\end{itemize}
 
 \subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
 
@@ -483,6 +474,6 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 \end{itemize}
 
 
-\bibliographystyle{abbrv}
-\bibliography{}
+\bibliographystyle{ieeetr}
+\bibliography{/Users/henrymaguire/Work/phd-work/BibTex/library}
 \end{document}

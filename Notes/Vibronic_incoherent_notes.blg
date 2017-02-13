@@ -1,10 +1,49 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: Vibronic_incoherent_notes.aux
-The style file: abbrv.bst
-I couldn't open database file .bib
----line 44 of file Vibronic_incoherent_notes.aux
- : \bibdata{
- :          }
-I'm skipping whatever remains of this command
-I found no database files---while reading file Vibronic_incoherent_notes.aux
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Vibronic_incoherent_notes.aux
+The style file: ieeetr.bst
+Database file #1: /Users/henrymaguire/Work/phd-work/BibTex/library.bib
 Warning--I didn't find a database entry for "OriginalRCJakeAhsan"
-(There were 2 error messages)
+Warning--empty journal in Fruchtman2016
+You've used 5 entries,
+            1876 wiz_defined-function locations,
+            513 strings with 4577 characters,
+and the built_in function-call counts, 1101 in all, are:
+= -- 92
+> -- 64
+< -- 0
++ -- 23
+- -- 18
+* -- 87
+:= -- 182
+add.period$ -- 5
+call.type$ -- 5
+change.case$ -- 5
+chr.to.int$ -- 0
+cite$ -- 6
+duplicate$ -- 55
+empty$ -- 102
+format.name$ -- 18
+if$ -- 251
+int.to.chr$ -- 0
+int.to.str$ -- 5
+missing$ -- 5
+newline$ -- 18
+num.names$ -- 5
+pop$ -- 17
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 22
+stack$ -- 0
+substring$ -- 40
+swap$ -- 14
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 8
+width$ -- 6
+write$ -- 46
+(There were 2 warnings)

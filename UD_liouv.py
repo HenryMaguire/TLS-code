@@ -37,12 +37,10 @@ def RCME_operators(H_0, A, gamma, beta):
     Xi = 0
     eVals, eVecs = H_0.eigenstates()
     #print H_0
-    EigenDiffs = []
     #ti = time.time()
     for j in range(dim_ham):
         for k in range(dim_ham):
             e_jk = eVals[j] - eVals[k] # eigenvalue difference
-            EigenDiffs.append(e_jk)
             A_jk = A.matrix_element(eVecs[j].dag(), eVecs[k])
             outer_eigen = eVecs[j] * (eVecs[k].dag())
             if sp.absolute(A_jk) > 0:
@@ -66,23 +64,23 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
 
     beta_C = 0.
     if T_C == 0.0:
-        beta_C = 10000000000.
+        beta_C = np.infty
         RCnb = 0
         print "Temperature is too low, this won't work"
     else:
         beta_C = 1./(conversion * T_C)
-        RCnb = (1 / (sp.exp( beta_C * wRC)-1))
+        RCnb = float(1. / (sp.exp( beta_C * wRC)-1))
     # Now this function has to construct the liouvillian so that it can be passed to mesolve
     H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, beta_C)
     L = 0
-    L=L-spre(A*Chi)
-    L=L+sprepost(A, Chi)
-    L=L+sprepost(Chi, A)
-    L=L-spost(Chi*A)
-    L=L+spre(A*Xi)
-    L=L+sprepost(A, Xi)
-    L=L-sprepost(Xi, A)
-    L=L-spost(Xi*A)
+    L-=spre(A*Chi)
+    L+=sprepost(A, Chi)
+    L+=sprepost(Chi, A)
+    L-=spost(Chi*A)
+    L+=spre(A*Xi)
+    L+=sprepost(A, Xi)
+    L-=sprepost(Xi, A)
+    L-=spost(Xi*A)
     return L
 
 def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
@@ -93,6 +91,6 @@ def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
     print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "gamma=", gamma, " N=",N
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
-    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph, time_units='cm')
+    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph, time_units)
 
     return L_RC, H, A_em, A_nrwa, wRC, kappa

@@ -1,3 +1,27 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{Dorfman}
+K.~E. Dorfman, D.~V. Voronine, S.~Mukamel, M.~O. Scully, and G.~R. Fleming,
+  ``{Photosynthetic reaction center as a quantum heat engine},'' {\em
+  Proceedings of the National Academy of Sciences}, 2012.
+
+\bibitem{Creatore2013}
+C.~Creatore, M.~A. Parker, S.~Emmott, and A.~W. Chin, ``{Efficient biologically
+  inspired photocell enhanced by delocalized quantum states},'' {\em Physical
+  Review Letters}, 2013.
+
+\bibitem{Killoran2015}
+N.~Killoran, S.~F. Huelga, and M.~B. Plenio, ``{Enhancing light-harvesting
+  power with coherent vibrational interactions: A quantum heat engine
+  picture},'' {\em Journal of Chemical Physics}, vol.~143, no.~15, 2015.
+
+\bibitem{Fruchtman2016}
+A.~Fruchtman, R.~G{\'{o}}mez-Bombarelli, B.~W. Lovett, and E.~M. Gauger,
+  ``{Photocell Optimisation Using Dark State Protection},'' 2016.
+
+\bibitem{Adolphs2006}
+J.~Adolphs and T.~Renger, ``{How Proteins Trigger Excitation Energy Transfer in
+  the FMO Complex of Green Sulfur Bacteria},'' {\em Biophysical Journal},
+  vol.~91, no.~8, pp.~2778--2797, 2006.
 
 \end{thebibliography}

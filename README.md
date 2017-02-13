@@ -23,6 +23,7 @@ All the python files are written in Python 2.7. The modules will need to be at l
 - Check in the Notes/Images folder for default plots of dynamics and spectra, or alternatively use the data files in DATA to plot your own.
 
 # Bugs
+- The dynamics calculations predict non-physical behaviour for the Reaction Coordinate expectation values. Not good!
 - In driving_liouv the nrwa Liouvillian does not work. I think it won't converge for a flat spectrum.
 - It seems like when you have a small RC frequency the coherences diverge and the dynamics exhibit weird revivals and chaos.
 

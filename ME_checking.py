@@ -1,5 +1,5 @@
 
-from qutip import ket, mesolve, qeye, tensor, thermal_dm, destroy, steadystate
+from qutip import ket, basis, mesolve, qeye, tensor, thermal_dm, destroy, steadystate, Qobj
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import numpy as np
@@ -54,9 +54,14 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
         ss_s = steadystate(H, [L_RC+L_s], method=method).ptrace(0)
         ss_ns = steadystate(H, [L_RC+L_ns], method=method).ptrace(0)
         ss_naive = steadystate(H, [L_RC+L_naive], method=method).ptrace(0)
+        ss_list_s.append((ss_s*tensor(qeye(2), destroy(N).dag()*destroy(N))).tr())
+        ss_list_ns.append((ss_ns*tensor(qeye(2), destroy(N).dag()*destroy(N))).tr())
+        ss_list_naive.append((ss_naive*tensor(qeye(2), destroy(N).dag()*destroy(N))).tr())
+        """
         ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
         ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
         ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
+        """
         print "N=", n, "\n -----------------------------"
     plt.figure()
     plt.ylim(0,0.4)
@@ -66,7 +71,7 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
     plt.legend()
     plt.ylabel("Excited state population")
     plt.xlabel("RC Hilbert space dimension")
-    p_file_name = "Notes/Images/Checks/Pop_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
+    p_file_name = "Notes/Images/Checks/_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
     return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
 
@@ -291,7 +296,7 @@ def numerical_spectrum(H, epsilon, g, omega_0, N_max=6):
             vctrs.append(v_i)
         else:
             pass
-    return ground, excited, enrgs, vctrs
+    return sorted(ground), sorted(excited), enrgs, vctrs
 
 def analytic_spectrum(H, epsilon, g, omega_0, N_max=6):
     # Firstly just the center
@@ -338,20 +343,31 @@ def wavefunction_overlap(n, m, alpha):
     else:
         return ValueError("Only valid for m>=n.")
 
-def num_wavefunction_overlap(energies, n, m):
+def num_wavefunction_overlap(excited, n, m, N):
     overlap = 0
     if m>=n:
-        return
+        return tensor(qeye(2), qeye(N)).matrix_element(tensor(G, basis(N,n)).dag(), excited[m][1])
     else:
         return ValueError("Only valid for m>=n.")
 
+def excited_in_uncoupled(excited, N):
+    """
+    Transform excited manifold vectors into the uncoupled basis
+    """
+    uncoupled = []
+    for m in range(len(excited)):
+        uncoup_vec = Qobj()
+        for n in range(len(excited)):
+            uncoup_vec+=tensor(qeye(2), qeye(N)).matrix_element(excited[n][1].dag(), tensor(E, basis(N,m)))*excited[n][1]
+        uncoupled.append(uncoup_vec)
+    return uncoupled
 if __name__ == "__main__":
-    N = 15
+    N = 22
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 2000.*8.066 # TLS splitting
+    eps = 500.*8.066 # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
     #alpha_EM = 0.3 # System-bath strength (optical)
@@ -380,8 +396,8 @@ if __name__ == "__main__":
     print "Plot saved: ",p_file_name
     plt.savefig(p_file_name)
     plt.close()
-
     """
+
     multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero, forbidden = rates(H, A_EM, Gamma, eps, kappa, wRC, T_EM, 6)
     plt.figure()
     plt.scatter(frequencies, minimal_rates, color='r')
@@ -392,8 +408,8 @@ if __name__ == "__main__":
     plt.axvline(2*(eps-(kappa**2/wRC)))
     plt.axvline(-2*(eps-(kappa**2/wRC)))
     plt.title("Vibronic Transition Rates at "r"$\alpha_{ph}=400cm^{-1}$")
-    """
 
+    """
     plt.figure()
     lazy_rates, rig_rates, lazy_freq, rig_freq = secular_approx_check(H, A_EM, Gamma, eps, T_EM, N)
     plt.scatter(lazy_rates, lazy_freq, color='b')
@@ -421,6 +437,12 @@ if __name__ == "__main__":
     plt.imshow(A)
     plt.colorbar()
     plt.show()
-    """
 
-    exc = numerical_spectrum(H, eps, kappa, wRC)
+
+    ground, excited, evals, evecs = numerical_spectrum(H, eps, kappa, wRC)
+    #print num_wavefunction_overlap(excited, 0, 3, N)
+    uncoupled_excited= excited_in_uncoupled(excited, N)
+    for i in range(len(uncoupled_excited)):
+        for j in range(len(uncoupled_excited)):
+            print uncoupled_excited[i].dag()*ground[j][1]
+    """
