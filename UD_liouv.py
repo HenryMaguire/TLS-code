@@ -61,8 +61,10 @@ def RCME_operators(H_0, A, gamma, beta):
 
 def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
     conversion = 0.695
+    if time_units == 'ev':
+        conversion == 8.617E-5
     if time_units == 'ps':
-        conversion == 1/7.638
+        conversion == 0.131
     else:
         pass
 
@@ -75,6 +77,7 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
         beta_C = 1./(conversion * T_C)
         RCnb = float(1. / (sp.exp( beta_C * wRC)-1))
     # Now this function has to construct the liouvillian so that it can be passed to mesolve
+    print 1/beta_C
     H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, beta_C)
     L = 0
     L-=spre(A*Chi)

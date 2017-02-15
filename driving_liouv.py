@@ -14,8 +14,10 @@ import time
 
 def Occupation(omega, T, time_units='cm'):
     conversion = 0.695
-    if time_units == 'ps': # allows conversion to picoseconds, I can't remember what the exact number is though
-        conversion == 1/7.638
+    if time_units == 'ev':
+        conversion == 8.617E-5
+    if time_units == 'ps':
+        conversion == 0.131
     else:
         pass
     n =0.
@@ -35,6 +37,7 @@ def J_minimal(omega, Gamma, omega_0):
 
 def J_flat(omega, Gamma, omega_0):
     return Gamma
+
 def cauchyIntegrands(omega, beta, J, ver):
     # Function which will be called within another function where J, beta and the eta are defined locally.
     F = 0
@@ -73,7 +76,7 @@ def decay_rate(J, omega, Gamma, omega_0, T, time_units):
     """
     conversion = 0.695
     if time_units == 'ps': # allows conversion to picoseconds
-        conversion == 1/7.638
+        conversion == 8.617E-5
     else:
         pass
 
