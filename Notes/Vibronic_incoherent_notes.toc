@@ -5,8 +5,7 @@
 \contentsline {subsection}{\numberline {2.1}Electron-vibration interaction}{4}
 \contentsline {section}{\numberline {3}Non-perturbative Exciton-Phonon coupling}{4}
 \contentsline {subsection}{\numberline {3.1}The reaction coordinate master equation}{5}
-\contentsline {subsection}{\numberline {3.2}Drude-Lorentz Spectral Density (Delocalised phonons)}{6}
-\contentsline {subsection}{\numberline {3.3}Underdamped Lorentzian Spectral Density (Localised vibrations)}{6}
+\contentsline {subsection}{\numberline {3.2}Dynamics}{6}
 \contentsline {section}{\numberline {4}Vibronic dissipation due to an electromagnetic bath}{6}
 \contentsline {subsection}{\numberline {4.1}Non-Rotating Wave Approximation}{6}
 \contentsline {subsection}{\numberline {4.2}Vibronic non-secular theory}{8}

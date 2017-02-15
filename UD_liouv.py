@@ -17,6 +17,9 @@ import numpy as np
 import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost
 
+def J_UD_SB(omega, alpha, omega_0, Gamma):
+    return (alpha*Gamma*(omega_0**2))*omega/((omega_0**2 - omega**2)**2+((Gamma**2)*(omega**2)))
+
 def Ham_RC(sigma, eps, Omega, kap, N):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
@@ -47,6 +50,7 @@ def RCME_operators(H_0, A, gamma, beta):
                 if sp.absolute(e_jk) > 0:
                     #print e_jk
                     # If e_jk is zero, coth diverges but J goes to zero so limit taken seperately
+
                     Chi += e_jk*gamma * sp.tanh(beta*e_jk*0.5)*A_jk*outer_eigen # e_jk*gamma is the spectral density
                     Xi += e_jk*gamma * A_jk * outer_eigen
                 else:
@@ -77,10 +81,12 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
     L+=sprepost(A, Chi)
     L+=sprepost(Chi, A)
     L-=spost(Chi*A)
+
     L+=spre(A*Xi)
     L+=sprepost(A, Xi)
     L-=sprepost(Xi, A)
     L-=spost(Xi*A)
+
     return L
 
 def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
@@ -89,8 +95,8 @@ def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
     Gamma = (wRC**2)/wc
     gamma = Gamma / (2. * np.pi * wRC)  # no longer a free parameter that we normally use to fix wRC to the system splitting
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
-    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "gamma=", gamma, " N=",N
+    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "residual bath coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
     L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph, time_units)
 
-    return L_RC, H, A_em, A_nrwa, wRC, kappa
+    return L_RC, H, A_em, A_nrwa, wRC, kappa, Gamma

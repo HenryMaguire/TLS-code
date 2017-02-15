@@ -33,6 +33,8 @@ def J_multipolar(omega, Gamma, omega_0):
 def J_minimal(omega, Gamma, omega_0):
     return Gamma*omega/(2*np.pi*omega_0)
 
+def J_flat(omega, Gamma, omega_0):
+    return Gamma
 def cauchyIntegrands(omega, beta, J, ver):
     # Function which will be called within another function where J, beta and the eta are defined locally.
     F = 0
@@ -91,7 +93,7 @@ def decay_rate(J, omega, Gamma, omega_0, T, time_units):
         Decay = 0.5*J(omega, Gamma, omega_0)*(coth(beta*omega/2)+1)
     return Decay
 
-def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, time_units='cm', J=J_minimal):
+def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
     ti = time.time()
     d = H_vib.shape[0]
     evals, evecs = H_vib.eigenstates()
@@ -111,7 +113,7 @@ def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, time_units='cm', J=J_minimal):
     print "It took ", time.time()-ti, " seconds to build the non-RWA Liouvillian"
     return -L
 
-def L_nonsecular(H_vib, A, eps, Gamma, T, time_units='cm'):
+def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm'):
     #Construct non-secular liouvillian
     ti = time.time()
     d = H_vib.shape[0]
@@ -127,8 +129,8 @@ def L_nonsecular(H_vib, A, eps, Gamma, T, time_units='cm'):
             JI = evecs[j]*evecs[i].dag()
             # 0.5*np.pi*alpha*(N+1)
             if abs(A_ij)>0 or abs(A_ji)>0:
-                r_up = 2*np.pi*J_minimal(eps_ij, Gamma, eps)*Occ
-                r_down = 2*np.pi*J_minimal(eps_ij, Gamma, eps)*(Occ+1)
+                r_up = 2*np.pi*J(eps_ij, Gamma, eps)*Occ
+                r_down = 2*np.pi*J(eps_ij, Gamma, eps)*(Occ+1)
                 X3+= r_down*A_ij*IJ
                 X4+= r_up*A_ij*IJ
                 X1+= r_up*A_ji*JI
@@ -139,7 +141,7 @@ def L_nonsecular(H_vib, A, eps, Gamma, T, time_units='cm'):
     print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
     return -0.5*L
 
-def L_vib_lindblad(H_vib, A, eps, Gamma, T, time_units='cm'):
+def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm'):
     '''
     Initially assuming that the vibronic eigenstructure has no
     degeneracy and the secular approximation has been made
@@ -170,8 +172,8 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, time_units='cm'):
                 II = eVecs[i]*eVecs[i].dag()
 
                 Occ = Occupation(eps_ij, T, time_units)
-                r_up = 2*np.pi*J_minimal(eps_ij, Gamma, eps)*Occ
-                r_down = 2*np.pi*J_minimal(eps_ij, Gamma, eps)*(Occ+1)
+                r_up = 2*np.pi*J(eps_ij, Gamma, eps)*Occ
+                r_down = 2*np.pi*J(eps_ij, Gamma, eps)*(Occ+1)
 
                 #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
                 T1 = r_up*spre(II)+r_down*spre(JJ)
@@ -185,11 +187,11 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, time_units='cm'):
     #plt.imshow(eMatrix)
     return -L
 
-def L_EM_lindblad(splitting, col_em, Gamma, T, time_units='cm'):
+def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm'):
     ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
-    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
-    L+= 2*np.pi*J_minimal(splitting, Gamma, splitting)*EMnb*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    L+= 2*np.pi*J(splitting, Gamma, splitting)*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
+    L+= 2*np.pi*J(splitting, Gamma, splitting)*EMnb*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
     print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L
