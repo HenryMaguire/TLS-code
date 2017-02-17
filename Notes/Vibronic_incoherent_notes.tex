@@ -49,7 +49,7 @@ In these notes we aim to investigate the interplay between vibrational and elect
 \end{itemize}
 \section{Introduction}
 
-Recently, several papers have discussed proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures\cite{Dorfman}\cite{Creatore2013}\cite{Killoran2015}\cite{Fruchtman2016}. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations are excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised, inter-molecular vibrations lead to many interesting observable effects:
+Recently, several papers have discussed proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures\cite{Dorfman}\cite{Creatore2013}\cite{Killoran2015}\cite{Fruchtman2016}. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations are excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised, inter-molecular vibrations lead to many interesting observable effects:
 \begin{itemize}
 	\item Homogeneous broadening of the emission and absorption spectra.
 	\item Dissipation of electronic energy into the vibrational environment as heat - known as the reorganisation energy.
@@ -61,6 +61,13 @@ In these systems, it is thought that the strength of exciton-vibration interacti
 Light-harvesting systems also operate under incoherent driving by the incident electromagnetic field from the Sun. In organic systems, the average photon number at any time is usually very low, often motivating the study of dynamics in only the single-excitation subspace. This also means that often the process of absorption is ignored and the system is initially considered to be in an electronically excited state - with electromagnetic relaxation treated phenomenologically. Preparing the system in this way is also justified by the process of absorption occurring at a far shorter time-scale ($\sim fs$) than other molecular dynamics, such as fluorescence ($\sim ns$) and vibrational relaxation ($\sim ps$). 
 
 We are interested in how vibronic systems continually interact with the electromagnetic field and so derive a Born-Markov master in the Reaction-Coordinate picture. We treat this master equation at various levels of approximation in order to understand which processes are likely to contribute in real systems.
+
+A number of different approaches are
+\begin{enumerate}
+	\item Studying how strong-coupling leads to a breakdown of approximations of optical master equations. Spectral signatures.
+	\item Choosing an appropriate regime and looking at how vibronic coupling affects dynamics and steady-states.
+\end{enumerate}
+
 \subsection{Electron-vibration interaction}
 
 Vibronic transitions are simultaneous electronic and vibrational transitions, most commonly found in molecular and quantum dot systems. Molecular vibrations can be thought of as the oscillations around the equilibrium distribution of an electron and the nucleus. When an electron is excited in a molecule it moves out further from the nucleus so it has a different distribution thus exerting a different force. The nuclei respond and the whole system changes its vibrational character, often breaking into more vigorous motion. In the Franck-Condon picture, it is assumed that nuclei take far longer to move than electrons so electronic transitions are essentially \emph{instantaneous}. In a typical diagram, with equilibrium nuclear displacement along the x axis and energy along the y-axis, both the ground and excited electronic states represent large potential wells, with vibrations forming separate ladders of states within each of them. The upper state is normally displaced to the right, since the entire potential energy of the molecule and thus the displacement is increased.
@@ -70,7 +77,7 @@ Since the nuclei adjust much more slowly than the electrons, the transition to t
 \section{Non-perturbative Exciton-Phonon coupling}
 \begin{itemize}
 	\item As we have mentioned, strong-coupling to vibrations can occur in biomolecular and solid state systems.
-	\item Reaction coordinate method shown to be effective in modelling the broad and sharply peaked lorentzian sprectral densities, strong-coupling and non-Markovianity \cite{Iles-Smith2014}.
+	\item Reaction coordinate method shown to be effective in modelling the broad and sharply peaked lorentzian sprectral densities, strong-coupling and non-Markovianity.
 	\item Discuss RC regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
 \end{itemize}
 
@@ -138,7 +145,7 @@ yields
 	\chi &\approx \sum_{ij}J_{RC}(\xi_{ij}) \coth(\frac{\beta \xi_{ij}}{2})\bra{\phi_i}A\ket{\phi_j}\dyad{\phi_i}{\phi_j}\\
 	\Xi &\approx \sum_{ij}J_{RC}(\xi_{ij}) \bra{\phi_i}A\ket{\phi_j}\dyad{\phi_i}{\phi_j}
 \end{align}
-where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been neglected, justified in \cite{ by benchmarking. These operators can be calculated by numerically diagonalising the TLS-RC system Hamiltonian $H_0$. This allows us to write the Reaction Coordinate master equation as
+where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been neglected, justified in by benchmarking. These operators can be calculated by numerically diagonalising the TLS-RC system Hamiltonian $H_0$. This allows us to write the Reaction Coordinate master equation as
 \begin{equation}
 \pdv{\rho(t)}{t} = -i\left[H_0, \rho(t)\right] - \left[A, \left[\chi, \rho(t)\right]\right] + \left[A, \big\lbrace\Xi, \rho(t)\big\rbrace\right].
 \end{equation}
@@ -146,29 +153,65 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 \subsection{Dynamics}
 Compare to exact solution. Look at how things change between the localised and delocalised vibration case.
 \section{Vibronic dissipation due to an electromagnetic bath}
-\begin{itemize}
-	\item I don't know whether to order the different theories from most severe approximation (electronic) to least severe (non-RWA non-Secular), or the way round that I've done it.
-\end{itemize}
+We now want to investigate the behaviour of the vibronic system when coupled to the ambient electromagnetic field, where the overall Hamiltonian is
 \begin{equation}
-H = \epsilon \dyad{X} + \sum_{k}h_k(a^{\dagger}+a)(c^{\dagger}_k+c_k) + \sum_{k}\omega_k c^{\dagger}_k c_k + \sum_{j}\sigma_x(g^*_jb^{\dagger}_j+g_jb_j) + \sum_{j}\omega_j b^{\dagger}_jb_j,
+H = H_S + H_I^{Vib} + H_B^{Vib} + H_I^{EM}+ H_B^{EM}.
 \end{equation}
-We being by looking at the model of a single electronic molecular transition coupled to a broadened vibrational mode, where the electronic transition is coupled to the surrounding electromagnetic environment. The total Hamiltonian is of the form
+
+Firstly, we calculate the decay rates for vibronic transitions, where the electronic transition is a single excitation in a molecule and the vibrations are delocalised (over the solid state substrate or protein scaffold) leading to a broad overdamped Lorentzian profile. In the literature, \textit{vibronic} systems usually comprise of electronic and localised, intra-molecular vibrational modes (sharp) often taken to be a single oscillator mode. Since we use the RC mapping, where a single oscillator does strongly couple to the electronic transition we will also use the term \textit{vibronic} to describe the new diagonal system basis - even if the underlying spectrum is broad.
+
+Firstly, for a two-level system coupled to an electromagnetic bath there are a variety of gauges we can choose for the electromagnetic coupling. In \cite{Stokes2012}, the minimal coupling for
 \begin{equation}
-H = \epsilon \dyad{X} + \eta a^{\dagger}a + \lambda\sigma_z(a^{\dagger}+a) + \sum_{k}h_k(a^{\dagger}+a)(c^{\dagger}_k+c_k) + \sum_{k}\omega_k c^{\dagger}_k c_k + \sum_{j}\sigma_x(g^*_jb^{\dagger}_j+g_jb_j) + \sum_{j}\omega_j b^{\dagger}_jb_j,
+\label{eq:MinimalCouplingConst}
+f_{k\lambda} = i e \left(\frac{\omega_0}{2\epsilon_0 L^3}\right)^{\frac{1}{2}} \vec{e}_{k \lambda}\cdot\vec{d} \left(\frac{\omega_0}{\omega_k}\right)^{\frac{1}{2}} 
 \end{equation}
-where the first five terms constitute the electronic and vibrational degrees of freedom and the couplings between them and the final two terms are the interaction of the electronic part and the optical bath. If we consider the electronic transition and vibrational mode to be the system of interest we can deal with the system-bath interactions in an open-quantum systems framework,
+and the multipolar form
 \begin{equation}
-H = H_S + H_I^{Vib} + H_B^{Vib} + H_I^{EM}+ H_B^{EM}
+\label{eq:MultipolarCouplingConst}
+g_{k\lambda} = i e \left(\frac{\omega_0}{2\epsilon_0 L^3}\right)^{\frac{1}{2}} \vec{e}_{k \lambda}\cdot\vec{d} \left(\frac{\omega_k}{\omega_0}\right)^{\frac{1}{2}} 
 \end{equation}
-where 
+are used. 
+In the case of the minimal coupling, this leads to the spectral denisty
 \begin{equation}
-H_S = \epsilon \dyad{X} + \eta a^{\dagger}a + v\sigma_x(a^{\dagger}+a)
+J(\omega) = \left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)\omega.
 \end{equation}
-and the rest is self-explanatory for now.
+For the two-level system the two different forms of coupling lead to the same spontaneous emission rates since the resultant spectral densities are evaluated at the same TLS splitting frequency
 \begin{equation}
-J (\omega)= \sum_{j}\abs{g_{\textbf{j}}}^2 \delta (\omega-\omega_j).
+\label{eq:TLS_decay}
+\Gamma = \pi J(\omega_0) = \pi\left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)\omega_0.
 \end{equation}
-Now we derive four different master equations to describe the dissipative dynamics under different levels of secular approximation. Firstly, we do not make a rotating wave approximation on the system-bath Hamiltonian. This is 
+For a real molecule, it may not be easy to measure the dipole strength of a transition, but it might be easy to gain access to the (zero-phonon) excited state lifetime ($T_1 \approx 100ps - 1ns$) which gives a value for spontaneous emission rate ($\Gamma\approx 10^9-10^{10}s^{-1}$). We could then express the spectral density in terms of this
+\begin{equation}
+\label{eq:MinimalSpectral}
+J_{mc}(\omega) = \frac{\Gamma\omega}{2\pi\omega_0}.
+\end{equation}
+For the multipolar gauge we have
+\begin{equation}
+\label{eq:MultipolarSpectral}
+J_{mp}(\omega) = \frac{\Gamma\omega^3}{2\pi\omega_0^3}
+\end{equation}
+from which it can be seen that $\Gamma_{TLS}=J_{mc}(\omega_0)=J_{mp}(\omega_0)$, i.e. that the system-bath coupling and decay rates are gauge-invariant when evaluated at the TLS frequency.
+
+The many high-lying vibronic states on both the excited and ground manifold mean that even for a single electronic transition there are many vibronic transition frequencies and the transition rates between them are going to depend strongly on the overlap of the various vibrational wavefunctions. 
+
+As we will see later, the vibronic transition rates for the process $\ket{\phi_q}\to\ket{\phi_p}$ due to electromagnetic field interaction, as described by a secular Born-Markov master equation (ignoring Lamb-shifts) is given by
+\begin{equation}
+\Gamma_{pq} = \pi J(\omega_{pq}) A_{p,q}^{*}A_{p,q}
+\end{equation}
+where $A_{p,q}=\bra{\phi_p}\sigma\otimes I_{RC}\ket{\phi_q}$ and the vibronic system eigenstates are defined $H_S\ket{\phi_i}= \omega_i\ket{\phi_i}$.
+
+The question is: \textit{how does each vibronic state couple to the electromagnetic field?} Now, the complete answer to this question may require detailed knowledge about the various vibronic dipole moments and for this to be input into something of the form of equation \ref{eq:MinimalCouplingConst}. This information could possibly be obtained from ab initio calculations such as DFT(?), but it is not necessary for our applications.
+
+In our model the underlying way that the vibronic system couples to the field is via the electronic transition. This means that we do not expect the form of the coupling to the system-bath coupling to change substantially once we include the vibrational mode. Instead it is likely that the frequency dependence of the coupling as seen in the spectral density \ref{eq:MinimalSpectral} dominates the physics, rather than the coefficients. If this is accurate then we can incorporate much of the physics by simply using evaluating the TLS-optical field spectral density at the various vibronic frequencies. One remaining problem is that now the rates of the form \ref{eq:TLS_decay} are no longer gauge-invariant. This means that we need to check whether our choice of gauge qualitatively affects the physics.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_ph400".pdf}
+	\caption{Spontaneous decay rates for the various non-secular master equation terms as given by the real, temperature independent terms in \ref{eq:VibronicNonSecular1}, vs the transition frequency differences. The blue vertical lines are factors of the polaron-shifted TLS frequency. Yellow points are those which are forbidden by having zero transition dipole moment. The blue points are the terms left over after a strict, secular approximation has been made. $\alpha_{ph}=400 cm^{-1}$, $T_{EM} =6000$, $\hbar\omega_0 = 300cm^{-1}$}
+	\label{fig:DecayRates_FrequencyDiffs}
+\end{figure}
+
+In figure \ref{fig:DecayRates_FrequencyDiffs} we see that for a TLS the various transition frequency differences form five bands, centered around $\pm2\epsilon$, $\pm\epsilon$ and zero.
 \subsection{Non-Rotating Wave Approximation}
 \label{ssec:nrwa}
 Here we derive a Born-Markov master equation (Redfield equation) for the light-matter coupling without imposing the rotating wave approximation. The idea is that since the coupled system-vibrational Hamiltonian has potentially degenerate eigenfrequencies spanning many orders of magnitude there may exist some combination of transitions which become non-negligibly coupled by the shared optical field which are \textit{counter-rotating} but slowly. The Hamiltonian for the dissipative vibronic system is $H = H_S + H_B^{Vib} + H_I^{Vib} + H_B^{EM} + H_I^{EM}$
@@ -332,6 +375,7 @@ where
 \end{align}
 
 \begin{itemize}
+	\item Discuss what all the terms and rates might mean.
 	\item State the argument for a secular approximation and then explain why it is not generally valid in this case, with the figure of coefficients versus frequencies - it is the intermediate, nearly resonant region which is important, weight this by the decay rate so that it accounts for the fact that for the secular approximation to be valid the characteristic system frequency $\omega>\gamma$. In my calculations, the spectral density is constant so it doesn't change anything.
 	\item In the case of the RC mapping, the effect is caused by a single phonon mode representing the entire bath. The problem is mapped exactly, does this mean these non-secular effects are real? If not, does this mean that dealing with multiple baths are a limitation of the RC model since the dynamics is mapped exactly only with the single bath? Surely if the Hamiltonians commute then it doesn't matter?
 	
@@ -466,11 +510,14 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 \begin{itemize}
 	\item Does non-secularity alter the dynamics predicted by the Franck-Condon model for $T_{EM}=0$?
 	\item As temperature increases, what happens to the equilibrium phonon positions?
-	\item Think about polaron shifts. Does this cause the overlaps of excited and ground states to decrease? Does this lead to excessive loss between absorption and emission spectra?
-	\item Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively. The electromagnetic bath should be $k_B T\ll \hbar\omega$ to let the vibrational levels decay back to the potential minima of the electronic levels.
+	\item Think about polaron shifts. Does this cause the overlaps of excited and ground states to decrease? Does this lead to decrease in overlap between absorption and emission spectra?
+	\item Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively.
 \end{itemize}
 
-
+\subsection{Dimers and the nano-photocell}
+\begin{itemize}
+	\item In larger molecules there are going to be near degeneracies. Depending on a number of factors, this is going to result in charge transfer via vibronic resonances. Do we include this, or can we postulate that the important contributions are already included in the direct excitonic coupling? Need to think about the physics of this process.
+\end{itemize}
 \bibliographystyle{ieeetr}
 \bibliography{/Users/henrymaguire/Work/phd-work/BibTex/library}
 \end{document}

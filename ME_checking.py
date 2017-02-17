@@ -20,13 +20,14 @@ def convergence_check(eps, T_EM, T_Ph, wc, alpha_ph, alpha_em, N):
     coh_data = []
     G = ket([0])
     E = ket([1])
-    for n in range(15,25):
-        L_n, L_v, H, wRC = RC_function(eps, T_EM, T_Ph, wc, alpha_Ph, alpha_em, n)
-        expects = [tensor(E*E.dag(), qeye(n)), tensor(G*E.dag(), qeye(n))]
+    for n in range(5,15):
+        L_RC, H, A_em, A_nrwa, wRC, kappa, Gamma = RC.RC_function_OD(eps, T_EM, T_Ph, wc, alpha_Ph, alpha_em, n)
+        L_EM = L_nonsecular(H_vib, A, eps, alpha_ph, T_EM, EM.J_minimal)
+        expects = [tensor(E*E.dag(), qeye(n)), tensor(G*E.dag(), qeye(n)),tensor(qeye(2), destroy(N).dag()+destroy(N))]
         n_RC = Occupation(wRC, T_Ph)
         rho_0 = tensor(0.5*((E+G)*(E+G).dag()), thermal_dm(n, n_RC))
         DATA_v = mesolve(H, rho_0, timelist, [L_v], expects, progress_bar=True)
-        coh_data.append(DATA_v.expect[0])
+        coh_data.append(DATA_v.expect[2])
     plt.figure()
     for i in coh_data:
         plt.plot(i.expect[0])
@@ -42,21 +43,24 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
     r_vector = E # r_vector is the ket vector on the right in the .matrix_element operation. Default is E.
     l_vector = E.dag()
     N_values = range(start_n,end_n)
+    J=EM.J_minimal
+
     if expect_op == 'coherence':
         l_vector = G.dag()
     else:
         pass
     for n in N_values:
-        L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, n)
-        L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
-        L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
-        L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
-        ss_s = steadystate(H, [L_RC+L_s], method=method).ptrace(0)
-        ss_ns = steadystate(H, [L_RC+L_ns], method=method).ptrace(0)
-        ss_naive = steadystate(H, [L_RC+L_naive], method=method).ptrace(0)
-        ss_list_s.append((ss_s*tensor(qeye(2), destroy(N).dag()*destroy(N))).tr())
-        ss_list_ns.append((ss_ns*tensor(qeye(2), destroy(N).dag()*destroy(N))).tr())
-        ss_list_naive.append((ss_naive*tensor(qeye(2), destroy(N).dag()*destroy(N))).tr())
+        ada = destroy(n).dag()*destroy(n)
+        L_RC, H, A_EM, A_nrwa, wRC, kappa, gamma_RC = RC.RC_function_OD(sigma, eps, T_ph, wc, w0, alpha_ph, n)
+        L_s = EM.L_vib_lindblad(H, A_EM, eps, alpha_EM, T_EM, J)
+        L_ns = EM.L_nonsecular(H, A_EM, eps, alpha_EM, T_EM, J)
+        L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM, J)
+        ss_s = steadystate(H, [L_RC+L_s], method=method)
+        ss_ns = steadystate(H, [L_RC+L_ns], method=method)
+        ss_naive = steadystate(H, [L_RC+L_naive], method=method)
+        ss_list_s.append((ss_s*tensor(qeye(2), ada)).tr())
+        ss_list_ns.append((ss_ns*tensor(qeye(2), ada)).tr())
+        ss_list_naive.append((ss_naive*tensor(qeye(2), ada)).tr())
         """
         ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
         ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
@@ -89,23 +93,30 @@ def plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_va
     ss_list_s,ss_list_ns,ss_list_naive  = [],[],[] # steady states
     r_vector = E # r_vector is the ket vector on the right in the .matrix_element operation. Default is E.
     l_vector = E.dag()
+    J=EM.J_minimal
     if expect_op == 'coherence':
         l_vector = G.dag()
     else:
         pass
     i = 0
     for eps in eps_values:
-        N = N_values[i]
-        L_RC, H, A_EM, A_nrwa, wRC, kappa = RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
-        L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
-        L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
-        L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM)
-        ss_s = steadystate(H, [L_RC+L_s], method=method).ptrace(0)
-        ss_ns = steadystate(H, [L_RC+L_ns], method=method).ptrace(0)
-        ss_naive = steadystate(H, [L_RC+L_naive], method=method).ptrace(0)
-        ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
-        ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
-        ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
+        n = N_values[i]
+        ada = destroy(n).dag()*destroy(n)
+        L_RC, H, A_EM, A_nrwa, wRC, kappa, gamma_RC = RC.RC_function_OD(sigma, eps, T_ph, wc, w0, alpha_ph, n)
+        L_s = EM.L_vib_lindblad(H, A_EM, eps, alpha_EM, T_EM, J)
+        L_ns = EM.L_nonsecular(H, A_EM, eps, alpha_EM, T_EM, J)
+        L_naive = EM.L_EM_lindblad(eps, A_EM, alpha_EM, T_EM, J)
+        try:
+            ss_s = steadystate(H, [L_RC+L_s], method=method).ptrace(0)
+            ss_ns = steadystate(H, [L_RC+L_ns], method=method).ptrace(0)
+            ss_naive = steadystate(H, [L_RC+L_naive], method=method).ptrace(0)
+            ss_list_s.append(ss_s.matrix_element(l_vector, r_vector))
+            ss_list_ns.append(ss_ns.matrix_element(l_vector, r_vector))
+            ss_list_naive.append(ss_naive.matrix_element(l_vector, r_vector))
+        except RuntimeError:
+            ss_list_s.append(1.)
+            ss_list_ns.append(1.)
+            ss_list_naive.append(1.)
         print "Splitting =", eps, "\n -----------------------------"
         i+=1
     plt.ylim(0,0.5)
@@ -367,35 +378,37 @@ if __name__ == "__main__":
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
-    eps = 500.*8.066 # TLS splitting
+    eps = 0.2*8065.5 # TLS splitting
 
     T_EM = 6000. # Optical bath temperature
     #alpha_EM = 0.3 # System-bath strength (optical)
-    Gamma = 6.582E-4*8.066 #inv. cm
+    alpha_EM = 6.582E-4*8065.5 #inv. cm
     T_ph = 300. # Phonon bath temperature
     wc = 53. # Ind.-Boson frame phonon cutoff freq
     w0 = 300. # overdamped SD parameter omega_0
-    alpha_ph = 400 # Ind.-Boson frame coupling
+    alpha_ph = 1000./np.pi # Ind.-Boson frame coupling
 
     #Now we build all the operators
 
-    L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N, time_units='cm')
+    #L_RC, H, A_EM, A_nrwa, wRC, kappa, Gamma= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N, time_units='cm')
 
     """
     TD, rates  = nonsec_check_A(H, A_EM, alpha_EM, T_EM, N)
     plt.figure()
     plt.scatter(TD, rates)
     plt.show()
+    """
 
     plt.figure()
-    #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 30, end_n=45)
-    eps_values = range(1000, 2000, 50)+range(2000, 4000, 500)#+range(4000, 14000, 1000)
-    N_values = [30]*len(range(1000, 2000, 50)) + [20]*len(range(2000, 4000, 500)) + [12]*len(range(4000, 14000, 1000))
-    solver_method = 'eigen'
+    #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 5, end_n=15)
+    eps_values = np.append(np.append(np.arange(1000, 2000, 100.), np.arange(2000, 4000, 500.)), np.arange(4000, 18000, 2000.))
+    print eps_values
+    N_values = [25]*len(range(1000, 2000, 100)) + [15]*len(range(2000, 4000, 500)) + [9]*len(range(4000, 14000, 1000))
+    solver_method = 'direct'
     ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_values, eps_values, method=solver_method)
     print "Plot saved: ",p_file_name
     plt.savefig(p_file_name)
-    plt.close()
+    #plt.close()
     """
 
     multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero, forbidden = rates(H, A_EM, Gamma, eps, kappa, wRC, T_EM, 6)
@@ -403,12 +416,14 @@ if __name__ == "__main__":
     plt.scatter(frequencies, minimal_rates, color='r')
     plt.scatter(np.zeros(len(sec_rates)), sec_rates, color='b')
     plt.scatter(forbidden, np.zeros(len(forbidden)),color='y')
+
     plt.axvline(eps-(kappa**2/wRC))
     plt.axvline(-eps+(kappa**2/wRC))
     plt.axvline(2*(eps-(kappa**2/wRC)))
     plt.axvline(-2*(eps-(kappa**2/wRC)))
     plt.title("Vibronic Transition Rates at "r"$\alpha_{ph}=400cm^{-1}$")
 
+    """
     """
     plt.figure()
     lazy_rates, rig_rates, lazy_freq, rig_freq = secular_approx_check(H, A_EM, Gamma, eps, T_EM, N)
@@ -437,7 +452,6 @@ if __name__ == "__main__":
     plt.imshow(A)
     plt.colorbar()
     plt.show()
-
 
     ground, excited, evals, evecs = numerical_spectrum(H, eps, kappa, wRC)
     #print num_wavefunction_overlap(excited, 0, 3, N)

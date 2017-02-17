@@ -24,8 +24,11 @@ def Occupation(omega, T, time_units='cm'):
     if T ==0. or omega ==0.: # stop divergences safely
         n = 0.
     else:
-        beta = 1. / (conversion*T)
-        n = float(1./(sp.exp(omega*beta)-1))
+        try:
+            beta = 1. / (conversion*T)
+            n = float(1./(sp.exp(omega*beta)-1))
+        except RuntimeError:
+            n = 0.
     return n
 
 

@@ -51,13 +51,13 @@ def RCME_operators(H_0, A, gamma, beta):
                     #print e_jk
                     # If e_jk is zero, coth diverges but J goes to zero so limit taken seperately
 
-                    Chi += e_jk*gamma * sp.tanh(beta*e_jk*0.5)*A_jk*outer_eigen # e_jk*gamma is the spectral density
-                    Xi += e_jk*gamma * A_jk * outer_eigen
+                    Chi += 0.5*np.pi*e_jk*gamma * ((sp.cosh(e_jk * beta / 2)) / sp.sinh(e_jk * beta / 2))*A_jk*outer_eigen # e_jk*gamma is the spectral density
+                    Xi += 0.5*np.pi*e_jk*gamma * A_jk * outer_eigen
                 else:
-                    Chi += gamma*A_jk*outer_eigen # Just return coefficients which are left over
+                    Chi += (np.pi*gamma*A_jk/beta)*outer_eigen # Just return coefficients which are left over
                     #Xi += 0 #since J_RC goes to zero
 
-    return H_0, A, np.pi*Chi*0.5, np.pi*0.5*Xi
+    return H_0, A, Chi, Xi
 
 def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
     conversion = 0.695
@@ -77,7 +77,6 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
         beta_C = 1./(conversion * T_C)
         RCnb = float(1. / (sp.exp( beta_C * wRC)-1))
     # Now this function has to construct the liouvillian so that it can be passed to mesolve
-    print 1/beta_C
     H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, beta_C)
     L = 0
     L-=spre(A*Chi)
@@ -92,7 +91,7 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
 
     return L
 
-def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
+def RC_function_OD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
 
     # we define all of the RC parameters by the underdamped spectral density
     Gamma = (wRC**2)/wc

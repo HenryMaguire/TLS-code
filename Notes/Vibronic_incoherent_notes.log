@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  13 FEB 2017 16:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  17 FEB 2017 12:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1348,50 +1348,52 @@ Overfull \hbox (1.82922pt too wide) in paragraph at lines 38--39
 ns are strong in biomolec-u-lar light-harvesting
  []
 
-[2] [3]
-
-LaTeX Warning: Citation `Iles-Smith2014' on page 4 undefined on input line 73.
-
-
+[2] [3] [4]
 <"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spectr
-alDensities".pdf, id=23, 361.35pt x 224.84pt>
+alDensities".pdf, id=31, 361.35pt x 224.84pt>
 File: "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/S
 pectralDensities".pdf Graphic file (type pdf)
 
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Sp
 ectralDensities".pdf>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/Two
-SpinsNotes/Images/SpectralDensities".pdf used on input line 101.
+SpinsNotes/Images/SpectralDensities".pdf used on input line 108.
 (pdftex.def)             Requested size: 234.8775pt x 146.14769pt.
- [4]
+ [5 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spe
+ctralDensities.pdf>] [6]
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6
+_a_ph400".pdf, id=46, 578.16pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rat
+es_N6_a_ph400".pdf Graphic file (type pdf)
 
-LaTeX Warning: Citation `OriginalRCJakeAhsan' on page 5 undefined on input line
- 141.
-
-[5 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spec
-tralDensities.pdf>] [6] [7] [8]
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rate
+s_N6_a_ph400".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Diagrams/rates_N6_a_ph400".pdf used on input line 209.
+(pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
+ [7] [8 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/r
+ates_N6_a_ph400.pdf>] [9]
 <"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".png,
- id=55, 578.16pt x 431.4519pt>
+ id=110, 578.16pt x 431.4519pt>
 File: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity"
 .png Graphic file (type png)
 
 <use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".
 png>
 Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/NonSecularity".png used on input line 301.
+ages/NonSecularity".png used on input line 344.
 (pdftex.def)             Requested size: 375.80544pt x 280.44041pt.
- [9 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity.pn
-g>]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 361--361
+ [10] [11 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecular
+ity.png>]
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 405--405
 [] 
  []
 
-[10]
 
-LaTeX Warning: Reference `fig:steadyStatevsSplitting' on page 11 undefined on i
-nput line 380.
+LaTeX Warning: Reference `fig:steadyStatevsSplitting' on page 12 undefined on i
+nput line 424.
 
-Excluding 'comment' comment. [11] (./Vibronic_incoherent_notes.bbl) [12]
+[12] Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl) [13]
 (./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were undefined references.
@@ -1401,37 +1403,36 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9800 strings out of 493089
- 175626 string characters out of 6134842
- 238233 words of memory out of 5000000
- 13188 multiletter control sequences out of 15000+600000
- 11253 words of font info for 40 fonts, out of 8000000 for 9000
+ 9807 strings out of 493089
+ 176176 string characters out of 6134842
+ 238291 words of memory out of 5000000
+ 13195 multiletter control sequences out of 15000+600000
+ 10634 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,19n,39p,10422b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Vibronic_incoherent_notes.pdf (12 pages, 1270186 bytes).
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on Vibronic_incoherent_notes.pdf (13 pages, 1313964 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 94 compressed objects within 1 object stream
+ 188 PDF objects out of 1000 (max. 8388607)
+ 112 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

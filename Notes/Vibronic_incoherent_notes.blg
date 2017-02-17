@@ -3,47 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: Vibronic_incoherent_notes.aux
 The style file: ieeetr.bst
 Database file #1: /Users/henrymaguire/Work/phd-work/BibTex/library.bib
-Warning--I didn't find a database entry for "OriginalRCJakeAhsan"
 Warning--empty journal in Fruchtman2016
-You've used 5 entries,
+You've used 6 entries,
             1876 wiz_defined-function locations,
-            513 strings with 4577 characters,
-and the built_in function-call counts, 1101 in all, are:
-= -- 92
-> -- 64
+            518 strings with 4758 characters,
+and the built_in function-call counts, 1392 in all, are:
+= -- 121
+> -- 78
 < -- 0
-+ -- 23
-- -- 18
-* -- 87
-:= -- 182
-add.period$ -- 5
-call.type$ -- 5
-change.case$ -- 5
++ -- 28
+- -- 22
+* -- 112
+:= -- 226
+add.period$ -- 6
+call.type$ -- 6
+change.case$ -- 6
 chr.to.int$ -- 0
-cite$ -- 6
-duplicate$ -- 55
-empty$ -- 102
-format.name$ -- 18
-if$ -- 251
+cite$ -- 7
+duplicate$ -- 68
+empty$ -- 127
+format.name$ -- 22
+if$ -- 320
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 5
-newline$ -- 18
-num.names$ -- 5
-pop$ -- 17
+int.to.str$ -- 6
+missing$ -- 6
+newline$ -- 21
+num.names$ -- 6
+pop$ -- 18
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 22
+skip$ -- 30
 stack$ -- 0
-substring$ -- 40
-swap$ -- 14
+substring$ -- 59
+swap$ -- 19
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 8
-width$ -- 6
-write$ -- 46
-(There were 2 warnings)
+while$ -- 12
+width$ -- 7
+write$ -- 57
+(There was 1 warning)
