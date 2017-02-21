@@ -16,6 +16,7 @@ In this script we have four methods.
 import numpy as np
 import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost
+from sympy.functions import coth
 
 def J_UD_SB(omega, alpha, omega_0, Gamma):
     return (alpha*Gamma*(omega_0**2))*omega/((omega_0**2 - omega**2)**2+((Gamma**2)*(omega**2)))
@@ -51,7 +52,7 @@ def RCME_operators(H_0, A, gamma, beta):
                     #print e_jk
                     # If e_jk is zero, coth diverges but J goes to zero so limit taken seperately
 
-                    Chi += 0.5*np.pi*e_jk*gamma * ((sp.cosh(e_jk * beta / 2)) / sp.sinh(e_jk * beta / 2))*A_jk*outer_eigen # e_jk*gamma is the spectral density
+                    Chi += 0.5*np.pi*e_jk*gamma * float(coth(e_jk * beta / 2).evalf())*A_jk*outer_eigen # e_jk*gamma is the spectral density
                     Xi += 0.5*np.pi*e_jk*gamma * A_jk * outer_eigen
                 else:
                     Chi += (np.pi*gamma*A_jk/beta)*outer_eigen # Just return coefficients which are left over

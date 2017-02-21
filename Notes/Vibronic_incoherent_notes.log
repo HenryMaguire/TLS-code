@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  17 FEB 2017 12:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  20 FEB 2017 15:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1220,6 +1220,9 @@ LaTeX Warning: Label `eq:Adecomposition' multiply defined.
 
 LaTeX Warning: Label `eq:VibronicSecular2' multiply defined.
 
+
+LaTeX Warning: Label `fig:' multiply defined.
+
 )
 \openout1 = `Vibronic_incoherent_notes.aux'.
 
@@ -1372,41 +1375,66 @@ Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
 Images/Diagrams/rates_N6_a_ph400".pdf used on input line 209.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
  [7] [8 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/r
-ates_N6_a_ph400.pdf>] [9]
-<"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".png,
- id=110, 578.16pt x 431.4519pt>
-File: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity"
-.png Graphic file (type png)
-
-<use "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".
-png>
-Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Im
-ages/NonSecularity".png used on input line 344.
-(pdftex.def)             Requested size: 375.80544pt x 280.44041pt.
- [10] [11 </Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecular
-ity.png>]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 405--405
+ates_N6_a_ph400.pdf>] [9] [10]
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 401--401
 [] 
  []
 
+[11]
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127
+_N10_Tem6000_w0200_eps8066".pdf, id=117, 867.24pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
+_a127_N10_Tem6000_w0200_eps8066".pdf Graphic file (type pdf)
 
-LaTeX Warning: Reference `fig:steadyStatevsSplitting' on page 12 undefined on i
-nput line 424.
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_
+a127_N10_Tem6000_w0200_eps8066".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 421.
 
-[12] Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl) [13]
+(pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
+
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_
+N10_Tem6000_w0200_eps8066".pdf, id=118, 867.24pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_
+a127_N10_Tem6000_w0200_eps8066".pdf Graphic file (type pdf)
+
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a
+127_N10_Tem6000_w0200_eps8066".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 426.
+(pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
+
+<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_di
+vergence_a127_Tem6000_w0300".pdf, id=119, 578.16pt x 433.62pt>
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_
+SS_divergence_a127_Tem6000_w0300".pdf Graphic file (type pdf)
+
+<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_S
+S_divergence_a127_Tem6000_w0300".pdf>
+Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
+Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300".pdf used on input line 431
+.
+(pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
+ [12 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_
+a127_N10_Tem6000_w0200_eps8066.pdf>]
+[13 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a1
+27_N10_Tem6000_w0200_eps8066.pdf> </Users/henrymaguire/Work/phd-work/vibronic-T
+LS/Notes/Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300.pdf
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file /Users/henrymaguire/Work/phd
+-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300.pd
+f): PDF inclusion: multiple pdfs with page group included in a single page
+>] Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl) [14]
 (./Vibronic_incoherent_notes.aux)
-
-LaTeX Warning: There were undefined references.
-
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9807 strings out of 493089
- 176176 string characters out of 6134842
- 238291 words of memory out of 5000000
- 13195 multiletter control sequences out of 15000+600000
+ 9817 strings out of 493089
+ 177428 string characters out of 6134842
+ 238300 words of memory out of 5000000
+ 13203 multiletter control sequences out of 15000+600000
  10634 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,19n,39p,10422b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1429,10 +1457,10 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Vibronic_incoherent_notes.pdf (13 pages, 1313964 bytes).
+Output written on Vibronic_incoherent_notes.pdf (14 pages, 1219771 bytes).
 PDF statistics:
- 188 PDF objects out of 1000 (max. 8388607)
- 112 compressed objects within 2 object streams
+ 358 PDF objects out of 1000 (max. 8388607)
+ 162 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

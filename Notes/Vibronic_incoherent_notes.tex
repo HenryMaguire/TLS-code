@@ -65,7 +65,7 @@ We are interested in how vibronic systems continually interact with the electrom
 A number of different approaches are
 \begin{enumerate}
 	\item Studying how strong-coupling leads to a breakdown of approximations of optical master equations. Spectral signatures.
-	\item Choosing an appropriate regime and looking at how vibronic coupling affects dynamics and steady-states.
+	\item Choosing an appropriate regime and looking at how vibronic coupling affects dynamics and steady-states. Temperature dependence and 
 \end{enumerate}
 
 \subsection{Electron-vibration interaction}
@@ -340,11 +340,7 @@ Moving back to the Schrodinger picture gives
 	\end{split}
 \end{align}
 In order to justify the secular approximation in this case, we would have to show that an overdamped spectral density always gives negligible overlap coefficients $A_{l,m}A_{p,q}^{*}$ for nearly resonant transitions $\xi_{lm}\approx \xi_{pq}$.
-\begin{figure}
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/DrivenTLS/Images/NonSecularity".png}
-	\caption{Inspecting the validity of the secular approximation. There are many slowly evolving terms with large coefficients.}
-	\label{fig:}
-\end{figure}
+
 There is no dipole-moment associated with transitions between vibrational states within the same electronic state manifold, therefore in the uncoupled basis
 \begin{align}
 	\begin{split}
@@ -420,8 +416,25 @@ Here we make the most severe approximation, whereby we leave the vibrational deg
 The simplest way to define the dissipation due to the electromagnetic bath is to assume that the interaction energy of electron-vibration coupling is a small parameter so that it's effect can be neglected in the system eigenstructure, therefore we can write down the system operators in the Born-Markov master equation in terms of the electronic system eigenstates only.
 \textbf{TODO}
 \section{Analysis}
+For the typical splittings of single electronic transitions in chromophores, the effects of the vibronic manifold on the electromagnetic dissipation do not qualitatively change the dynamics and only marginally affect the steady states. However, there is a splitting dependence to this as in \ref{fig:steadystateSplittingDependence}. This could suggest that when there are smaller energy scales in the system, such as excitonic splitting in a dimer or larger molecular crystal, the vibronic effects may contribute more.
+\begin{figure}
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf}
+	\caption{Excited state dynamics at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $\epsilon=8066cm^{-1}$ ($1eV$), $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime).}
+	\label{fig:}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf}
+	\caption{Phonon number and displacement dynamics for the RC at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $\epsilon=8066cm^{-1}$ ($1eV$), $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime).}
+	\label{fig:}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300".pdf}
+	\caption{Splitting dependence of discrepancy between naive theory and vibronic thoery at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime). Some numerical instability is apparent for small splittings.}
+	\label{fig:steadystateSplittingDependence} 
+\end{figure}
+
 \subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
-Firstly, assuming a flat optical spectrum $J(\omega) = \alpha_{EM}$, high temperature (6000K) and fairly strong coupling (300$cm^{-1}$), see figure \ref{fig:steadyStatevsSplitting}
+
 \begin{itemize}
 	\item At large splitting, all three theories converge.
 	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease with respect to the naive. The difference between secular and non-secular increases and the two dip to a local minimum.

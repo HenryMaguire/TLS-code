@@ -13,7 +13,7 @@
 \contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{12}
 \contentsline {section}{\numberline {5}Analysis}{12}
 \contentsline {subsection}{\numberline {5.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{12}
-\contentsline {section}{\numberline {6}Future work}{13}
-\contentsline {subsection}{\numberline {6.1}Polaron shifts, phonon dynamics and optical spectra}{13}
-\contentsline {subsection}{\numberline {6.2}Dimers and the nano-photocell}{13}
-\contentsline {section}{References}{13}
+\contentsline {section}{\numberline {6}Future work}{14}
+\contentsline {subsection}{\numberline {6.1}Polaron shifts, phonon dynamics and optical spectra}{14}
+\contentsline {subsection}{\numberline {6.2}Dimers and the nano-photocell}{14}
+\contentsline {section}{References}{14}
