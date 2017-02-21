@@ -21,14 +21,17 @@ def Occupation(omega, T, time_units='cm'):
     else:
         pass
     n =0.
-    if T ==0. or omega ==0.: # stop divergences safely
+    beta = 0.
+    if T ==0.: # First calculate beta
         n = 0.
+        beta = np.infty
     else:
-        try:
-            beta = 1. / (conversion*T)
-            n = float(1./(sp.exp(omega*beta)-1))
-        except RuntimeError:
+        # no occupation yet, make sure it converges
+        beta = 1. / (conversion*T)
+        if sp.exp(omega*beta)-1 ==0.:
             n = 0.
+        else:
+            n = float(1./(sp.exp(omega*beta)-1))
     return n
 
 
@@ -162,8 +165,6 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm'):
     l = 0
     occs=[]
     for i in range(int(d)):
-        #print " Liouvillian is ", (float(m)/H_vib.shape[0])*100, " percent complete after ", int(time.time()-ti), " seconds. (", int((time.time()-ti)/60.), " minutes)."
-        #print "There were ", l, " non-zero contributions."
         l = 0
         for j in range(int(d)):
             t_0 = time.time() # initial time reference for tracking slow calculations
@@ -181,7 +182,6 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm'):
                 r_up = 2*np.pi*J(eps_ij, Gamma, eps)*Occ
                 r_down = 2*np.pi*J(eps_ij, Gamma, eps)*(Occ+1)
 
-                #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
                 T1 = r_up*spre(II)+r_down*spre(JJ)
                 T2 = r_up.conjugate()*spost(II)+r_down.conjugate()*spost(JJ)
                 T3 = (r_up*sprepost(JI, IJ)+r_down*sprepost(IJ,JI))
@@ -189,8 +189,6 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm'):
                 l+=1
 
     print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
-    #eMatrix = np.array(eMatrix).reshape((H_vib.shape[0], H_vib.shape[0]))
-    #plt.imshow(eMatrix)
     return -L
 
 def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm'):
