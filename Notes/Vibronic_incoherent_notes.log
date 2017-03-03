@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.1.11)  20 FEB 2017 15:22
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015) (preloaded format=xelatex 2016.1.11)  28 FEB 2017 13:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -32,7 +32,7 @@ Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package ifpdf Info: pdfTeX in PDF mode is not detected.
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
@@ -169,16 +169,15 @@ L3 Module: l3candidates 2015/03/01 v5544 L3 Experimental additions to l3kernel
 (/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3unicode-data.def
 File: l3unicode-data.def 2015/03/01 v5544 L3 Unicode data
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
-File: l3pdfmode.def 2015/03/01 v5544 L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count112
+(/usr/local/texlive/2015/texmf-dist/tex/latex/l3kernel/l3xdvipdfmx.def
+File: l3xdvidpfmx.def 2015/03/01 v5544 L3 Experimental driver: xdvipdfmx
 ))
 Package: xparse 2014/11/25 v5471 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count113
-\l__xparse_m_args_int=\count114
-\l__xparse_mandatory_args_int=\count115
-\l__xparse_processor_int=\count116
-\l__xparse_v_nesting_int=\count117
+\l__xparse_current_arg_int=\count112
+\l__xparse_m_args_int=\count113
+\l__xparse_mandatory_args_int=\count114
+\l__xparse_processor_int=\count115
+\l__xparse_v_nesting_int=\count116
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2013/01/14 v2.14 AMS math features
@@ -200,13 +199,13 @@ Package: amsbsy 1999/11/29 v1.2d
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count118
+\inf@bad=\count117
 LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count119
-\leftroot@=\count120
+\uproot@=\count118
+\leftroot@=\count119
 LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count121
-\DOTSCASE@=\count122
+\classnum@=\count120
+\DOTSCASE@=\count121
 LaTeX Info: Redefining \ldots on input line 378.
 LaTeX Info: Redefining \dots on input line 381.
 LaTeX Info: Redefining \cdots on input line 466.
@@ -215,15 +214,15 @@ LaTeX Info: Redefining \cdots on input line 466.
 \big@size=\dimen144
 LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count123
-\c@MaxMatrixCols=\count124
+\macc@depth=\count122
+\c@MaxMatrixCols=\count123
 \dotsspace@=\muskip16
-\c@parentequation=\count125
-\dspbrk@lvl=\count126
+\c@parentequation=\count124
+\dspbrk@lvl=\count125
 \tag@help=\toks17
-\row@=\count127
-\column@=\count128
-\maxfields@=\count129
+\row@=\count126
+\column@=\count127
+\maxfields@=\count128
 \andhelp@=\toks18
 \eqnshift@=\dimen145
 \alignsep@=\dimen146
@@ -1128,18 +1127,11 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 94.
+Package graphics Info: Driver file: xetex.def on input line 94.
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count130
+(/usr/local/texlive/2015/texmf-dist/tex/xelatex/xetex-def/xetex.def
+File: xetex.def 2015/03/25 v4.04 LaTeX color/graphics driver for XeTeX (TeX Liv
+e/RRM/JK)
 ))
 \Gin@req@height=\dimen151
 \Gin@req@width=\dimen152
@@ -1150,7 +1142,7 @@ Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 142.
+Package color Info: Driver file: xetex.def on input line 142.
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/soul/soul.sty
 Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
@@ -1170,9 +1162,9 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 Excluding comment 'comment')
 (/usr/local/texlive/2015/texmf-dist/tex/latex/appendix/appendix.sty
 Package: appendix 2009/09/02 v1.2b extra appendix facilities
-\c@@pps=\count131
-\c@@ppsavesec=\count132
-\c@@ppsaveapp=\count133
+\c@@pps=\count129
+\c@@ppsavesec=\count130
+\c@@ppsaveapp=\count131
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tocbibind/tocbibind.sty
 Package: tocbibind 2010/10/13 v1.5k extra ToC listings
@@ -1189,7 +1181,7 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/substr/substr.sty
 Package: substr 2009/10/20 v1.2 Handle substrings
-\c@su@anzahl=\count134
+\c@su@anzahl=\count132
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/isodate/english.idf
 File: english.idf 2010/01/03 v2.30 Language definitions for isodate package (HH
@@ -1197,21 +1189,21 @@ File: english.idf 2010/01/03 v2.30 Language definitions for isodate package (HH
 
 Define commands for English date format
 )
-\c@iso@tmpmonth=\count135
-\c@iso@yeartwo=\count136
-\c@iso@slash=\count137
-\c@iso@minus=\count138
-\c@iso@dot=\count139
-\c@iso@@slash=\count140
-\c@iso@@minus=\count141
-\c@iso@@dot=\count142
+\c@iso@tmpmonth=\count133
+\c@iso@yeartwo=\count134
+\c@iso@slash=\count135
+\c@iso@minus=\count136
+\c@iso@dot=\count137
+\c@iso@@slash=\count138
+\c@iso@@minus=\count139
+\c@iso@@dot=\count140
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/preprint/authblk.sty
 Package: authblk 2001/02/27 1.3 (PWD)
 \affilsep=\skip53
 \@affilsep=\skip54
-\c@Maxaffil=\count143
-\c@authors=\count144
-\c@affil=\count145
+\c@Maxaffil=\count141
+\c@authors=\count142
+\c@affil=\count143
 )
 (./Vibronic_incoherent_notes.aux
 
@@ -1240,9 +1232,9 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
 
 *geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
+*geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
+* driver: xetex
 * paper: <default>
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
@@ -1273,63 +1265,6 @@ LaTeX Font Info:    ... okay on input line 17.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count146
-\scratchdimen=\dimen156
-\scratchbox=\box43
-\nofMPsegments=\count147
-\nofMParguments=\count148
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count149
-\MPscratchDim=\dimen157
-\MPnumerator=\count150
-\makeMPintoPDFobject=\count151
-\everyMPtoPDFconversion=\toks27
-) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
 isodate: babel.sty, (n)german.sty have not been loaded
 (./Vibronic_incoherent_notes.toc)
 \tf@toc=\write4
@@ -1337,7 +1272,7 @@ isodate: babel.sty, (n)german.sty have not been loaded
 
  [1
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 37.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
@@ -1352,115 +1287,49 @@ ns are strong in biomolec-u-lar light-harvesting
  []
 
 [2] [3] [4]
-<"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spectr
-alDensities".pdf, id=31, 361.35pt x 224.84pt>
-File: "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/S
-pectralDensities".pdf Graphic file (type pdf)
+File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/SDs/Spectral
+Densities".pdf Graphic file (type QTm)
 
-<use "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Sp
-ectralDensities".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/Two
-SpinsNotes/Images/SpectralDensities".pdf used on input line 108.
-(pdftex.def)             Requested size: 234.8775pt x 146.14769pt.
- [5 </Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/Spe
-ctralDensities.pdf>] [6]
-<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6
-_a_ph400".pdf, id=46, 578.16pt x 433.62pt>
+<use  ""/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/SDs/Spectra
+lDensities".pdf" > [5] [6]
 File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rat
-es_N6_a_ph400".pdf Graphic file (type pdf)
+es_N6_a_ph400".pdf Graphic file (type QTm)
 
-<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rate
-s_N6_a_ph400".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
-Images/Diagrams/rates_N6_a_ph400".pdf used on input line 209.
-(pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
- [7] [8 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/r
-ates_N6_a_ph400.pdf>] [9] [10]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 401--401
+<use  ""/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/ra
+tes_N6_a_ph400".pdf" > [7] [8] [9] [10]
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 399--399
 [] 
  []
 
 [11]
-<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127
-_N10_Tem6000_w0200_eps8066".pdf, id=117, 867.24pt x 433.62pt>
 File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop
-_a127_N10_Tem6000_w0200_eps8066".pdf Graphic file (type pdf)
+_a127_N10_Tem6000_w0200_eps8066".pdf Graphic file (type QTm)
 
-<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_
-a127_N10_Tem6000_w0200_eps8066".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
-Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 421.
-
-(pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
-
-<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_
-N10_Tem6000_w0200_eps8066".pdf, id=118, 867.24pt x 433.62pt>
+<use  ""/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Po
+p_a127_N10_Tem6000_w0200_eps8066".pdf" >
 File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_
-a127_N10_Tem6000_w0200_eps8066".pdf Graphic file (type pdf)
+a127_N10_Tem6000_w0200_eps8066".pdf Graphic file (type QTm)
 
-<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a
-127_N10_Tem6000_w0200_eps8066".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
-Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 426.
-(pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
-
-<"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_di
-vergence_a127_Tem6000_w0300".pdf, id=119, 578.16pt x 433.62pt>
+<use  ""/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop
+_a127_N10_Tem6000_w0200_eps8066".pdf" >
 File: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_
-SS_divergence_a127_Tem6000_w0300".pdf Graphic file (type pdf)
+SS_divergence_a318_Tem6000_w0300".pdf Graphic file (type QTm)
 
-<use "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_S
-S_divergence_a127_Tem6000_w0300".pdf>
-Package pdftex.def Info: "/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/
-Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300".pdf used on input line 431
-.
-(pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
- [12 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_
-a127_N10_Tem6000_w0200_eps8066.pdf>]
-[13 </Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a1
-27_N10_Tem6000_w0200_eps8066.pdf> </Users/henrymaguire/Work/phd-work/vibronic-T
-LS/Notes/Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300.pdf
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file /Users/henrymaguire/Work/phd
--work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300.pd
-f): PDF inclusion: multiple pdfs with page group included in a single page
->] Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl) [14]
+<use  ""/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop
+_SS_divergence_a318_Tem6000_w0300".pdf" > [12] [13]
+Excluding 'comment' comment. (./Vibronic_incoherent_notes.bbl) [14]
 (./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9817 strings out of 493089
- 177428 string characters out of 6134842
- 238300 words of memory out of 5000000
- 13203 multiletter control sequences out of 15000+600000
+ 8946 strings out of 493706
+ 162116 string characters out of 6145769
+ 225822 words of memory out of 5000000
+ 12228 multiletter control sequences out of 15000+600000
  10634 words of font info for 38 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 45i,19n,39p,10422b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Vibronic_incoherent_notes.pdf (14 pages, 1219771 bytes).
-PDF statistics:
- 358 PDF objects out of 1000 (max. 8388607)
- 162 compressed objects within 2 object streams
- 0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1328 hyphenation exceptions out of 8191
+ 39i,19n,39p,10422b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
 
+Output written on Vibronic_incoherent_notes.pdf (14 pages).

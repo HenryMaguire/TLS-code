@@ -104,8 +104,8 @@ J_{SB}  = \frac{4\gamma\Omega^2\lambda^2\omega}{(\Omega^2-\omega^2)^2 + (2\pi\Om
 Thus $\Omega = \omega_0$, $\lambda=\sqrt{\pi \alpha \omega_0/2}$ and $\gamma=\Gamma/2\pi\omega_0$. This means that for the underdamped spectral density $\Gamma$, $\omega_0$ and $\alpha$ are all free parameters, as shown in [J chem phys] in the case of large $\omega_0$ this spectrum becomes the overdamped, Drude-Lorentz sprectral density where $\Gamma=\omega_0^2\omega_c^{-1}$.
 
 \begin{figure}
-	%\includegraphics[width=0.5\textwidth]{"C:/Users/mbcxrhm2/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
-	\includegraphics[width=0.5\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
+	\includegraphics[width=0.5\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities".pdf}
+	%\includegraphics[width=0.5\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
 	\caption{Comparison of underdamped (solid lines) and overdamped (dashed line) spectral densities. Parameters are $\omega_c=53cm^{-1}$, $\alpha=100cm^{-1}$ and $\Gamma=\omega_0^2\omega_c^{-1}$.}
 \end{figure}
 \subsection{The reaction coordinate master equation}
@@ -372,10 +372,8 @@ where
 
 \begin{itemize}
 	\item Discuss what all the terms and rates might mean.
-	\item State the argument for a secular approximation and then explain why it is not generally valid in this case, with the figure of coefficients versus frequencies - it is the intermediate, nearly resonant region which is important, weight this by the decay rate so that it accounts for the fact that for the secular approximation to be valid the characteristic system frequency $\omega>\gamma$. In my calculations, the spectral density is constant so it doesn't change anything.
+	\item State the argument for a secular approximation and then explain why it is not generally valid in this case, with the figure of coefficients versus frequencies - it is the intermediate, nearly resonant region which is important, weight this by the decay rate so that it accounts for the fact that for the secular approximation to be valid the characteristic system frequency $\omega>\gamma$.
 	\item In the case of the RC mapping, the effect is caused by a single phonon mode representing the entire bath. The problem is mapped exactly, does this mean these non-secular effects are real? If not, does this mean that dealing with multiple baths are a limitation of the RC model since the dynamics is mapped exactly only with the single bath? Surely if the Hamiltonians commute then it doesn't matter?
-	
-	
 \end{itemize}
 
 
@@ -415,8 +413,11 @@ Here we make the most severe approximation, whereby we leave the vibrational deg
 
 The simplest way to define the dissipation due to the electromagnetic bath is to assume that the interaction energy of electron-vibration coupling is a small parameter so that it's effect can be neglected in the system eigenstructure, therefore we can write down the system operators in the Born-Markov master equation in terms of the electronic system eigenstates only.
 \textbf{TODO}
+\subsection{Convergence of theories with weakly-coupled phonons}
+
 \section{Analysis}
 For the typical splittings of single electronic transitions in chromophores, the effects of the vibronic manifold on the electromagnetic dissipation do not qualitatively change the dynamics and only marginally affect the steady states. However, there is a splitting dependence to this as in \ref{fig:steadystateSplittingDependence}. This could suggest that when there are smaller energy scales in the system, such as excitonic splitting in a dimer or larger molecular crystal, the vibronic effects may contribute more.
+
 \begin{figure}
 	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf}
 	\caption{Excited state dynamics at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $\epsilon=8066cm^{-1}$ ($1eV$), $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime).}
@@ -428,21 +429,23 @@ For the typical splittings of single electronic transitions in chromophores, the
 	\label{fig:}
 \end{figure}
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a127_Tem6000_w0300".pdf}
+	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a318_Tem6000_w0300".pdf}
 	\caption{Splitting dependence of discrepancy between naive theory and vibronic thoery at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime). Some numerical instability is apparent for small splittings.}
 	\label{fig:steadystateSplittingDependence} 
 \end{figure}
 
 \subsection{Drude-Lorentz Spectral Density (Delocalised phonons)}
 
-\begin{itemize}
-	\item At large splitting, all three theories converge.
-	\item As splitting decreases, the steady state populations of the secular and non-secular theories decrease with respect to the naive. The difference between secular and non-secular increases and the two dip to a local minimum.
-	\item Around some small splitting, the secular and non-secular steady states then sharply return to rough agreement with the naive theory (need to make a smoother curve in the small splitting region to properly analyse)
-\end{itemize}
 When the splitting is small w.r.t. phonon coupling, thermal energy and the width of the phonon distribution, the excitations have more decay pathways due to overlapping vibronic wavefunctions on neighbouring manifolds. This allows the system to reach different lower steady states, with a non-monotonic dependency on splitting. The naive theory does not \emph{see} these vibronic levels, since each manifold is treated like the ground and excited state of the TLS and the dissipation mixes the two.
 
 In single molecular transitions these effects may not be important, since the splittings are often on the order of $8000-20000 cm^{-1}$, so the vibronic manifolds are well defined, with little overlap even at large phonon couplings. In multi-site systems, nearly-resonant neighbouring molecules may interact so that small electronic dipolar transition frequencies are present in the system eigenstructure, this may have a large effect on the steady states.
+
+\textbf{TODO}
+Plot excitation and phonon dynamics again for high $T_EM$ case as well as low $T_EM$ case.
+
+\textbf{TODO}
+Discuss "pulsed" excitation where system is initially in ground state and electromagnetic temperature is low. Look at the effect of phonon temperature and coupling strength on the steady states.
+
 \begin{comment}
 \begin{figure}[h]
 	\centering

@@ -18,8 +18,6 @@ import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost
 from sympy.functions import coth
 
-def J_UD_SB(omega, alpha, omega_0, Gamma):
-    return (alpha*Gamma*(omega_0**2))*omega/((omega_0**2 - omega**2)**2+((Gamma**2)*(omega**2)))
 
 def Ham_RC(sigma, eps, Omega, kap, N):
     """
@@ -60,7 +58,8 @@ def RCME_operators(H_0, A, gamma, beta):
 
     return H_0, A, Chi, Xi
 
-def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
+def liouvillian_build(H_0, A, gamma, wRC, T_C):
+    time_units='cm'
     conversion = 0.695
     if time_units == 'ev':
         conversion == 8.617E-5
@@ -92,14 +91,14 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
 
     return L
 
-def RC_function_OD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N, time_units='cm'):
+def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N):
 
     # we define all of the RC parameters by the underdamped spectral density
     Gamma = (wRC**2)/wc
     gamma = Gamma / (2. * np.pi * wRC)  # no longer a free parameter that we normally use to fix wRC to the system splitting
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
-    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "residual bath coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa
+    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "residual bath coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa, "Gamma_RC= ", Gamma
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
-    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph, time_units)
+    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph)
 
     return L_RC, H, A_em, A_nrwa, wRC, kappa, Gamma

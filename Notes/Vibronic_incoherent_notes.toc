@@ -11,6 +11,7 @@
 \contentsline {subsection}{\numberline {4.2}Vibronic non-secular theory}{9}
 \contentsline {subsection}{\numberline {4.3}Vibronic Lindblad theory}{11}
 \contentsline {subsection}{\numberline {4.4}Electronic Lindblad theory}{12}
+\contentsline {subsection}{\numberline {4.5}Convergence of theories with weakly-coupled phonons}{12}
 \contentsline {section}{\numberline {5}Analysis}{12}
 \contentsline {subsection}{\numberline {5.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{12}
 \contentsline {section}{\numberline {6}Future work}{14}

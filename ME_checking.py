@@ -197,6 +197,7 @@ def nonsec_check_A(H, A, alpha, T, N):
                 TD.append(eps_ij)
                 rates.append(EM.rate_down(abs(eps_ij), N_occ, alpha))
     return TD, rates
+
 def secular_approx_check(H, A, Gamma, omega_0, T, N_max):
     """
     Checks whether frequency based or number state based arguments are equivalent in the TLS (no degeneracies.)
@@ -260,7 +261,6 @@ def rates(H, A, Gamma, eps, g, omega_0, T, N_max):
                         frequencies_zero.append(eps_ij-eps_kl)
 
     return multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero, forbidden
-
 
 def func(x, a, b, c, d):
     return a * np.exp(-b * x) + c*x + d
@@ -372,6 +372,7 @@ def excited_in_uncoupled(excited, N):
             uncoup_vec+=tensor(qeye(2), qeye(N)).matrix_element(excited[n][1].dag(), tensor(E, basis(N,m)))*excited[n][1]
         uncoupled.append(uncoup_vec)
     return uncoupled
+
 if __name__ == "__main__":
     N = 22
     G = ket([0])
