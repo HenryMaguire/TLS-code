@@ -9,7 +9,7 @@
 \usepackage[english]{isodate}
 \usepackage{authblk}
 
-\title{Vibronic effects on the incoherently excited molecules}
+\title{Incoherently excited monomers at strong phonon coupling}
 \author[1]{H. Maguire}
 \affil[1]{Photon Science Institute and School of Physics and Astronomy, The University of Manchester, Oxford Road,
 	Manchester M13 9PL, United Kingdom}
@@ -27,9 +27,11 @@ Here we study a single electronic transition in a molecule, which is interacting
 \begin{enumerate}
 	\item Overview of the field and what is the motivation for studying this.
 	\item Quick introduction to electron-vibrational interactions and molecular physics.
-	\item Reaction coordinate things
-	\item Electromagnetic field things.
+	\item Exact solution of the independent boson model.
+	\item Reaction coordinate things - comparison to exact solution and weak coupling. Phonon population wrt. $\Omega_{RC}$ - meaning.
+	\item Electromagnetic field things. Super-ohmic spectral density?
 	\item Vibronic physics. In this chapter I will write about all of the current checks I have been doing to understand the physics. Discuss what happens to manifolds when splitting becomes small, which states are populated for realistic temperatures. Analysis of dynamics in different regimes.
+	\item Coherence times wrt splitting, RC frequency and phonon coupling.
 	\item Emission Spectra - what does this say about the nature of electron-phonon interaction?
 \end{enumerate}
 \subsection{Questions}
@@ -108,6 +110,81 @@ Thus $\Omega = \omega_0$, $\lambda=\sqrt{\pi \alpha \omega_0/2}$ and $\gamma=\Ga
 	%\includegraphics[width=0.5\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
 	\caption{Comparison of underdamped (solid lines) and overdamped (dashed line) spectral densities. Parameters are $\omega_c=53cm^{-1}$, $\alpha=100cm^{-1}$ and $\Gamma=\omega_0^2\omega_c^{-1}$.}
 \end{figure}
+\section{Exact Solution}
+We start with the system and bath Hamiltonian
+\begin{equation}
+H = \epsilon\dyad{X} + \sum_{k}\omega_k b_k^{\dagger} b_k + \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k)
+\end{equation}
+and perform a unitary, polaron transformation $H^{\prime} = e^{S}He^{-S}$ where $S= \dyad{X}\sum_{k}\frac{g_k}{\omega_k}(b_k^{\dagger}+b_k)$. This yields transformed system, bath and interaction Hamiltonians
+\begin{align}
+H_S^{\prime} &= \epsilon\dyad{X} \\
+H_B^{\prime} &= \sum_{k}\omega_k b_k^{\dagger}b_k - \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k) +\dyad{X}\sum_{k}\frac{g^2_k}{\omega_k} \\
+H_I^{\prime} &= \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k) - 2\dyad{X}\sum_{k}\frac{g^2_k}{\omega_k} \\
+\end{align}
+which together form the polaron-frame Hamiltonian
+\begin{equation}
+H^{\prime} = \epsilon\dyad{X} - \dyad{X}\sum_{k}\frac{g^2_k}{\omega_k} + \sum_{k}\omega_k b_k^{\dagger}b_k
+\end{equation}
+whereby the system and bath are now decoupled but the system energy has been renormalised due to the coupling - this is known as the polaron shift.
+
+The time-evolution operator is thus
+\begin{equation}
+U^{\prime}(t) = e^{-i\epsilon\dyad{X}} e^{i\dyad{X}\sum_{k}\frac{g^2_k}{\omega_k}} e^{-i\sum_{k}\omega_k b_k^{\dagger}b_k}.
+\end{equation}
+We will now show that in the polaron frame the environmental modes undergo a shift dependent on whether the system is in the ground or excited state. We split up the full original  Hamiltonian
+\begin{equation}
+H_0 = \epsilon \dyad{X} + \sum \omega_k b_k^{\dagger}b_k \quad \textnormal{and} \quad H_I = \dyad{X}\sum g_k \dyad{X}
+\end{equation}
+in order to write 
+\begin{align}
+\tilde{U}(t) = e^{i H_0 t}U(t) &= e^{i H_0 t}e^{-S}U^{\prime}(t)e^{S} \\
+&= e^{i H_0 t}e^{-S}e^{-i H_0 t}e^{i H_0 t}U^{\prime}(t)e^{S}
+\end{align}
+where we have made use of the identity operator for the final equality, from which we identify
+\begin{equation}
+e^{i H_0 t}e^{-S}e^{-i H_0 t} = \exp(-\dyad{X}\sum\frac{g_k}{\omega_k}(e^{i\omega_k t}b_k^{\dagger} - e^{-i\omega_k t}b_k))
+\end{equation}
+\begin{equation}
+e^{i H_0 t}U^{\prime}(t) = e^{i\sum_{k}\frac{g^2_k}{\omega_k}\dyad{X}t}.
+\end{equation}
+By using the theorem for bringing together operator exponentials $e^{A+B} = e^{A}e^Be^{-\comm{A}{B}/2}$, after some algebra we reach
+\begin{equation}
+\label{eq:compactTimeEvOp}
+\tilde{U}(t) = e^{-i\Phi(t)}e^{\dyad{X}\sum(\alpha_k(t)b_k^{\dagger}-\alpha_k^*(t)b_k)}
+\end{equation}
+where $\Phi(t) = \sum\frac{g^2_k}{\omega_k^2}\sin{\omega_k t}-\frac{g_k^2}{\omega_k}t$ and $\alpha_k=(1-e^{i\omega_k t})\frac{g_k}{\omega_k}$. By performing a series expansion of the second exponent in $\tilde{U}(t)$ we get
+\begin{equation}
+\tilde{U}(t) = e^{-i\Phi(t)}\left(\dyad{0} + \dyad{X}\prod_{k} D\left(\alpha_k(t)\right)\right) 
+\end{equation}
+where we have introduced the displacement operator $D(\alpha_k(t))=\exp(\alpha_k(t)b_k^{\dagger}-\alpha_k(t)b_k)$. We assume that system and bath are initially in a product state $\rho(0) = \rho_S(0)\otimes\rho_B$ and that the bath is in thermal equilibrium. Using
+\begin{equation}
+\tilde{rho}_{ij}(t) = \bra{i}\Tr_B\left[\tilde{U}(t)\rho(0)\tilde{U}^{\dagger}(t)\right]\ket{j}
+\end{equation}
+we find that the populations are left unchanged by the interaction
+\begin{equation}
+\tilde{\rho}_{00}(t) =\rho_{00}(0)\dyad{0} \quad \tilde{\rho}_{11}(t) =\rho_{11}(0)\dyad{X}
+\end{equation}
+whereas the coherences evolve according to
+\begin{align}
+\rho_{10}(t) &= \rho_{10}(0)\Tr_B\left(\prod_k D(\alpha_k(t)\rho_B)\right) = \rho_{10}(0)e^{\Gamma(t)} \\
+\rho_{10}(t) &= \rho_{01}(0)\Tr_B\left(\rho_B\prod_kD^{\dagger}(\alpha_k(t))\right) = \rho_{01}(0)e^{\Gamma^*(t)}
+\end{align}
+where we have defined the decoherence function
+\begin{equation}
+\Gamma(t)=\ln(\Tr_B\left(\prod_k D(\alpha_k(t))\rho_B\right))=\sum_k\ln\left(\expval{D(\alpha_k(t))}_B\right).
+\end{equation}
+This allows us to identify the Wigner characteristic function for bath mode $k$, 
+\begin{equation}
+\expval{D(\alpha_k)}_B = \exp(-\frac{1}{2}\abs{\alpha_k}^2\expval{\{b_k, b_k^{\dagger} \}})
+\end{equation}
+so the decoherence function becomes
+\begin{equation}
+\Gamma(t)=\sum_k -\frac{1}{2}\abs{\alpha_k}^2\expval{\{b_k, b_k^{\dagger} \}} = -\sum_k (1-\cos(\omega_k t))\frac{\abs{g_k}^2}{\omega_k^2} \coth(\frac{\omega_k}{2k_BT})
+\end{equation}
+where the second equality comes from the definition of $\alpha_k(t)$ after equation \ref{eq:compactTimeEvOp} and a fair amount of algebra. Then defining the spectral density $J(\omega)=f(\omega)\abs{g(\omega)}^2$ where $f(\omega)$ is the density of phonon states, we get
+\begin{equation}
+\Gamma(t) = -\int_{0}^{\infty}d\omega \frac{J(\omega)}{\omega^2} \coth(\frac{\omega}{2k_BT})(1-\cos(\omega t))
+\end{equation}
 \subsection{The reaction coordinate master equation}
 Defining $A= (a + a^{\dagger})$, we get the master equation
 \begin{align}

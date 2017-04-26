@@ -127,11 +127,11 @@ if __name__ == "__main__":
     """
     Define all system and environment  parameters
     """
-    N = 12
+    N = 10
     G = ket([0])
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
-    eps = 1.0*806.55 # TLS splitting
+    eps = 1.1*8065.5 # TLS splitting
     #eps = 2.*1519.3 # ps
     T_EM = 6000. # Optical bath temperature
     #alpha_EM = 0.3 # System-bath strength (optical)
@@ -142,7 +142,7 @@ if __name__ == "__main__":
     #wc = 53.*0.188
     w0 = 300. # underdamped SD parameter omega_0
     #w0 = 200.*0.188
-    alpha_ph = (100./np.pi)# Ind.-Boson frame coupling
+    alpha_ph = 700 #0.05*eps/np.pi# Ind.-Boson frame coupling
     J = EM.J_minimal
     print "eps={:d}, T_EM={:d}, w_0={:d}, alpha_ph={:d}".format(int(eps), int(T_EM), int(w0), int(alpha_ph))
     """
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
     # Expectation values and time increments needed to calculate the dynamics
     expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N)), tensor(qeye(2), destroy(N).dag()+destroy(N))]
-    timelist = np.linspace(0,0.2,1000)
+    timelist = np.linspace(0,0.04,8000)
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
 
     # Calculate dynamics
@@ -179,13 +179,13 @@ if __name__ == "__main__":
 
     #timelist*=0.188 # Convert time into ps
 
-    fig = plt.figure(figsize=(12, 6))
-    ax1 = fig.add_subplot(121)
-    ax2 = fig.add_subplot(122)
-    plot_dynamics(ax1)
-    plot_coherences(ax2)
+    #fig = plt.figure(figsize=(12, 6))
+    #ax1 = fig.add_subplot(121)
+    #ax2 = fig.add_subplot(122)
+    #plot_dynamics(ax1)
+    #plot_coherences(ax2)
 
-    p_file_name = "Notes/Images/Dynamics/Pop_min_a{:d}_N{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(N), int(T_EM), int(w0), int(eps))
+    #p_file_name = "Notes/Images/Dynamics/Pop_min_a{:d}_N{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(N), int(T_EM), int(w0), int(eps))
     #plt.savefig(p_file_name)
     #print "Figure saved: ", p_file_name
     """

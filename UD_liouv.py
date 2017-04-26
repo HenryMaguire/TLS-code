@@ -49,8 +49,7 @@ def RCME_operators(H_0, A, gamma, beta):
                 if sp.absolute(e_jk) > 0:
                     #print e_jk
                     # If e_jk is zero, coth diverges but J goes to zero so limit taken seperately
-
-                    Chi += 0.5*np.pi*e_jk*gamma * float(coth(e_jk * beta / 2).evalf())*A_jk*outer_eigen # e_jk*gamma is the spectral density
+                    Chi += 0.5*np.pi*e_jk*gamma * float(coth(e_jk * beta / 2))*A_jk*outer_eigen # e_jk*gamma is the spectral density
                     Xi += 0.5*np.pi*e_jk*gamma * A_jk * outer_eigen
                 else:
                     Chi += (np.pi*gamma*A_jk/beta)*outer_eigen # Just return coefficients which are left over
@@ -71,11 +70,11 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C):
     beta_C = 0.
     if T_C == 0.0:
         beta_C = np.infty
-        RCnb = 0
+        #RCnb = 0
         print "Temperature is too low, this won't work"
     else:
         beta_C = 1./(conversion * T_C)
-        RCnb = float(1. / (sp.exp( beta_C * wRC)-1))
+        #RCnb = float(1. / (sp.exp( beta_C * wRC)-1))
     # Now this function has to construct the liouvillian so that it can be passed to mesolve
     H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, beta_C)
     L = 0
