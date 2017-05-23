@@ -27,9 +27,11 @@ Here we study a single electronic transition in a molecule, which is interacting
 \begin{enumerate}
 	\item Overview of the field and what is the motivation for studying this.
 	\item Quick introduction to electron-vibrational interactions and molecular physics.
-	\item Reaction coordinate things
-	\item Electromagnetic field things.
+	\item Exact solution of the independent boson model.
+	\item Reaction coordinate things - comparison to exact solution and weak coupling. Phonon population wrt. $\Omega_{RC}$ - meaning.
+	\item Electromagnetic field things. Super-ohmic spectral density?
 	\item Vibronic physics. In this chapter I will write about all of the current checks I have been doing to understand the physics. Discuss what happens to manifolds when splitting becomes small, which states are populated for realistic temperatures. Analysis of dynamics in different regimes.
+	\item Coherence times wrt splitting, RC frequency and phonon coupling.
 	\item Emission Spectra - what does this say about the nature of electron-phonon interaction?
 \end{enumerate}
 \subsection{Questions}
@@ -104,10 +106,85 @@ J_{SB}  = \frac{4\gamma\Omega^2\lambda^2\omega}{(\Omega^2-\omega^2)^2 + (2\pi\Om
 Thus $\Omega = \omega_0$, $\lambda=\sqrt{\pi \alpha \omega_0/2}$ and $\gamma=\Gamma/2\pi\omega_0$. This means that for the underdamped spectral density $\Gamma$, $\omega_0$ and $\alpha$ are all free parameters, as shown in [J chem phys] in the case of large $\omega_0$ this spectrum becomes the overdamped, Drude-Lorentz sprectral density where $\Gamma=\omega_0^2\omega_c^{-1}$.
 
 \begin{figure}
-	\includegraphics[width=0.5\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities".pdf}
-	%\includegraphics[width=0.5\textwidth]{"/Users/henrymaguire/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
+	\includegraphics[width=0.5\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities".pdf}
+	%\includegraphics[width=0.5\textwidth]{"/home/henry/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
 	\caption{Comparison of underdamped (solid lines) and overdamped (dashed line) spectral densities. Parameters are $\omega_c=53cm^{-1}$, $\alpha=100cm^{-1}$ and $\Gamma=\omega_0^2\omega_c^{-1}$.}
 \end{figure}
+\section{Exact Solution}
+We start with the system and bath Hamiltonian
+\begin{equation}
+H = \epsilon\dyad{X} + \sum_{k}\omega_k b_k^{\dagger} b_k + \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k)
+\end{equation}
+and perform a unitary, polaron transformation $H^{\prime} = e^{S}He^{-S}$ where $S= \dyad{X}\sum_{k}\frac{g_k}{\omega_k}(b_k^{\dagger}-b_k)$. This yields transformed system, bath and interaction Hamiltonians
+\begin{align}
+H_S^{\prime} &= \epsilon\dyad{X} \\
+H_B^{\prime} &= \sum_{k}\omega_k b_k^{\dagger}b_k - \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k) +\dyad{X}\sum_{k}\frac{g^2_k}{\omega_k} \\
+H_I^{\prime} &= \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k) - 2\dyad{X}\sum_{k}\frac{g^2_k}{\omega_k} \\
+\end{align}
+which together form the polaron-frame Hamiltonian
+\begin{equation}
+H^{\prime} = \epsilon\dyad{X} - \dyad{X}\sum_{k}\frac{g^2_k}{\omega_k} + \sum_{k}\omega_k b_k^{\dagger}b_k
+\end{equation}
+whereby the system and bath are now decoupled but the system energy has been renormalised due to the coupling - this is known as the polaron shift.
+
+The time-evolution operator is thus
+\begin{equation}
+U^{\prime}(t) = e^{-i\epsilon\dyad{X}} e^{i\dyad{X}\sum_{k}\frac{g^2_k}{\omega_k}} e^{-i\sum_{k}\omega_k b_k^{\dagger}b_k}.
+\end{equation}
+We will now show that in the polaron frame the environmental modes undergo a shift dependent on whether the system is in the ground or excited state. We split up the full original  Hamiltonian
+\begin{equation}
+H_0 = \epsilon \dyad{X} + \sum \omega_k b_k^{\dagger}b_k \quad \textnormal{and} \quad H_I = \dyad{X}\sum g_k \dyad{X}
+\end{equation}
+in order to write 
+\begin{align}
+\tilde{U}(t) = e^{i H_0 t}U(t) &= e^{i H_0 t}e^{-S}U^{\prime}(t)e^{S} \\
+&= e^{i H_0 t}e^{-S}e^{-i H_0 t}e^{i H_0 t}U^{\prime}(t)e^{S}
+\end{align}
+where we have made use of the identity operator for the final equality, from which we identify
+\begin{equation}
+e^{i H_0 t}e^{-S}e^{-i H_0 t} = \exp(-\dyad{X}\sum\frac{g_k}{\omega_k}(e^{i\omega_k t}b_k^{\dagger} - e^{-i\omega_k t}b_k))
+\end{equation}
+\begin{equation}
+e^{i H_0 t}U^{\prime}(t) = e^{i\sum_{k}\frac{g^2_k}{\omega_k}\dyad{X}t}.
+\end{equation}
+By using the theorem for bringing together operator exponentials $e^{A+B} = e^{A}e^Be^{-\comm{A}{B}/2}$, after some algebra we reach
+\begin{equation}
+\label{eq:compactTimeEvOp}
+\tilde{U}(t) = e^{-i\Phi(t)}e^{\dyad{X}\sum(\alpha_k(t)b_k^{\dagger}-\alpha_k^*(t)b_k)}
+\end{equation}
+where $\Phi(t) = \sum\frac{g^2_k}{\omega_k^2}\sin{\omega_k t}-\frac{g_k^2}{\omega_k}t$ and $\alpha_k=(1-e^{i\omega_k t})\frac{g_k}{\omega_k}$. By performing a series expansion of the second exponent in $\tilde{U}(t)$ we get
+\begin{equation}
+\tilde{U}(t) = e^{-i\Phi(t)}\left(\dyad{0} + \dyad{X}\prod_{k} D\left(\alpha_k(t)\right)\right) 
+\end{equation}
+where we have introduced the displacement operator $D(\alpha_k(t))=\exp(\alpha_k(t)b_k^{\dagger}-\alpha_k(t)b_k)$. We assume that system and bath are initially in a product state $\rho(0) = \rho_S(0)\otimes\rho_B$ and that the bath is in thermal equilibrium. Using
+\begin{equation}
+\tilde{rho}_{ij}(t) = \bra{i}\Tr_B\left[\tilde{U}(t)\rho(0)\tilde{U}^{\dagger}(t)\right]\ket{j}
+\end{equation}
+we find that the populations are left unchanged by the interaction
+\begin{equation}
+\tilde{\rho}_{00}(t) =\rho_{00}(0)\dyad{0} \quad \tilde{\rho}_{11}(t) =\rho_{11}(0)\dyad{X}
+\end{equation}
+whereas the coherences evolve according to
+\begin{align}
+\rho_{10}(t) &= \rho_{10}(0)\Tr_B\left(\prod_k D(\alpha_k(t)\rho_B)\right) = \rho_{10}(0)e^{\Gamma(t)} \\
+\rho_{10}(t) &= \rho_{01}(0)\Tr_B\left(\rho_B\prod_kD^{\dagger}(\alpha_k(t))\right) = \rho_{01}(0)e^{\Gamma^*(t)}
+\end{align}
+where we have defined the decoherence function
+\begin{equation}
+\Gamma(t)=\ln(\Tr_B\left(\prod_k D(\alpha_k(t))\rho_B\right))=\sum_k\ln\left(\expval{D(\alpha_k(t))}_B\right).
+\end{equation}
+This allows us to identify the Wigner characteristic function for bath mode $k$, 
+\begin{equation}
+\expval{D(\alpha_k)}_B = \exp(-\frac{1}{2}\abs{\alpha_k}^2\expval{\{b_k, b_k^{\dagger} \}})
+\end{equation}
+so the decoherence function becomes
+\begin{equation}
+\Gamma(t)=\sum_k -\frac{1}{2}\abs{\alpha_k}^2\expval{\{b_k, b_k^{\dagger} \}} = -\sum_k (1-\cos(\omega_k t))\frac{\abs{g_k}^2}{\omega_k^2} \coth(\frac{\omega_k}{2k_BT})
+\end{equation}
+where the second equality comes from the definition of $\alpha_k(t)$ after equation \ref{eq:compactTimeEvOp} and a fair amount of algebra. Then defining the spectral density $J(\omega)=f(\omega)\abs{g(\omega)}^2$ where $f(\omega)$ is the density of phonon states, we get
+\begin{equation}
+\Gamma(t) = -\int_{0}^{\infty}d\omega \frac{J(\omega)}{\omega^2} \coth(\frac{\omega}{2k_BT})(1-\cos(\omega t))
+\end{equation}
 \subsection{The reaction coordinate master equation}
 Defining $A= (a + a^{\dagger})$, we get the master equation
 \begin{align}
@@ -148,6 +225,19 @@ yields
 where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been neglected, justified in by benchmarking. These operators can be calculated by numerically diagonalising the TLS-RC system Hamiltonian $H_0$. This allows us to write the Reaction Coordinate master equation as
 \begin{equation}
 \pdv{\rho(t)}{t} = -i\left[H_0, \rho(t)\right] - \left[A, \left[\chi, \rho(t)\right]\right] + \left[A, \big\lbrace\Xi, \rho(t)\big\rbrace\right].
+\end{equation}
+\subsection{Weak Coupling Master Equation}
+We start from the master equation (See e.g. Jake's thesis),
+\begin{equation}
+\pdv{\rho_S(t)}{t} = -i[H_S, \rho_S(t)] - \int_{0}^{\infty}d\tau([\dyad{X}, \dyad{X}(-\tau)\rho_S(t)]C(\tau) - [\dyad{X}, \rho_S(t)\dyad{X}(-\tau)]C(-\tau))
+\end{equation}
+where the correlation functions are given by 
+\begin{equation}
+C(\tau) = \int_{0}^{\infty}d\omega J(\omega)\left(\coth(\frac{\beta\omega}{2})\cos(\omega \tau) - i\sin(\omega\tau)\right)
+\end{equation}
+and 
+\begin{equation}
+\dyad{X}(\tau) = \dyad{X}
 \end{equation}
 
 \subsection{Dynamics}
@@ -206,7 +296,8 @@ In our model the underlying way that the vibronic system couples to the field is
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_ph400".pdf}
+	%\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_ph400".pdf}
+	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_ph400".pdf}
 	\caption{Spontaneous decay rates for the various non-secular master equation terms as given by the real, temperature independent terms in \ref{eq:VibronicNonSecular1}, vs the transition frequency differences. The blue vertical lines are factors of the polaron-shifted TLS frequency. Yellow points are those which are forbidden by having zero transition dipole moment. The blue points are the terms left over after a strict, secular approximation has been made. $\alpha_{ph}=400 cm^{-1}$, $T_{EM} =6000$, $\hbar\omega_0 = 300cm^{-1}$}
 	\label{fig:DecayRates_FrequencyDiffs}
 \end{figure}
@@ -414,22 +505,89 @@ Here we make the most severe approximation, whereby we leave the vibrational deg
 The simplest way to define the dissipation due to the electromagnetic bath is to assume that the interaction energy of electron-vibration coupling is a small parameter so that it's effect can be neglected in the system eigenstructure, therefore we can write down the system operators in the Born-Markov master equation in terms of the electronic system eigenstates only.
 \textbf{TODO}
 \subsection{Convergence of theories with weakly-coupled phonons}
-
+\section{Exact Absorption Spectra for the Independent Boson Model}
+The absorption spectrum of a system is given by
+\begin{equation}
+m(\omega) = \int_{0}^{\infty}d\tau C_{\mu \mu}(\tau)e^{i\omega\tau}
+\end{equation}
+where for a TLS, initially in its ground state and a phonon environment in thermal equilibrium, the electric dipole operator auto-correlation function is given by 
+\begin{equation}
+C_{\mu \mu}(t) = \Tr\{\mu(t)\mu(0)\rho_0\} = \Tr\{e^{iHt}\mu(0) e^{-iHt}\mu(0)\dyad{0}\rho_{B}\}
+\end{equation}
+then inserting the definition $\mu(0) = \mu\sigma_x$ and using the cyclic property of traces
+\begin{equation}
+C_{\mu \mu}(t) =  \mu^2\Tr_{S+B}\{\sigma_x e^{-iHt}\dyad{X}{0}\rho_{B}e^{iHt}\}.
+\end{equation}
+We have the definitions
+\begin{equation}
+\begin{split}
+S &= \dyad{X}\sum_k(\alpha_kb_k^{\dagger}-\alpha_k^{*} b_k) \\
+e^{\pm S} &= \dyad{0}+\dyad{X}\prod_kD(\pm \alpha_k)
+\end{split}
+\end{equation}
+and from the derivation above 
+\begin{equation}
+\begin{split}
+e^{i H_p t} &= e^{S} e^{i H t} e^{-S} = e^{i \epsilon^{\prime} \dyad{X}t} e^{i\sum_k \omega_k b_k^{\dagger}b_k t} \\
+e^{\pm i H t} &= e^{-S} e^{\pm i H_p t} e^{S} = \dyad{0}e^{\pm i\sum_k \omega_k b_k^{\dagger}b_k t} +\dyad{X}e^{\pm i \epsilon^{\prime}t}\prod_k D(- \alpha_k) e^{\pm i\sum_k \omega_k b_k^{\dagger}b_k t} \prod_k D(\alpha_k)
+\end{split}
+\end{equation}
+so when inserting the definitions, evaluating the system operator overlaps and tracing over the system degrees of freedom
+\begin{equation}
+\begin{split}
+C_{\mu \mu}(t) &=  \mu^2\Tr_{S+B}\{ \dyad{0}{0}e^{- i \epsilon^{\prime}t}\prod_k D(- \alpha_k) e^{- i\sum_k \omega_k b_k^{\dagger}b_k t} \prod_k D(\alpha_k)\rho_{B} e^{ i\sum_k \omega_k b_k^{\dagger}b_k t}\} \\
+&=  \mu^2 e^{- i \epsilon^{\prime}t}\Tr_{B}\{\prod_k D(- \alpha_k) e^{- i\sum_k \omega_k b_k^{\dagger}b_k t} \prod_k D(\alpha_k)\rho_{B} e^{ i\sum_k \omega_k b_k^{\dagger}b_k t}\} \\
+&=  \mu^2 e^{- i \epsilon^{\prime}t}\Tr_{B}\{e^{- i \epsilon^{\prime}t}\prod_k D(- \alpha_k) e^{- i\sum_k \omega_k b_k^{\dagger}b_k t} \prod_k D(\alpha_k)\rho_{B} \}.
+\end{split}
+\end{equation}
+The object inside the trace can be simplified by noticing that the product
+\begin{equation}
+e^{ i\sum_k \omega_k b_k^{\dagger}b_k t} \prod_k D(- \alpha_k) e^{- i\sum_k \omega_k b_k^{\dagger}b_k t} = \prod_k e^{ i\sum_k \omega_k b_k^{\dagger}b_k t} D(- \alpha_k) e^{- i\sum_k \omega_k b_k^{\dagger}b_k t}
+\end{equation}
+due to unitary of the transformation, i.e. $  e^{i\sum_k \omega_k b_k^{\dagger}b_k t} e^{- i\sum_k \omega_k b_k^{\dagger}b_k t}=1$, so
+\begin{equation}
+\begin{split}
+C_{\mu \mu}(t) &=  \mu^2 e^{- i \epsilon^{\prime}t}\Tr_{B}\{\prod_k D(- \alpha_k e^{i\omega_k t})  \prod_k D(\alpha_k)\rho_{B} \} \equiv \mu^2 e^{- i \epsilon^{\prime}t}g(t).
+\end{split}
+\end{equation}
+Now from the notes Ahsan gave me (\textbf{TODO} referenced from Mahan's book), the trace can be written
+\begin{equation}
+\begin{split}
+g(\tau) &= \exp(-\int_{0}^{\infty}d\omega \frac{J(\omega)}{\omega^2}((1-\cos\omega\tau)\coth(\frac{\beta\omega}{2})+i\sin\omega\tau)) \\
+&=  e^{-\Phi(\tau)}
+\end{split}
+\end{equation}
+where 
+\begin{equation}
+\Phi(\tau) \equiv \int_{0}^{\infty}\frac{J(\omega)}{\omega^2}((1-\cos\omega\tau)\coth(\frac{\beta\omega}{2})+i\sin\omega\tau).
+\end{equation}
+This allows the expression for absorption spectrum
+\begin{equation}
+m(\alpha) = \mu^2\mathcal{R}\{\int_{0}^{\infty}d\tau e^{-\Phi(\tau)} e^{i(\omega-\epsilon^{\prime})\tau}\}.
+\end{equation}
+If we have a super-Ohmic spectral density, there may be a delta-function contribution at the polaron-shifted transition frequency $\omega=\epsilon^{\prime}$ to the absorption which can be separated out
+\begin{equation}
+\begin{split}
+m(\alpha) &= \mu^2\left[\mathcal{R}\{\int_{0}^{\infty}d\tau e^{-\Phi(0)} e^{i(\omega-\epsilon^{\prime})\tau}\} + \mathcal{R}\{\int_{0}^{\infty}d\tau e^{-\Phi(0)}(e^{\Phi(\tau)}-1) e^{i(\omega-\epsilon^{\prime})\tau}\} \right] \\
+&= \mu^2\delta(\omega-\epsilon^{\prime}) e^{-\Phi(0)}  + \mu^2 e^{-\Phi(0)}\mathcal{R}\{\int_{0}^{\infty}d\tau  (e^{\Phi(\tau)}-1)e^{i(\omega-\epsilon^{\prime})\tau}\}
+\end{split}
+\end{equation}
+as well as a contribution due to the effects of the phonon bath. For the Ohmic form we are interested in there is no delta-function contribution and the constituent factors are divergent so the more compact form is preferable.
 \section{Analysis}
 For the typical splittings of single electronic transitions in chromophores, the effects of the vibronic manifold on the electromagnetic dissipation do not qualitatively change the dynamics and only marginally affect the steady states. However, there is a splitting dependence to this as in \ref{fig:steadystateSplittingDependence}. This could suggest that when there are smaller energy scales in the system, such as excitonic splitting in a dimer or larger molecular crystal, the vibronic effects may contribute more.
 
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf}
+	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf}
 	\caption{Excited state dynamics at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $\epsilon=8066cm^{-1}$ ($1eV$), $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime).}
 	\label{fig:}
 \end{figure}
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf}
+	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf}
 	\caption{Phonon number and displacement dynamics for the RC at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $\epsilon=8066cm^{-1}$ ($1eV$), $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime).}
 	\label{fig:}
 \end{figure}
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a318_Tem6000_w0300".pdf}
+	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a318_Tem6000_w0300".pdf}
 	\caption{Splitting dependence of discrepancy between naive theory and vibronic thoery at intermediate electron-phonon coupling where $\pi\alpha_{ph}=400cm^{-1}$, $T_{EM}=6000K$, $T_{ph}=300K$, $\omega_c=53cm^{-1}$, $\tau_{EM}=100ps$ (zero-phonon excited state lifetime). Some numerical instability is apparent for small splittings.}
 	\label{fig:steadystateSplittingDependence} 
 \end{figure}
@@ -449,7 +607,7 @@ Discuss "pulsed" excitation where system is initially in ground state and electr
 \begin{comment}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
 	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
@@ -469,7 +627,7 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
+	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
 	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $k_B T_{EM}=4170cm^{-1}$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
@@ -496,19 +654,19 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf}
 	\caption{Population where $\alpha_{ph}=5$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=10000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf}
+	\includegraphics[width=\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf}
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=2000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{"/Users/henrymaguire/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf}
+	\includegraphics[width=\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf}
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $\epsilon=2000$}
 	\label{}
 \end{figure}
@@ -535,5 +693,5 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 	\item In larger molecules there are going to be near degeneracies. Depending on a number of factors, this is going to result in charge transfer via vibronic resonances. Do we include this, or can we postulate that the important contributions are already included in the direct excitonic coupling? Need to think about the physics of this process.
 \end{itemize}
 \bibliographystyle{ieeetr}
-\bibliography{/Users/henrymaguire/Work/phd-work/BibTex/library}
+\bibliography{/home/henry/Work/phd-work/BibTex/library}
 \end{document}

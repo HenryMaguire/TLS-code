@@ -1,48 +1,46 @@
-This is BibTeX, Version 0.99d (TeX Live 2015)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: Vibronic_incoherent_notes.aux
 The style file: ieeetr.bst
-Database file #1: /Users/henrymaguire/Work/phd-work/BibTex/library.bib
-Warning--empty journal in Fruchtman2016
+Database file #1: /home/henry/Work/phd-work/BibTex/library.bib
 You've used 6 entries,
             1876 wiz_defined-function locations,
-            518 strings with 4758 characters,
-and the built_in function-call counts, 1392 in all, are:
-= -- 121
+            521 strings with 4756 characters,
+and the built_in function-call counts, 1500 in all, are:
+= -- 138
 > -- 78
 < -- 0
 + -- 28
 - -- 22
-* -- 112
-:= -- 226
+* -- 122
+:= -- 239
 add.period$ -- 6
 call.type$ -- 6
 change.case$ -- 6
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 68
-empty$ -- 127
+cite$ -- 6
+duplicate$ -- 72
+empty$ -- 134
 format.name$ -- 22
-if$ -- 320
+if$ -- 349
 int.to.chr$ -- 0
 int.to.str$ -- 6
 missing$ -- 6
 newline$ -- 21
 num.names$ -- 6
-pop$ -- 18
+pop$ -- 13
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 30
+skip$ -- 37
 stack$ -- 0
-substring$ -- 59
-swap$ -- 19
+substring$ -- 75
+swap$ -- 24
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 12
+warning$ -- 0
+while$ -- 15
 width$ -- 7
-write$ -- 57
-(There was 1 warning)
+write$ -- 61
