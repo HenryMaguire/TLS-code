@@ -16,7 +16,7 @@
 \contentsline {subsection}{\numberline {5.5}Convergence of theories with weakly-coupled phonons}{14}
 \contentsline {section}{\numberline {6}Exact Absorption Spectra for the Independent Boson Model}{14}
 \contentsline {section}{\numberline {7}Analysis}{15}
-\contentsline {subsection}{\numberline {7.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{15}
+\contentsline {subsection}{\numberline {7.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{18}
 \contentsline {section}{\numberline {8}Future work}{18}
 \contentsline {subsection}{\numberline {8.1}Polaron shifts, phonon dynamics and optical spectra}{18}
 \contentsline {subsection}{\numberline {8.2}Dimers and the nano-photocell}{18}

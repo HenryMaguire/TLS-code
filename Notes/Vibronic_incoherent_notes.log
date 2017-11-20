@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.26)  23 MAY 2017 11:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.26)  20 NOV 2017 15:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1362,11 +1362,11 @@ ph400".pdf Graphic file (type pdf)
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_p
 h400".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/D
-iagrams/rates_N6_a_ph400".pdf used on input line 300.
+iagrams/rates_N6_a_ph400".pdf used on input line 304.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
  [9] [10 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6
 _a_ph400.pdf>] [11] [12]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 490--490
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 494--494
 [] 
  []
 
@@ -1379,7 +1379,7 @@ File: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N1
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N10
 _Tem6000_w0200_eps8066".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/D
-ynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 580.
+ynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 591.
 (pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
 
 <"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6
@@ -1390,7 +1390,7 @@ _Tem6000_w0200_eps8066".pdf Graphic file (type pdf)
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_
 Tem6000_w0200_eps8066".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/P
-honons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 585.
+honons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 596.
 (pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
 
 <"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence
@@ -1401,20 +1401,19 @@ gence_a318_Tem6000_w0300".pdf Graphic file (type pdf)
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_diverg
 ence_a318_Tem6000_w0300".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/C
-hecks/1Pop_SS_divergence_a318_Tem6000_w0300".pdf used on input line 590.
+hecks/1Pop_SS_divergence_a318_Tem6000_w0300".pdf used on input line 601.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
- Excluding 'comment' comment. [15] [16 </home/henry/Work/phd-work/vibronic-TLS/
-Notes/Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066.pdf> </home/henry/Work
-/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066.
-pdf
+ [15] [16 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a12
+7_N10_Tem6000_w0200_eps8066.pdf> </home/henry/Work/phd-work/vibronic-TLS/Notes/
+Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066.pdf
 
 pdfTeX warning: /usr/local/texlive/2016/bin/x86_64-linux/pdflatex (file /home/h
 enry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6000_w0200
 _eps8066.pdf): PDF inclusion: multiple pdfs with page group included in a singl
 e page
 >] [17 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_dive
-rgence_a318_Tem6000_w0300.pdf>] (./Vibronic_incoherent_notes.bbl) [18]
-(./Vibronic_incoherent_notes.aux)
+rgence_a318_Tem6000_w0300.pdf>] Excluding 'comment' comment.
+(./Vibronic_incoherent_notes.bbl) [18] (./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1422,7 +1421,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  11346 strings out of 493013
  205457 string characters out of 6133328
- 262917 words of memory out of 5000000
+ 263917 words of memory out of 5000000
  14788 multiletter control sequences out of 15000+600000
  10634 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1447,7 +1446,7 @@ ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Vibronic_incoherent_notes.pdf (18 pages, 1247695 bytes).
+Output written on Vibronic_incoherent_notes.pdf (18 pages, 1249698 bytes).
 PDF statistics:
  374 PDF objects out of 1000 (max. 8388607)
  173 compressed objects within 2 object streams

@@ -11,41 +11,40 @@ from sympy.functions import coth
 import matplotlib.pyplot as plt
 from utils import *
 
-
 def integral_converge(f, a, omega):
-    x = 30
+    x = 1
     I = 0
-    while abs(f(x))>0.01:
-        #print a, x
+    print abs(f(x)), 'f(x)'
+    while abs(f(x))>0.0001:
+        print a, x
         I += integrate.quad(f, a, x, weight='cauchy', wvar=omega)[0]
-        a+=30
-        x+=30
+        a+=1
+        x+=1
     return I # Converged integral
 
-def Gamma(omega, beta, J, alpha, wc, imag_part=True):
+def K(omega, beta, J, alpha, wc, imag_part=True):
     G = 0
     # Here I define the functions which "dress" the integrands so they
     # have only 1 free parameter for Quad.
-    F_0 = (lambda x: J(omega, alpha, wc)
+    F_0 = lambda x: J(omega, alpha, wc)
     w='cauchy'
-    G = (np.pi/2)*(2*alpha/beta)
+    G = (np.pi/2)*(2*alpha/(wc*beta))
     # The limit as omega tends to zero is zero for superohmic case?
     if imag_part:
         G += -(1j)*integral_converge(F_0, -1e-12,0)
     #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
     return G
 
-def L_ph(alpha, w_0, Gamma, beta):
-    XX = basis(1)*basis(1).dag()
-    gamma_0 = 2*np.pi*alpha*Gamma/(beta*(w_0**2))
-    -0.5*gamma_0*((spre(XX) + spost(XX)) - 2*sprepost(XX,XX)) - 1j*
+def L_phonon(J, alpha, beta, wc):
+    XX = basis(2,1)*basis(2,1).dag()
+    gamma_0 = np.pi*alpha/(beta*wc)
+    #S = K(0, beta, J, alpha, wc).imag
+    return -0.5*gamma_0*((spre(XX) + spost(XX)) - 2*sprepost(XX,XX)) + 0.5*1j*np.pi*alpha*(spre(XX) - spost(XX))
 """
 def L_ph(XX, eps, beta, wc, w0, alpha_ph, kbT):
     dephasing_rate = 2*np.pi*alpha_ph*kbT
     return dephasing_rate*(sprepost(XX,XX)- 0.5*(spre(XX) + spost(XX)))
 """
-def integrand():
-    return C
 
 if __name__ == '__main__':
     """

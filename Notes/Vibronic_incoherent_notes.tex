@@ -248,9 +248,9 @@ We now want to investigate the behaviour of the vibronic system when coupled to 
 H = H_S + H_I^{Vib} + H_B^{Vib} + H_I^{EM}+ H_B^{EM}.
 \end{equation}
 
-Firstly, we calculate the decay rates for vibronic transitions, where the electronic transition is a single excitation in a molecule and the vibrations are delocalised (over the solid state substrate or protein scaffold) leading to a broad overdamped Lorentzian profile. In the literature, \textit{vibronic} systems usually comprise of electronic and localised, intra-molecular vibrational modes (sharp) often taken to be a single oscillator mode. Since we use the RC mapping, where a single oscillator does strongly couple to the electronic transition we will also use the term \textit{vibronic} to describe the new diagonal system basis - even if the underlying spectrum is broad.
+Firstly, we calculate the effect of the electromagnetic bath on vibronic excitations, where the electronic degree of freedom is a single excitation in a molecule and the vibrations are delocalised (over the solid state substrate or protein scaffold) leading to a broad overdamped Lorentzian profile. In the literature, \textit{vibronic} systems usually comprise of electronic and localised, intra-molecular vibrational modes (sharp) often taken to be a single oscillator mode. Since we use the RC mapping, where a single oscillator does strongly couple to the electronic transition we will also use the term \textit{vibronic} to describe the new diagonal system basis - even if the underlying spectrum is broad.
 
-Firstly, for a two-level system coupled to an electromagnetic bath there are a variety of gauges we can choose for the electromagnetic coupling. In \cite{Stokes2012}, the minimal coupling for
+For a two-level system coupled to an electromagnetic bath there are a variety of gauges we can choose for the electromagnetic coupling. In \cite{Stokes2012}, the minimal coupling for
 \begin{equation}
 \label{eq:MinimalCouplingConst}
 f_{k\lambda} = i e \left(\frac{\omega_0}{2\epsilon_0 L^3}\right)^{\frac{1}{2}} \vec{e}_{k \lambda}\cdot\vec{d} \left(\frac{\omega_0}{\omega_k}\right)^{\frac{1}{2}} 
@@ -268,7 +268,11 @@ J(\omega) = \left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)
 For the two-level system the two different forms of coupling lead to the same spontaneous emission rates since the resultant spectral densities are evaluated at the same TLS splitting frequency
 \begin{equation}
 \label{eq:TLS_decay}
-\Gamma = \pi J(\omega_0) = \pi\left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)\omega_0.
+\Gamma = 2\pi J(\omega_0) = \pi\left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)\omega_0,
+\end{equation}
+which means the constants can be expressed
+\begin{equation}
+\frac{\pi}{2} \frac{e^2\abs{\vec{d}}^2}{3\epsilon_0\pi^3c^3} = \frac{\Gamma}{2\pi\omega_0}.
 \end{equation}
 For a real molecule, it may not be easy to measure the dipole strength of a transition, but it might be easy to gain access to the (zero-phonon) excited state lifetime ($T_1 \approx 100ps - 1ns$) which gives a value for spontaneous emission rate ($\Gamma\approx 10^9-10^{10}s^{-1}$). We could then express the spectral density in terms of this
 \begin{equation}
@@ -500,6 +504,13 @@ here we can see that making the secular approximation has resulted in a summatio
 
 \subsection{Electronic Lindblad theory}
 \label{ssec:electronic}
+\begin{equation}
+\lambda_{\pm} = \omega_2 + \frac{1}{2}(\epsilon \pm \eta)
+\end{equation}
+where $\omega_1 = \omega_2 +\epsilon$
+\begin{equation}
+\ket{\nu_\pm} = \frac{1}{\sqrt{2\eta}}\left(\sqrt{\eta\pm\epsilon}\ket{1}\pm\sqrt{\eta\mp\epsilon}\ket{2}\right)
+\end{equation}
 Here we make the most severe approximation, whereby we leave the vibrational degrees of freedom out of the system Hamiltonian altogether. This means that we write the system operators in the master equation in the uncoupled electronic eigenbasis rather than the dressed vibronic eigenbasis. This is akin to introducing the optical and vibrational couplings to the system on the same order, namely that they are both weak and the internal system dynamics can be described accurately by the eigenstructure of the electronic degrees of freedom only. Since we want to calculate the dynamics for the system in
 
 The simplest way to define the dissipation due to the electromagnetic bath is to assume that the interaction energy of electron-vibration coupling is a small parameter so that it's effect can be neglected in the system eigenstructure, therefore we can write down the system operators in the Born-Markov master equation in terms of the electronic system eigenstates only.
@@ -559,11 +570,11 @@ g(\tau) &= \exp(-\int_{0}^{\infty}d\omega \frac{J(\omega)}{\omega^2}((1-\cos\ome
 \end{equation}
 where 
 \begin{equation}
-\Phi(\tau) \equiv \int_{0}^{\infty}\frac{J(\omega)}{\omega^2}((1-\cos\omega\tau)\coth(\frac{\beta\omega}{2})+i\sin\omega\tau).
+\Phi(\tau) \equiv \int_{0}^{\infty}d\omega\frac{J(\omega)}{\omega^2}((1-\cos\omega\tau)\coth(\frac{\beta\omega}{2})+i\sin\omega\tau).
 \end{equation}
 This allows the expression for absorption spectrum
 \begin{equation}
-m(\alpha) = \mu^2\mathcal{R}\{\int_{0}^{\infty}d\tau e^{-\Phi(\tau)} e^{i(\omega-\epsilon^{\prime})\tau}\}.
+m(\omega) = \mu^2\mathcal{R}\{\int_{0}^{\infty}d\tau e^{-\Phi(\tau)} e^{i(\omega-\epsilon^{\prime})\tau}\}.
 \end{equation}
 If we have a super-Ohmic spectral density, there may be a delta-function contribution at the polaron-shifted transition frequency $\omega=\epsilon^{\prime}$ to the absorption which can be separated out
 \begin{equation}

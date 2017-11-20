@@ -60,13 +60,14 @@ def RCME_operators(H_0, A, gamma, beta):
 def liouvillian_build(H_0, A, gamma, wRC, T_C):
     time_units='cm'
     conversion = 0.695
+    """
     if time_units == 'ev':
         conversion == 8.617E-5
     if time_units == 'ps':
         conversion == 0.131
     else:
         pass
-
+    """
     beta_C = 0.
     if T_C == 0.0:
         beta_C = np.infty

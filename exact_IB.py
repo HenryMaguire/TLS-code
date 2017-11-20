@@ -5,42 +5,79 @@ import matplotlib.pyplot as plt
 from sympy.functions import coth
 from utils import *
 
+G = ket([0])
+E = ket([1])
+
 def get_data():
 
     rho = [rho_01, rho_10]
     return
 
-
-def integrand(omega, t, alpha, beta, Gamma, omega_0):
+def integrand_OD(omega, t, alpha, beta, wc):
     if omega ==0:
         return 0.
     else:
-        return (1/omega**2)*J_underdamped(omega, alpha, Gamma, omega_0)*coth(beta*omega/2)*(1-np.cos(omega*t))
+        return (1/omega**2)*J_overdamped(omega, alpha,wc)*coth(beta*omega/2)*(1-np.cos(omega*t))
 
-def plot_integrand():
-    omega = np.linspace(0.0001,20000,100000)
-    y = []
+
+
+def integrand_UD(omega, t, alpha, beta, Gamma, omega_0):
+    if omega ==0:
+        return 0.
+    else:
+        return (1/omega**2)*J_underdamped(omega, alpha, Gamma, omega_0)*coth(beta*omega/2.)*(1-np.cos(omega*t))
+
+def integral_converge(f, a):
+    x = 100.
+    I = 0
+    while abs(f(x))>5E-9:
+        I += quad(f, a, x)[0]
+        a+=100
+        x+=100
+    return I # Converged integral
+
+def plot_integrand(beta, wc):
+    omega = np.linspace(1E-11,20000,10000)
+    y1 = []
+    y2 = []
     for i in omega:
-        y.append(integrand(i, 1, alpha, beta, Gamma, omega_0))
-    plt.plot(omega, y)
+        y1.append(integrand_OD(i, 0.001, alpha, beta, wc))
+        y2.append(integrand_OD(i, 0.002, alpha, beta, wc))
+    plt.plot(omega, y1)
+    plt.plot(omega, y2)
     plt.show()
 
-def exact_decay(t, alpha, beta, Gamma, omega_0):
-    I = -np.array(quad(integrand, 0.00001, 20000, args=(t, alpha, beta, Gamma, omega_0),limit=150))
+def exact_decay(t, alpha, beta, wc):
+    f = lambda omega : integrand_OD(omega, t, alpha, beta, wc)
+    I = -integral_converge(f, 0.)
     return I
 
-def exact_solution_at_t(t, alpha, beta, Gamma, omega_0, rho_init):
-    Gamma = exact_decay(t, alpha, beta, Gamma, omega_0)[0]
-    rho_01 = rho_init.matrix_element(G.dag(), E)*np.exp(Gamma)*np.exp(-1j*eps*t)
+def exact_solution_at_t(t, eps, alpha, beta, wc, rho_init):
+    Decay = exact_decay(t, alpha, beta, wc)
+    rho_01 = rho_init.matrix_element(E.dag(), G)*np.exp(Decay)*np.exp(-1j*eps*t)
     return rho_01
 
 
-def exact_solution(eps, wc, beta, rho_init, a, b, points):
+def exact_dynamics(eps, alpha, wc, omega_0, Gamma, beta, rho_init, a, b, points):
     T = np.linspace(a, b, points)
     rho_t = []
     for t in T:
-        rho_t.append(exact_solution_at_t(t, alpha, beta, Gamma, omega_0, rho_init))
+        rho_t.append(exact_solution_at_t(t, eps, alpha, beta, wc, rho_init))
+        if len(rho_t)%40 == 0:
+            print "Exact solution {:0.3f} percent finished".format((float(len(rho_t))/points)*100)
     return T, rho_t
+
+def absorption_integrand(t, omega, eps, shift, alpha, beta, Gamma, omega_0):
+    #Similar to Integrand function but slightly different since was calculated in Heisenberg picture
+    I = (1/omega**2)*J_underdamped(omega, alpha, Gamma, omega_0)
+    I*= complex(coth(beta*omega/2)*(1-np.cos(omega*t))+1j*np.sin(omega*t))
+    I = np.exp(-I)
+    I*= np.exp(1j*(omega-eps)*t)
+    return I
+
+def absorption(omega, eps, shift, alpha, beta, Gamma, omega_0, mu=1.):
+    I = np.array(quad(absorption_integrand, 0, 0.2, args=(omega, eps, shift, alpha, beta, Gamma, omega_0),limit=150))
+    return mu**2*(I.real)
 
 
 if __name__ == "__main__":
@@ -49,13 +86,16 @@ if __name__ == "__main__":
     E = ket([1])
     rho_init = 0.5*(G+E)*(E.dag()+G.dag())
     #x = np.arange(1.,5,0.5)
-    alpha = 400/np.pi
+    alpha = 1000/np.pi
     beta = 1/(0.695*300)
     eps = 8000.
-    wc = 153.
-    omega_0 = 2000.
+    wc = 53.
+    omega_0 = 500.
     Gamma = omega_0**2/wc
-    T, rho_t = exact_solution(eps, wc, beta, rho_init, 0, 0.02, 1000)
+    plot_integrand(beta, wc)
+
+    """
+    T, rho_t = exact_dynamics(eps, wc, omega_0, Gamma, beta, rho_init, 0, 0.02, 1000)
     reData = np.loadtxt("DATA/RealExactdata.dat")
     imData = np.loadtxt("DATA/ImagExactdata.dat")
     plt.plot(list(zip(*reData)[0]), list(zip(*reData)[1]), label='math real')
@@ -64,5 +104,12 @@ if __name__ == "__main__":
     #plt.plot(T, np.array(rho_t).imag, label='imag')
     plt.legend()
     plt.show()
-    #t = 1
-    print exact_decay(1., alpha, beta, Gamma, omega_0)
+    """
+    """
+    m = []
+    frequencies = np.linspace(-1000,1000,100)
+    for w in frequencies:
+        m.append(absorption(w, eps, 200, alpha, beta, Gamma, omega_0, mu=1.))
+    plt.plot(frequencies, m)
+    #print exact_decay(1., alpha, beta, Gamma, omega_0)
+    """
