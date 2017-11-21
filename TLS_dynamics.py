@@ -37,7 +37,7 @@ if __name__ == "__main__":
     #w0 = 200.*0.188
     Gamma = w0**2/wc
     beta = 1/(0.695*T_ph)
-    alpha_ph = 1/np.pi #0.05*eps/np.pi# Ind.-Boson frame coupling
+    alpha_ph = 200/np.pi #0.05*eps/np.pi# Ind.-Boson frame coupling
     J = EM.J_minimal
     mu = 1.
     print "eps={:d}, T_EM={:d}, w_0={:d}, alpha_ph={:d}".format(int(eps), int(T_EM), int(w0), int(alpha_ph))
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     # Expectation values and time increments needed to calculate the dynamics
     expects_wc = [G*G.dag(), E*G.dag()]
     expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N)), tensor(qeye(2), destroy(N).dag()+destroy(N))]
-    a, b, points = 0, 0.1, 1000
+    a, b, points = 0, 0.025, 1000
     timelist = np.linspace(a, b, 8000)
     #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     DATA_rc = mesolve(H_RC, rho_0, timelist, [L_RC], expects, progress_bar=True)
     #T, rho_01 = exact.exact_dynamics(eps, alpha_ph, wc, w0, Gamma, beta, initial_sys, a, b, points)
     print "Exact dynamics calculated"
-    with open('DATA/Exactdatawc.dat', 'rw+') as f:
+    with open('DATA/Exactdatasc.dat', 'rw+') as f:
         dat = f.read()
         times, points = zip(*[(float(i.split('\t')[0]), float(i.split('\t')[1])) for i in dat.split("\n")])
         plt.plot(times,points, label='mat', linestyle='dashed')
