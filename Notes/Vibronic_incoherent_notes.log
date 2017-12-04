@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.26)  20 NOV 2017 15:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.4.26)  28 NOV 2017 10:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1343,89 +1343,184 @@ ns are strong in biomolec-u-lar light-harvesting
 
 [2] [3] [4]
 <"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities".pd
-f, id=30, 361.35pt x 224.84pt>
+f, id=29, 361.35pt x 224.84pt>
 File: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensitie
 s".pdf Graphic file (type pdf)
 
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities
 ".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/S
-Ds/SpectralDensities".pdf used on input line 109.
+Ds/SpectralDensities".pdf used on input line 105.
 (pdftex.def)             Requested size: 234.8775pt x 146.14769pt.
  [5 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities.
-pdf>] [6] [7] [8]
+pdf>] [6] [7]
+<"Images/PhononOnly/Phonons_only_weak".pdf, id=51, 1016.11621pt x 545.63847pt>
+File: "Images/PhononOnly/Phonons_only_weak".pdf Graphic file (type pdf)
+
+<use "Images/PhononOnly/Phonons_only_weak".pdf>
+Package pdftex.def Info: "Images/PhononOnly/Phonons_only_weak".pdf used on inpu
+t line 263.
+(pdftex.def)             Requested size: 152.66895pt x 81.97545pt.
+
+Underfull \hbox (badness 1132) in paragraph at lines 264--264
+[]\OT1/cmr/m/n/10 Figure 2: TLS Site Co-her-ence:
+ []
+
+
+<"Images/PhononOnly/Phonons_only_intermediate".pdf, id=52, 676.44719pt x 500.83
+109pt>
+File: "Images/PhononOnly/Phonons_only_intermediate".pdf Graphic file (type pdf)
+
+ <use "Images/PhononOnly/Phonons_only_intermediate".pdf>
+Package pdftex.def Info: "Images/PhononOnly/Phonons_only_intermediate".pdf used
+ on input line 268.
+(pdftex.def)             Requested size: 152.66895pt x 113.03366pt.
+
+Underfull \hbox (badness 1132) in paragraph at lines 269--269
+[]\OT1/cmr/m/n/10 Figure 3: TLS Site Co-her-ence:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 269--269
+\OT1/cmr/m/n/10 intermediate-Coupling Regime.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 269--269
+\OT1/cmr/m/n/10 Broad, over-damped Loren-z-tian
+ []
+
+
+Underfull \hbox (badness 1655) in paragraph at lines 269--269
+\OT1/cmr/m/n/10 Phonon bath. $\OML/cmm/m/it/10 ![] \OT1/cmr/m/n/10 = 53\OML/cmm
+/m/it/10 cm[]$
+ []
+
+
+<"Images/PhononOnly/Phonons_only_strong".pdf, id=53, 462.52798pt x 346.89601pt>
+File: "Images/PhononOnly/Phonons_only_strong".pdf Graphic file (type pdf)
+<use "Images/PhononOnly/Phonons_only_strong".pdf>
+Package pdftex.def Info: "Images/PhononOnly/Phonons_only_strong".pdf used on in
+put line 273.
+(pdftex.def)             Requested size: 152.66895pt x 114.5025pt.
+
+Underfull \hbox (badness 1132) in paragraph at lines 274--274
+[]\OT1/cmr/m/n/10 Figure 4: TLS Site Co-her-ence:
+ []
+
+
+Underfull \hbox (badness 5771) in paragraph at lines 274--274
+\OT1/cmr/m/n/10 over-damped Loren-z-tian Phonon
+ []
+
+
+<"Images/PhononOnly/Phonons_only_strong_resonantOD_G10".pdf, id=54, 462.52798pt
+ x 346.89601pt>
+File: "Images/PhononOnly/Phonons_only_strong_resonantOD_G10".pdf Graphic file (
+type pdf)
+
+<use "Images/PhononOnly/Phonons_only_strong_resonantOD_G10".pdf>
+Package pdftex.def Info: "Images/PhononOnly/Phonons_only_strong_resonantOD_G10"
+.pdf used on input line 282.
+(pdftex.def)             Requested size: 211.38832pt x 158.54192pt.
+
+<"Images/FrequencyAnalysis/noPhononFreqSpectra".png, id=55, 462.528pt x 346.896
+pt>
+File: "Images/FrequencyAnalysis/noPhononFreqSpectra".png Graphic file (type png
+)
+ <use "Images/FrequencyAnalysis/noPhononFreqSpectra".png>
+Package pdftex.def Info: "Images/FrequencyAnalysis/noPhononFreqSpectra".png use
+d on input line 287.
+(pdftex.def)             Requested size: 211.38832pt x 158.54192pt.
+ [8] [9 <./Images/PhononOnly/Phonons_only_weak.pdf> <./Images/PhononOnly/Phonon
+s_only_intermediate.pdf
+
+pdfTeX warning: /usr/local/texlive/2016/bin/x86_64-linux/pdflatex (file ./Image
+s/PhononOnly/Phonons_only_intermediate.pdf): PDF inclusion: multiple pdfs with 
+page group included in a single page
+> <./Images/PhononOnly/Phonons_only_strong.pdf
+
+pdfTeX warning: /usr/local/texlive/2016/bin/x86_64-linux/pdflatex (file ./Image
+s/PhononOnly/Phonons_only_strong.pdf): PDF inclusion: multiple pdfs with page g
+roup included in a single page
+> <./Images/PhononOnly/Phonons_only_strong_resonantOD_G10.pdf
+
+pdfTeX warning: /usr/local/texlive/2016/bin/x86_64-linux/pdflatex (file ./Image
+s/PhononOnly/Phonons_only_strong_resonantOD_G10.pdf): PDF inclusion: multiple p
+dfs with page group included in a single page
+> <./Images/FrequencyAnalysis/noPhononFreqSpectra.png>]
 <"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_ph400
-".pdf, id=55, 578.16pt x 433.62pt>
+".pdf, id=145, 578.16pt x 433.62pt>
 File: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_
 ph400".pdf Graphic file (type pdf)
 
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6_a_p
 h400".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/D
-iagrams/rates_N6_a_ph400".pdf used on input line 304.
+iagrams/rates_N6_a_ph400".pdf used on input line 351.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
- [9] [10 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N6
-_a_ph400.pdf>] [11] [12]
-Overfull \hbox (28.06235pt too wide) in paragraph at lines 494--494
+ [10] [11 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Diagrams/rates_N
+6_a_ph400.pdf>] [12] [13] [14]
+Overfull \hbox (28.06235pt too wide) in paragraph at lines 541--541
 [] 
  []
 
-[13] [14]
+[15] [16]
 <"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N10_Tem
-6000_w0200_eps8066".pdf, id=128, 867.24pt x 433.62pt>
+6000_w0200_eps8066".pdf, id=221, 867.24pt x 433.62pt>
 File: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N1
 0_Tem6000_w0200_eps8066".pdf Graphic file (type pdf)
 
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a127_N10
 _Tem6000_w0200_eps8066".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/D
-ynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 591.
+ynamics/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 638.
 (pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
 
 <"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6
-000_w0200_eps8066".pdf, id=129, 867.24pt x 433.62pt>
+000_w0200_eps8066".pdf, id=222, 867.24pt x 433.62pt>
 File: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10
 _Tem6000_w0200_eps8066".pdf Graphic file (type pdf)
 
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_
 Tem6000_w0200_eps8066".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/P
-honons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 596.
+honons/Pop_a127_N10_Tem6000_w0200_eps8066".pdf used on input line 643.
 (pdftex.def)             Requested size: 375.80544pt x 187.90198pt.
 
 <"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence
-_a318_Tem6000_w0300".pdf, id=130, 578.16pt x 433.62pt>
+_a318_Tem6000_w0300".pdf, id=223, 578.16pt x 433.62pt>
 File: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_diver
 gence_a318_Tem6000_w0300".pdf Graphic file (type pdf)
 
 <use "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_diverg
 ence_a318_Tem6000_w0300".pdf>
 Package pdftex.def Info: "/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/C
-hecks/1Pop_SS_divergence_a318_Tem6000_w0300".pdf used on input line 601.
+hecks/1Pop_SS_divergence_a318_Tem6000_w0300".pdf used on input line 648.
 (pdftex.def)             Requested size: 375.80544pt x 281.84966pt.
- [15] [16 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a12
-7_N10_Tem6000_w0200_eps8066.pdf> </home/henry/Work/phd-work/vibronic-TLS/Notes/
-Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066.pdf
+ Excluding 'comment' comment. [17 </home/henry/Work/phd-work/vibronic-TLS/Notes
+/Images/Dynamics/Pop_a127_N10_Tem6000_w0200_eps8066.pdf>] [18 </home/henry/Work
+/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6000_w0200_eps8066.
+pdf> </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_diverg
+ence_a318_Tem6000_w0300.pdf
 
 pdfTeX warning: /usr/local/texlive/2016/bin/x86_64-linux/pdflatex (file /home/h
-enry/Work/phd-work/vibronic-TLS/Notes/Images/Phonons/Pop_a127_N10_Tem6000_w0200
-_eps8066.pdf): PDF inclusion: multiple pdfs with page group included in a singl
-e page
->] [17 </home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_dive
-rgence_a318_Tem6000_w0300.pdf>] Excluding 'comment' comment.
-(./Vibronic_incoherent_notes.bbl) [18] (./Vibronic_incoherent_notes.aux)
+enry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/1Pop_SS_divergence_a318_Tem
+6000_w0300.pdf): PDF inclusion: multiple pdfs with page group included in a sin
+gle page
+>] (./Vibronic_incoherent_notes.bbl) [19] (./Vibronic_incoherent_notes.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 11346 strings out of 493013
- 205457 string characters out of 6133328
- 263917 words of memory out of 5000000
- 14788 multiletter control sequences out of 15000+600000
- 10634 words of font info for 38 fonts, out of 8000000 for 9000
+ 11378 strings out of 493013
+ 206803 string characters out of 6133328
+ 260958 words of memory out of 5000000
+ 14813 multiletter control sequences out of 15000+600000
+ 10289 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,20n,51p,10422b,275s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,20n,51p,10422b,291s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
@@ -1444,12 +1539,11 @@ ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 6/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2016/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Vibronic_incoherent_notes.pdf (18 pages, 1249698 bytes).
+mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Vibronic_incoherent_notes.pdf (19 pages, 1369665 bytes).
 PDF statistics:
- 374 PDF objects out of 1000 (max. 8388607)
- 173 compressed objects within 2 object streams
+ 462 PDF objects out of 1000 (max. 8388607)
+ 195 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

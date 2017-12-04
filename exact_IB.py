@@ -21,11 +21,11 @@ def integrand_OD(omega, t, alpha, beta, wc):
 
 
 
-def integrand_UD(omega, t, alpha, beta, Gamma, omega_0):
+def integrand_UD(omega, t, alpha, beta, Gamma, w0):
     if omega ==0:
         return 0.
     else:
-        return (1/omega**2)*J_underdamped(omega, alpha, Gamma, omega_0)*coth(beta*omega/2.)*(1-np.cos(omega*t))
+        return (1/omega**2)*J_underdamped(omega, alpha, Gamma, w0)*coth(beta*omega/2.)*(1-np.cos(omega*t))
 
 def integral_converge(f, a):
     x = 100.
@@ -47,25 +47,26 @@ def plot_integrand(beta, wc):
     plt.plot(omega, y2)
     plt.show()
 
-def exact_decay(t, alpha, beta, wc):
-    f = lambda omega : integrand_OD(omega, t, alpha, beta, wc)
+def exact_decay(t, alpha, beta, Gamma, w0):
+    f = lambda omega : integrand_UD(omega, t, alpha, beta, Gamma, w0)
     I = -integral_converge(f, 0.)
     return I
 
-def exact_solution_at_t(t, eps, alpha, beta, wc, rho_init):
-    Decay = exact_decay(t, alpha, beta, wc)
+def exact_solution_at_t(t, eps, alpha, beta, Gamma, w0, rho_init):
+    Decay = exact_decay(t, alpha, beta, Gamma, w0)
     rho_01 = rho_init.matrix_element(E.dag(), G)*np.exp(Decay)*np.exp(-1j*eps*t)
     return rho_01
 
 
-def exact_dynamics(eps, alpha, wc, omega_0, Gamma, beta, rho_init, a, b, points):
-    T = np.linspace(a, b, points)
+def exact_dynamics(eps, alpha, wc, w0, Gamma, beta, rho_init, time_points, overdamped=False):
     rho_t = []
-    for t in T:
-        rho_t.append(exact_solution_at_t(t, eps, alpha, beta, wc, rho_init))
+    if overdamped:
+        Gamma = omega_0**2/wc
+    for t in time_points:
+        rho_t.append(exact_solution_at_t(t, eps, alpha, beta, Gamma, w0, rho_init))
         if len(rho_t)%40 == 0:
-            print "Exact solution {:0.3f} percent finished".format((float(len(rho_t))/points)*100)
-    return T, rho_t
+            print "Exact solution {:0.3f} percent finished".format((float(len(rho_t))/len(time_points))*100)
+    return rho_t
 
 def absorption_integrand(t, omega, eps, shift, alpha, beta, Gamma, omega_0):
     #Similar to Integrand function but slightly different since was calculated in Heisenberg picture

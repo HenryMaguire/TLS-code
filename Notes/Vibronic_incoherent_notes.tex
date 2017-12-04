@@ -9,7 +9,7 @@
 \usepackage[english]{isodate}
 \usepackage{authblk}
 
-\title{Vibronic effects on the incoherently excited molecules}
+\title{Vibronic effects on incoherently excited monomers}
 \author[1]{H. Maguire}
 \affil[1]{Photon Science Institute and School of Physics and Astronomy, The University of Manchester, Oxford Road,
 	Manchester M13 9PL, United Kingdom}
@@ -20,7 +20,7 @@
 
 \maketitle
 \begin{abstract}
-Here we study a single electronic transition in a molecule, which is interacting strongly with broad low-frequency phonons. Specifically, we aim to investigate how incoherent excitation from a weakly-coupled thermal radiation field affects these systems. We apply the Reaction Coordinate mapping to the electron-phonon coupling in order to extend the validity of a Born-Markov master equation. This method essentially redraws the boundary of system and bath to include a collective phonon within the system. The eigenstates of the new Hamiltonian therefore represent \textit{vibronic} excitations - each state interacting with the ambient electromagnetic field differently. At strong system-environment coupling and high thermal field temperature, we see that the secular approximation breaks down in the quantum optical master equation, leading to different dynamics and steady states.
+Here we study a single electronic transition in a molecule, which is interacting strongly with broad low-frequency phonons. Specifically, we aim to investigate how incoherent excitation from a weakly-coupled thermal radiation field affects these systems. The Reaction Coordinate (RC) mapping is applied to the electron-phonon coupling in order to extend the validity of a Born-Markov master equation by effectively redrawing the boundary between system and bath to include a collective phonon degree-of-freedom within the system. The RC method without external driving is compared to an exact solution. Eigenstates of the Hamiltonian in the RC frame represent mixed electron-phonon excited states - each state interacting with the ambient electromagnetic field differently. The various approximations that can be made on the electromagnetic system-field interaction can be broken by different phonon-coupling regimes. At strong system-environment coupling and high thermal field temperature, we see that the secular approximation breaks down in the quantum optical master equation, leading to different coherence dynamics.
 \end{abstract}
  
 \section{Plan:}
@@ -42,16 +42,12 @@ Here we study a single electronic transition in a molecule, which is interacting
 	\item What motivates the use of the reaction coordinate method? What does it allow? What are the restrictions?
 	\item Potential nanosystems which harvest or manipulate light are likely to be fabricated in the solid state, where low-frequency phonon modes are likely to interact strongly with electronic degrees of freedom. Give a few examples of potential architectures.
 	\item The size of natural light harvesting systems means that the peak solar frequencies are likely to have wavelengths that span many molecular sites. This leads to various collective excitation and emission effects. In the strong vibrational regime this leads to rich dynamics and steady states which are likely to affect the operational efficiency of a machine.
+	\item Aim to answer the question, "what effect does having a well defined vibronic manifold have on the discrepancies between secular and non-secular optical master equations?" 
+	\item How does the reaction coordinate picture relate to the theory of delocalised (phonon?) vs localised vibrations (from the electron-phonon chapter). 
 \end{itemize}
-In these notes we aim to investigate the interplay between vibrational and electronic degrees of freedom in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths at different orders of perturbation. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states. Aim to answer the question, "what effect does having a well defined vibronic manifold have on the discrepancies between secular and non-secular optical master equations?" How does the reaction coordinate picture relate to the theory of delocalised (phonon?) vs localised vibrations (from the electron-phonon chapter). 
+In these notes, the interplay between vibrational and electronic degrees of freedom are investigated in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths at different orders of perturbation. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states which can be explored with the Reaction Coordinate technique.
 
-\subsection{TODO:}
-\begin{itemize}
-	\item 
-\end{itemize}
-\section{Introduction}
-
-Recently, several papers have discussed proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures\cite{Dorfman}\cite{Creatore2013}\cite{Killoran2015}\cite{Fruchtman2016}. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations are excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised, inter-molecular vibrations lead to many interesting observable effects:
+Several recent papers have discussed proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures\cite{Dorfman}\cite{Creatore2013}\cite{Killoran2015}\cite{Fruchtman2016}. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations are excitonic in nature - bound electron-hole pairs . The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised, inter-molecular vibrations lead to many interesting observable effects:
 \begin{itemize}
 	\item Homogeneous broadening of the emission and absorption spectra.
 	\item Dissipation of electronic energy into the vibrational environment as heat - known as the reorganisation energy.
@@ -227,21 +223,72 @@ where $\xi_{ij} = (\phi_i-\phi_j)$ and the imaginary Lamb-shift terms have been 
 \pdv{\rho(t)}{t} = -i\left[H_0, \rho(t)\right] - \left[A, \left[\chi, \rho(t)\right]\right] + \left[A, \big\lbrace\Xi, \rho(t)\big\rbrace\right].
 \end{equation}
 \subsection{Weak Coupling Master Equation}
-We start from the master equation (See e.g. Jake's thesis),
+Deriving a Born-Markov master equation, converting back to Schr\"odinger picture and then spectrally decomposing the system operator in order to include time-dependence in terms of system eigenstates
+$A(t)=\sum_{\zeta}A(\zeta)e^{-i\zeta t}$, yields
+\begin{align}
+\dot{\rho}_S(t) = -i[H_S, \rho_S(t)] -\frac{1}{2}\sum_{\zeta}&\gamma(\zeta)\big([A, A(\zeta)\rho_S(t)-\rho_S(t)A^{\dagger}(\zeta)]\\-&iS(\zeta)\big([A, A(\zeta)\rho_S(t)+\rho_S(t)A^{\dagger}(\zeta)]\big).
+\end{align}
+Full Hamiltonian of TLS plus phonon bath
 \begin{equation}
-\pdv{\rho_S(t)}{t} = -i[H_S, \rho_S(t)] - \int_{0}^{\infty}d\tau([\dyad{X}, \dyad{X}(-\tau)\rho_S(t)]C(\tau) - [\dyad{X}, \rho_S(t)\dyad{X}(-\tau)]C(-\tau))
+H = \epsilon\dyad{1}{1} + \sum_{k}\omega_k a^{\dagger}_k a_k + \dyad{1}{1}\sum_{k} (a_k +a^{\dagger}_k) 
 \end{equation}
-where the correlation functions are given by 
+Thus the interaction Hamiltonian in the interaction picture is
 \begin{equation}
-C(\tau) = \int_{0}^{\infty}d\omega J(\omega)\left(\coth(\frac{\beta\omega}{2})\cos(\omega \tau) - i\sin(\omega\tau)\right)
+\tilde{H}_I(t) = \dyad{1}{1}\sum_{k} (a_ke^{-i\omega_k} +a^{\dagger}_ke^{i\omega_k}) 
 \end{equation}
-and 
+where in the interaction picture $O(t)=e^{i\omega_k}Oe^{-i\omega_k}$. Therefore the system operator $A = \dyad{1}$ is 
 \begin{equation}
-\dyad{X}(\tau) = \dyad{X}
+\quad \tilde{A}(t) = \dyad{1} = A.
 \end{equation}
 
+Plugging all this into the ME above we have
+\begin{align}
+\dot{\rho}_S(t) = -i[H_S, \rho_S(t)] -\frac{1}{2}&\gamma(0)\bigg(\big\{\dyad{1},\rho_S(t)\big\} - 2\dyad{1}\rho_S(t)\dyad{1}\bigg)\\-&iS(0)\big[\dyad{1},\rho_S(t)\big].
+\end{align}
+Where $\gamma(\omega)=2\Re{K(\omega)}$ and $S(\omega)=\Im{K(\omega)}$ with
+\begin{equation}
+K(\omega) = \int_{0}^{\infty}d\tau C(\tau)e^{i\omega\tau}.
+\end{equation}
+Calculating the above and evaluating the Fourier transform wrt zero gives $\gamma(0)=\lim\limits_{x\to0}\frac{\pi}{2}J(x)\coth(\beta x/2)$ and $S(0)=\int_{0}^{\infty}\frac{J(\omega)}{\omega}$.
+In the case of electron-phonon interactions within molecular systems, it is reasonable to assume a Lorentzian spectral density
+\begin{equation}
+J(\omega) = \alpha \frac{\Gamma \omega_0^2 \omega}{(\omega_0^2 - \omega^2)^2 + \Gamma^2\omega^2}
+\end{equation}
+where $\alpha$, $\omega_0$ and $\Gamma$ describe the height, position and width of the Lorentzian. Defining a cutoff frequency $\omega_c$ and then defining $\Gamma = \omega_0^2/\omega_c$ where $\omega_0>>\omega_c$ gives a Drude-Lorentz or overdamped type spectral density.
+
 \subsection{Dynamics}
-Compare to exact solution. Look at how things change between the localised and delocalised vibration case.
+\begin{figure}[t]
+	\centering
+	\begin{minipage}[b]{0.325\textwidth}
+		\includegraphics[width=\textwidth]{"Images/PhononOnly/Phonons\string_only\string_weak".pdf}
+		\caption{TLS Site Coherence: Weak-Coupling Regime. The weak coupling theory matches the exact solution.}
+		\label{fig:PhononOnlyWeak}
+	\end{minipage}
+	\begin{minipage}[b]{0.325\textwidth}
+		\includegraphics[width=\textwidth]{"Images/PhononOnly/Phonons\string_only\string_intermediate".pdf}
+		\caption{TLS Site Coherence: intermediate-Coupling Regime. Broad, overdamped Lorenztian Phonon bath. $\omega_{c}=53cm^{-1}$ $\pi\alpha=1000cm^{-1}$}
+		\label{fig:PhononOnlyIntermediate}
+	\end{minipage}
+	\begin{minipage}[b]{0.325\textwidth}
+		\includegraphics[width=\textwidth]{"Images/PhononOnly/Phonons\string_only\string_strong".pdf}
+		\caption{TLS Site Coherence: Strong-Coupling Regime. Broad, overdamped Lorenztian Phonon bath.}
+		\label{fig:PhononOnlyStrong}
+	\end{minipage}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{"Images/PhononOnly/Phonons\string_only\string_strong\string_resonantOD\string_G10".pdf}
+		\caption{TLS Site Coherence: Strong-Coupling Regime. Sharply peaked underdamped Lorenztian Vibrational mode. $\omega_0=\epsilon$, $\Gamma=100cm^{-1}$, $\alpha=1000cm^{-1}$}
+		\label{fig:PhononOnlyStrongOD}
+	\end{minipage}
+	\begin{minipage}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{"Images/FrequencyAnalysis/noPhononFreqSpectra".png}\caption{Fourier transform of figure \ref{fig:PhononOnlyStrongOD}.}
+		\label{fig:PhononOnlySpectra}
+	\end{minipage}
+\end{figure}
+In figure \ref{fig:PhononOnlyWeak} we can see that the weak coupling theory is only valid in very weak coupling regimes. The Reaction Coordinate model seems to agree well with the exact calculation well into the strong-coupling regime, for broad, overdamped Spectral densities. However, as the phonon bath spectral density gets narrower the RC method breaks down as seen in \ref{fig:PhononOnlyStrongOD}.
 \section{Vibronic dissipation due to an electromagnetic bath}
 We now want to investigate the behaviour of the vibronic system when coupled to the ambient electromagnetic field, where the overall Hamiltonian is
 \begin{equation}

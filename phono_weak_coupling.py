@@ -35,11 +35,16 @@ def K(omega, beta, J, alpha, wc, imag_part=True):
     #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
     return G
 
-def L_phonon(J, alpha, beta, wc):
+def L_phonon(alpha, beta, Gamma, w0, overdamped=False):
+    gamma_0 = np.pi*alpha*Gamma/(beta*w0**2)
+    S = 0.5*np.pi*alpha
+    if overdamped:
+        wc = w0**2/Gamma
+        gamma_0 = np.pi*alpha/(beta*wc)
     XX = basis(2,1)*basis(2,1).dag()
-    gamma_0 = np.pi*alpha/(beta*wc)
+
     #S = K(0, beta, J, alpha, wc).imag
-    return -0.5*gamma_0*((spre(XX) + spost(XX)) - 2*sprepost(XX,XX)) + 0.5*1j*np.pi*alpha*(spre(XX) - spost(XX))
+    return -0.5*gamma_0*((spre(XX) + spost(XX)) - 2*sprepost(XX,XX)) + 1j*S*(spre(XX) - spost(XX))
 """
 def L_ph(XX, eps, beta, wc, w0, alpha_ph, kbT):
     dephasing_rate = 2*np.pi*alpha_ph*kbT
