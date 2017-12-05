@@ -30,7 +30,7 @@ def integrand_UD(omega, t, alpha, beta, Gamma, w0):
 def integral_converge(f, a):
     x = 100.
     I = 0
-    while abs(f(x))>5E-10:
+    while abs(f(x))>1E-10:
         I += quad(f, a, x)[0]
         a+=100
         x+=100

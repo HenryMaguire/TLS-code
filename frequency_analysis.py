@@ -20,7 +20,6 @@ def plot_frequency(DATA, timelist, label='', QOBJ=True):
         y = DATA
         yf = fft(y)
         T = abs(timelist[1]-timelist[0])
-
         xf = fftfreq(N, T)
         xf = -fftshift(xf)
         yplot = fftshift(yf)

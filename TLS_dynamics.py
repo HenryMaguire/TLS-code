@@ -112,7 +112,7 @@ if __name__ == "__main__":
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
     ## ~~ Parameters ~~
-    N = 6
+    N = 15
     eps = 0.1*8065.5 # TLS splitting
     #eps = 2.*1519.3 # ps
     T_EM = 6000. # Optical bath temperature
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     Gamma_EM = 0.1*5.309 #bare decay of electronic transition from inv. ps to in inv. cm
     #Gamma_EM = 6.582E-7*1519.3
     T_ph = 300. # Phonon bath temperature
-    overdamped = True
+    overdamped = False
     phonon_only = True
     #fig1wc = 53.*0.188
 
@@ -178,7 +178,7 @@ if __name__ == "__main__":
         # Expectation values and time increments needed to calculate the dynamics
         expects_wc = [G*G.dag(), E*G.dag()]
         expects = [tensor(G*G.dag(), qeye(N)), tensor(E*G.dag(), qeye(N)), tensor(E*E.dag(), qeye(N)), tensor(qeye(2), destroy(N).dag()*destroy(N)), tensor(qeye(2), destroy(N).dag()+destroy(N))]
-        timelist = np.linspace(0, 0.04, 300)
+        timelist = np.linspace(0, 0.06, 300)
         #nonsec_check(eps, H, A_em, N) # Plots a scatter graph representation of non-secularity. Could use nrwa instead.
 
         # Calculate dynamics
@@ -217,8 +217,8 @@ if __name__ == "__main__":
 
             plt.figure()
             #plt.plot(timelist, DATA_wc.expect[0], label='wc')
-            plt.plot(timelist, DATA_nrwa1.expect[0], label='nrwa')
-            plt.plot(timelist, DATA_nrwa2.expect[0], label='nrwa')
+            plt.plot(timelist, DATA_nrwa.expect[0], label='nrwa')
+            #plt.plot(timelist, DATA_nrwa2.expect[0], label='nrwa')
             #plt.plot(timelist, DATA_ns.expect[0], label='ns')
             #plt.plot(timelist, DATA_s.expect[0], label='sec', linestyle='dashed')
             #plt.plot(timelist, DATA_naive.expect[0], label='naive')
