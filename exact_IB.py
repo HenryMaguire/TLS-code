@@ -28,12 +28,13 @@ def integrand_UD(omega, t, alpha, beta, Gamma, w0):
         return (1/omega**2)*J_underdamped(omega, alpha, Gamma, w0)*coth(beta*omega/2.)*(1-np.cos(omega*t))
 
 def integral_converge(f, a):
-    x = 100.
+    step = 110.
+    x = step
     I = 0
-    while abs(f(x))>1E-10:
+    while abs(f(x))>5E-9:
         I += quad(f, a, x)[0]
-        a+=100
-        x+=100
+        a+=step
+        x+=step
     return I # Converged integral
 
 def plot_integrand(beta, wc):
@@ -61,7 +62,7 @@ def exact_solution_at_t(t, eps, alpha, beta, Gamma, w0, rho_init):
 def exact_dynamics(eps, alpha, wc, w0, Gamma, beta, rho_init, time_points, overdamped=False):
     rho_t = []
     if overdamped:
-        Gamma = omega_0**2/wc
+        Gamma = w0**2/wc
     for t in time_points:
         rho_t.append(exact_solution_at_t(t, eps, alpha, beta, Gamma, w0, rho_init))
         if len(rho_t)%40 == 0:

@@ -166,7 +166,7 @@ def Gamma(omega, beta, J, alpha, wc, imag_part=True):
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
     return G
 
-def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=True):
+def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False):
     ti = time.time()
     beta = beta_f(T_EM)
 
@@ -186,7 +186,7 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=True):
     # Initialise liouvilliian
     L =  qt.spre(A*G) - qt.sprepost(G, A)
     L += qt.spost(G_dag*A) - qt.sprepost(A, G_dag)
-    print "Calculating non-RWA Liouvilliian took {} seconds."
+    print "Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)
     return -L
 """
 def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
