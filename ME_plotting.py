@@ -121,6 +121,7 @@ def plot_nonsec(ax, TD, dipoles):
     #ax.title(r"Non-secularity check: $\epsilon=$""%i"%eps)
     ax.set_xlabel(r"$\varphi_{ij}-\varphi_{kl}$")
     ax.set_ylabel(r"Down rate weighted by dipole of transitions $A_{ij}A_{kl}$")
+<<<<<<< HEAD
 
 
 if __name__ == "__main__":
@@ -220,3 +221,5 @@ if __name__ == "__main__":
     #np.savetxt('DATA/Dynamics/DATA_ns.txt', np.array([1- DATA_ns.expect[0], timelist]), delimiter = ',', newline= '\n')
     plt.show()
     """
+=======
+>>>>>>> d91a73078751b16e271f9eb594f26a765226f8fc

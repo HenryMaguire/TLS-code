@@ -60,13 +60,14 @@ def RCME_operators(H_0, A, gamma, beta):
 def liouvillian_build(H_0, A, gamma, wRC, T_C):
     time_units='cm'
     conversion = 0.695
+    """
     if time_units == 'ev':
         conversion == 8.617E-5
     if time_units == 'ps':
         conversion == 0.131
     else:
         pass
-
+    """
     beta_C = 0.
     if T_C == 0.0:
         beta_C = np.infty
@@ -90,13 +91,11 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C):
 
     return L
 
-def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N):
-
+def RC_function_UD(sigma, eps, T_Ph, Gamma, wRC, alpha_ph, N):
     # we define all of the RC parameters by the underdamped spectral density
-    Gamma = (wRC**2)/wc
     gamma = Gamma / (2. * np.pi * wRC)  # no longer a free parameter that we normally use to fix wRC to the system splitting
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
-    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "residual bath coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa, "Gamma_RC= ", Gamma
+    print "w_RC=",wRC, " TLS splitting =",eps, "RC-res. bath coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa, "Gamma_RC= ", Gamma
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
     L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph)
 

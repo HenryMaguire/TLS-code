@@ -9,8 +9,11 @@ The four electromagnetic liouvillians I am studying:
 
 import numpy as np
 import scipy as sp
+from scipy import integrate
+import qutip as qt
 from qutip import destroy, tensor, qeye, spost, spre, sprepost
 import time
+from utils import J_minimal, beta_f, J_minimal_hard
 
 def Occupation(omega, T, time_units='cm'):
     conversion = 0.695
@@ -34,7 +37,7 @@ def Occupation(omega, T, time_units='cm'):
             n = float(1./(sp.exp(omega*beta)-1))
     return n
 
-
+"""
 def J_multipolar(omega, Gamma, omega_0):
     return Gamma*(omega**3)/(2*np.pi*(omega_0**3))
 
@@ -43,7 +46,8 @@ def J_minimal(omega, Gamma, omega_0):
 
 def J_flat(omega, Gamma, omega_0):
     return Gamma
-
+"""
+'''
 def cauchyIntegrands(omega, beta, J, ver):
     # Function which will be called within another function where J, beta and the eta are defined locally.
     F = 0
@@ -101,7 +105,90 @@ def decay_rate(J, omega, Gamma, omega_0, T, time_units):
     else:
         Decay = 0.5*J(omega, Gamma, omega_0)*(coth(beta*omega/2)+1)
     return Decay
+'''
+import sympy
+def coth(x):
+    return float(sympy.coth(x))
 
+def cauchyIntegrands(omega, beta, J, alpha, wc, ver):
+    # J_overdamped(omega, alpha, wc)
+    # Function which will be called within another function where J, beta and
+    # the eta are defined locally
+    F = 0
+    if ver == 1:
+        F = J(omega, alpha, wc)*(coth(beta*omega/2.)+1)
+    elif ver == -1:
+        F = J(omega, alpha, wc)*(coth(beta*omega/2.)-1)
+    elif ver == 0:
+        F = J(omega, alpha, wc)
+    return F
+import time
+def integral_converge(f, a, omega):
+    inc = 5.
+    x = inc
+    I = 0
+    while abs(f(x))>5E-10:
+        #print x, f(x)
+        I += integrate.quad(f, a, x, weight='cauchy', wvar=omega)[0]
+        a+=inc
+        x+=inc
+        #time.sleep(0.1)
+    print "Integral converged"
+    return I # Converged integral
+
+def Gamma(omega, beta, J, alpha, wc, imag_part=True):
+    G = 0
+    # Here I define the functions which "dress" the integrands so they
+    # have only 1 free parameter for Quad.
+    F_p = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 1)))
+    F_m = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, -1)))
+    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 0)))
+    w='cauchy'
+    if omega>0.:
+        # These bits do the Cauchy integrals too
+        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega,alpha, wc)
+        if imag_part:
+            G += (1j/2.)*(integral_converge(F_m, 0,omega))
+            G -= (1j/2.)*(integral_converge(F_p, 0,-omega))
+
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega), integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)
+    elif omega==0.:
+        G = (np.pi/2)*(2*alpha/beta)
+        # The limit as omega tends to zero is zero for superohmic case?
+        if imag_part:
+            G += -(1j)*integral_converge(F_0, -1e-12,0)
+        #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
+    elif omega<0.:
+        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega),alpha, wc)
+        if imag_part:
+            G += (1j/2.)*integral_converge(F_m, 0,-abs(omega))
+            G -= (1j/2.)*integral_converge(F_p, 0,abs(omega))
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
+    return G
+
+def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False):
+    ti = time.time()
+    beta = beta_f(T_EM)
+
+    eVals, eVecs = H_vib.eigenstates()
+    #J=J_minimal # J_minimal(omega, Gamma, omega_0)
+    d_dim = len(eVals)
+    G = 0
+    for i in xrange(d_dim):
+        for j in xrange(d_dim):
+            eta = eVals[i]-eVals[j]
+            s = eVecs[i]*(eVecs[j].dag())
+            #print A.matrix_element(eVecs[i].dag(), eVecs[j])
+            s*= A.matrix_element(eVecs[i].dag(), eVecs[j])
+            s*= Gamma(eta, beta, J, alpha, w_0, imag_part=principal)
+            G+=s
+    G_dag = G.dag()
+    # Initialise liouvilliian
+    L =  qt.spre(A*G) - qt.sprepost(G, A)
+    L += qt.spost(G_dag*A) - qt.sprepost(A, G_dag)
+    print "Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)
+    return -L
+"""
 def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
     ti = time.time()
     d = H_vib.shape[0]
@@ -121,6 +208,7 @@ def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
     L = spre(sig_x*Z) - sprepost(Z, sig_x) + spost(Z_dag*sig_x) - sprepost(sig_x, Z_dag)
     print "It took ", time.time()-ti, " seconds to build the non-RWA Liouvillian"
     return -L
+"""
 
 def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm'):
     #Construct non-secular liouvillian
@@ -192,6 +280,7 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm'):
     return -L
 
 def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm'):
+    # col_em is collapse operator
     ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
