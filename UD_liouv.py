@@ -19,13 +19,14 @@ from qutip import destroy, tensor, qeye, spre, spost, sprepost
 from sympy.functions import coth
 
 
-def Ham_RC(sigma, eps, Omega, kap, N):
+def Ham_RC(sigma, eps, Omega, kappa, N):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
     Output: Hamiltonian, sigma_- and sigma_z in the vibronic Hilbert space
     """
     a = destroy(N)
-    H_S = eps*tensor(sigma.dag()*sigma, qeye(N)) + kap*tensor(sigma.dag()*sigma, (a + a.dag()))+tensor(qeye(2),Omega*a.dag()*a)
+    shift = (kappa**2)/Omega
+    H_S = (eps+shift)*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag()))+tensor(qeye(2),Omega*a.dag()*a)
     A_em = tensor(sigma, qeye(N))
     A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
     A_ph = tensor(qeye(2), (a + a.dag()))

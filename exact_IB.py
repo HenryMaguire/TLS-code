@@ -60,6 +60,7 @@ def exact_solution_at_t(t, eps, alpha, beta, Gamma, w0, rho_init):
 
 
 def exact_dynamics(eps, alpha, wc, w0, Gamma, beta, rho_init, time_points, overdamped=False):
+    eps = eps + np.pi*alpha/2.
     rho_t = []
     if overdamped:
         Gamma = w0**2/wc
