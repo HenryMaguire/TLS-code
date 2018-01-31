@@ -166,7 +166,7 @@ def Gamma(omega, beta, J, alpha, wc, imag_part=True):
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
     return G
 
-def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False):
+def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, silent=False):
     ti = time.time()
     beta = beta_f(T_EM)
 
@@ -186,7 +186,8 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False):
     # Initialise liouvilliian
     L =  qt.spre(A*G) - qt.sprepost(G, A)
     L += qt.spost(G_dag*A) - qt.sprepost(A, G_dag)
-    print "Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)
+    if not silent:
+        print "Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)
     return -L
 """
 def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
@@ -210,7 +211,7 @@ def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
     return -L
 """
 
-def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm'):
+def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
     #Construct non-secular liouvillian
     ti = time.time()
     d = H_vib.shape[0]
@@ -235,10 +236,11 @@ def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm'):
 
     L = spre(A*X1) -sprepost(X1,A)+spost(X2*A)-sprepost(A,X2)
     L+= spre(A.dag()*X3)-sprepost(X3, A.dag())+spost(X4*A.dag())-sprepost(A.dag(), X4)
-    print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
     return -0.5*L
 
-def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm'):
+def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
     '''
     Initially assuming that the vibronic eigenstructure has no
     degeneracy and the secular approximation has been made
@@ -275,11 +277,11 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm'):
                 T3 = (r_up*sprepost(JI, IJ)+r_down*sprepost(IJ,JI))
                 L += lam_ij_sq*(0.5*(T1 + T2) - T3)
                 l+=1
-
-    print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
     return -L
 
-def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm'):
+def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm', silent=False):
     # col_em is collapse operator
     ti = time.time()
     L = 0
