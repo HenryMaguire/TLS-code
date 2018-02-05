@@ -92,11 +92,12 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C):
 
     return L
 
-def RC_function_UD(sigma, eps, T_Ph, Gamma, wRC, alpha_ph, N):
+def RC_function_UD(sigma, eps, T_Ph, Gamma, wRC, alpha_ph, N, silent=False):
     # we define all of the RC parameters by the underdamped spectral density
     gamma = Gamma / (2. * np.pi * wRC)  # no longer a free parameter that we normally use to fix wRC to the system splitting
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
-    print "w_RC=",wRC, " TLS splitting =",eps, "RC-res. bath coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa, "Gamma_RC= ", Gamma
+    if not silent:
+        print "w_RC=",wRC, " TLS splitting =",eps, "RC-res. bath coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa, "Gamma_RC= ", Gamma
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
     L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph)
 

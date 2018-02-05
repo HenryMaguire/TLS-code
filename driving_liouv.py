@@ -240,6 +240,56 @@ def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
         print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
     return -0.5*L
 
+def L_full_secular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
+    '''
+    Initially assuming that the vibronic eigenstructure has no
+    degeneracy and the secular approximation has been made
+    '''
+    ti = time.time()
+    d = H_vib.shape[0]
+    L = 0
+    eVals, eVecs = H_vib.eigenstates()
+    A_dag = A.dag()
+    terms = 0
+    for l in range(int(d)):
+        for m in range(int(d)):
+            for p in range(int(d)):
+                for q in range(int(d)):
+                    secular_freq = (eVals[l]-eVals[m]) - (eVals[p]-eVals[q])
+                    if abs(secular_freq) <1E-10:
+                        terms+=1
+                        A_lm = A.matrix_element(eVecs[l].dag(), eVecs[m])
+                        A_lm_star = A_dag.matrix_element(eVecs[m].dag(), eVecs[l])
+                        A_pq = A.matrix_element(eVecs[p].dag(), eVecs[q])
+                        A_pq_star = A_dag.matrix_element(eVecs[q].dag(), eVecs[p])
+                        coeff_1 = A_lm*A_pq_star
+                        coeff_2 = A_lm_star*A_pq
+                        eps_pq = abs(eVals[p]-eVals[q])
+                        Occ = Occupation(eps_pq, T, time_units)
+                        r_up = np.pi*J(eps_pq, Gamma, eps)*Occ
+                        r_down = np.pi*J(eps_pq, Gamma, eps)*(Occ+1)
+                        LM = eVecs[l]*eVecs[m].dag()
+                        ML = LM.dag()
+                        PQ = eVecs[p]*eVecs[q].dag()
+                        QP = PQ.dag()
+                        """
+                        if abs(secular_freq) !=0:
+                            print (abs(secular_freq), r_up, A_lm, A_lm_star,
+                                   A_pq, A_pq_star, r_down, l,m,p,q, m==q, l==p)
+                        """
+                        if abs(r_up*coeff_1)>0:
+                            L+= r_up*coeff_1*(spre(LM*QP)-sprepost(QP,LM))
+                        if abs(r_up*coeff_2)>0:
+                            L+= r_up*coeff_2*(spost(PQ*ML)- sprepost(ML,PQ))
+                        if abs(r_down*coeff_1)>0:
+                            L+= r_down*coeff_1*(spre(ML*PQ)-sprepost(PQ, ML))
+                        if abs(r_down*coeff_2)>0:
+                            L+= r_down*coeff_2*(spost(QP*LM)-sprepost(LM, QP))
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the secular Liouvillian"
+        print "Secular approximation kept {:0.2f}% of total ME terms. \n".format(100*float(terms)/(d*d*d*d))
+    return -L
+
 def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
     '''
     Initially assuming that the vibronic eigenstructure has no
@@ -288,5 +338,6 @@ def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm', silent=False)
     EMnb = Occupation(splitting, T, time_units)
     L+= 2*np.pi*J(splitting, Gamma, splitting)*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
     L+= 2*np.pi*J(splitting, Gamma, splitting)*EMnb*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
-    print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L
