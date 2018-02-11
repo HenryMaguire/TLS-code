@@ -15,7 +15,8 @@ def save_obj(obj, name ):
     with open(name + '.pickle', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
-
+def Coth(x):
+    return (np.exp(2*x)+1)/(np.exp(2*x)-1)
 
 def beta_f(T):
     conversion = 0.695
