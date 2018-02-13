@@ -41,6 +41,15 @@ def RCME_operators(H_0, A, gamma, beta):
     Chi = 0 # Initiate the operators
     Xi = 0
     eVals, eVecs = H_0.eigenstates()
+    ground_list = []
+    excited_list = []
+    for i in range(len(eVals)):
+        is_ground = sum(eVecs[i])[0][0].real == 1.
+        if is_ground:
+            ground_list.append(i)
+        else:
+            excited_list.append(i)
+
     #print H_0
     #ti = time.time()
     for j in range(dim_ham):
@@ -52,9 +61,18 @@ def RCME_operators(H_0, A, gamma, beta):
                 if sp.absolute(e_jk) > 0:
                     #print e_jk
                     # If e_jk is zero, coth diverges but J goes to zero so limit taken seperately
+                    if (np.pi*gamma*A_jk/beta) >0:
+                        print j, k
+                        print j in ground_list, k in ground_list
+                        print e_jk
                     Chi += 0.5*np.pi*e_jk*gamma * UTILS.Coth(e_jk * beta / 2)*A_jk*outer_eigen # e_jk*gamma is the spectral density
                     Xi += 0.5*np.pi*e_jk*gamma * A_jk * outer_eigen
                 else:
+                    if (np.pi*gamma*A_jk/beta) >0:
+                        print j, k
+                        print j in ground_list, k in ground_list
+                        print e_jk
+
                     Chi += (np.pi*gamma*A_jk/beta)*outer_eigen # Just return coefficients which are left over
                     #Xi += 0 #since J_RC goes to zero
 
@@ -76,10 +94,13 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C):
 
     return L
 
-def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False):
+def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False, residual_off=False):
     # we define all of the RC parameters by the underdamped spectral density
-    gamma = Gamma / (2. * np.pi * wRC)  # no longer a free parameter that we normally use to fix wRC to the system splitting
+    gamma = Gamma / (2. * np.pi * wRC)  # coupling between RC and residual bath
+    if residual_off:
+        gamma=0
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
+
     if not silent:
         print "w_RC=",wRC, " TLS splitting =",eps, "RC-res. coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa, "Gamma_RC= ", Gamma, "alpha_ph=",alpha_ph, "beta=",beta_f(T_ph)
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
