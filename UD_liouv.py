@@ -61,17 +61,19 @@ def RCME_operators(H_0, A, gamma, beta):
                 if sp.absolute(e_jk) > 0:
                     #print e_jk
                     # If e_jk is zero, coth diverges but J goes to zero so limit taken seperately
+                    """
                     if (np.pi*gamma*A_jk/beta) >0:
                         print j, k
                         print j in ground_list, k in ground_list
-                        print e_jk
+                        print e_jk"""
                     Chi += 0.5*np.pi*e_jk*gamma * UTILS.Coth(e_jk * beta / 2)*A_jk*outer_eigen # e_jk*gamma is the spectral density
                     Xi += 0.5*np.pi*e_jk*gamma * A_jk * outer_eigen
                 else:
+                    """
                     if (np.pi*gamma*A_jk/beta) >0:
                         print j, k
                         print j in ground_list, k in ground_list
-                        print e_jk
+                        print e_jk"""
 
                     Chi += (np.pi*gamma*A_jk/beta)*outer_eigen # Just return coefficients which are left over
                     #Xi += 0 #since J_RC goes to zero
