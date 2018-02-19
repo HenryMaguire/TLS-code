@@ -18,7 +18,7 @@ import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost
 #from sympy.functions import coth
 import utils as UTILS
-reload(UTILS)
+
 from utils import beta_f, Coth
 
 def Ham_RC(sigma, eps, Omega, kappa, N):

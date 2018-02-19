@@ -6,6 +6,8 @@ import qutip as qt
 import pickle
 
 
+ev_to_inv_cm = 8065.5
+inv_ps_to_inv_cm = 5.309
 
 def load_obj(name ):
     with open(name + '.pickle', 'rb') as f:

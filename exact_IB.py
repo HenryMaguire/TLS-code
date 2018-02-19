@@ -112,29 +112,34 @@ def absorption(omega, eps, shift, alpha, beta, Gamma, omega_0, mu=1.):
 
 if __name__ == "__main__":
 
+    plt.style.use('ggplot')
+    plt.rcParams["axes.grid"] = True
+    plt.rcParams["axes.edgecolor"] = "0.15"
+    plt.rcParams["axes.linewidth"]  = 1.25
     G = ket([0])
     E = ket([1])
     rho_init = 0.5*(G+E)*(E.dag()+G.dag())
     #x = np.arange(1.,5,0.5)
-    alpha = 1000/np.pi
+
     beta = 1/(0.695*300)
     eps = 8000.
+    alpha = 1000/np.pi
     wc = 53.
     omega_0 = 500.
     Gamma = omega_0**2/wc
-    plot_integrand(beta, wc)
-
-    """
-    T, rho_t = exact_dynamics(eps, wc, omega_0, Gamma, beta, rho_init, 0, 0.02, 1000)
-    reData = np.loadtxt("DATA/RealExactdata.dat")
-    imData = np.loadtxt("DATA/ImagExactdata.dat")
-    plt.plot(list(zip(*reData)[0]), list(zip(*reData)[1]), label='math real')
+    #plot_integrand(beta, wc, Gamma, omega_0)
+    timesteps = np.linspace(0, 0.02, 100)
+    # defaults/API: exact_dynamics(eps, alpha, wc, w0, Gamma, beta, rho_init, time_points, overdamped=False , silent=False)
+    rho_t = exact_dynamics(eps, alpha, wc, omega_0, Gamma, beta, rho_init, timesteps, overdamped=True)
+    #reData = np.loadtxt("DATA/RealExactdata.dat")
+    #imData = np.loadtxt("DATA/ImagExactdata.dat")
+    #plt.plot(list(zip(*reData)[0]), list(zip(*reData)[1]), label='math real')
     #plt.plot(list(zip(*imData)[0]), list(zip(*imData)[1]), 'math imag')
-    plt.plot(T, np.array(rho_t).real, label='real')
-    #plt.plot(T, np.array(rho_t).imag, label='imag')
+    plt.plot(timesteps, np.array(rho_t).real, label='real')
+    plt.plot(timesteps, np.array(rho_t).imag, label='imag')
     plt.legend()
     plt.show()
-    """
+
     """
     m = []
     frequencies = np.linspace(-1000,1000,100)
