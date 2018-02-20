@@ -104,7 +104,7 @@ def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False, resi
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
 
     if not silent:
-        print "w_RC=",wRC, " TLS splitting =",eps, "RC-res. coupling=", gamma, " N=",N, "TLS-RC coupling=", kappa, "Gamma_RC= ", Gamma, "alpha_ph=",alpha_ph, "beta=",beta_f(T_ph)
+        print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
     L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
 
