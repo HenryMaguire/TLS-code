@@ -36,7 +36,7 @@ def J_multipolar(omega, Gamma, omega_0):
 def J_minimal(omega, Gamma, omega_0):
     return Gamma*omega/(2*np.pi*omega_0)
 
-def J_minimal_hard(omega, Gamma, omega_0, cutoff=10*omega_0):
+def J_minimal_hard(omega, Gamma, omega_0, cutoff):
     if omega <cutoff:
         return Gamma*omega/(omega_0) #2*np.pi*
     else:

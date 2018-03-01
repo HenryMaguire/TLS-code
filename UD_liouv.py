@@ -21,11 +21,13 @@ import utils as UTILS
 
 from utils import beta_f, Coth
 
-def Ham_RC(sigma, eps, Omega, kappa, N):
+def Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
     Output: Hamiltonian, sigma_- and sigma_z in the vibronic Hilbert space
     """
+    if rotating:
+        eps=0.
     a = destroy(N)
     shift = (kappa**2)/Omega
     H_S = (eps+shift)*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag()))+tensor(qeye(2),Omega*a.dag()*a)
@@ -96,7 +98,8 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C):
 
     return L
 
-def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False, residual_off=False):
+def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
+                                            residual_off=False, rotating=False):
     # we define all of the RC parameters by the underdamped spectral density
     gamma = Gamma / (2. * np.pi * wRC)  # coupling between RC and residual bath
     if residual_off:
@@ -105,7 +108,7 @@ def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False, resi
 
     if not silent:
         print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
-    H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
+    H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N, rotating=rotating)
     L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
 
     return L_RC, H, A_em, A_nrwa, wRC, kappa, Gamma
