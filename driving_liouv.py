@@ -9,23 +9,35 @@ The four electromagnetic liouvillians I am studying:
 
 import numpy as np
 import scipy as sp
+from scipy import integrate
+import qutip as qt
 from qutip import destroy, tensor, qeye, spost, spre, sprepost
 import time
+from utils import J_minimal, beta_f, J_minimal_hard
 
 def Occupation(omega, T, time_units='cm'):
     conversion = 0.695
-    if time_units == 'ps': # allows conversion to picoseconds, I can't remember what the exact number is though and cba to find it
-        conversion == 7.13
+    if time_units == 'ev':
+        conversion == 8.617E-5
+    if time_units == 'ps':
+        conversion == 0.131
     else:
         pass
     n =0.
-    if T ==0. or omega ==0.: # stop divergences safely
+    beta = 0.
+    if T ==0.: # First calculate beta
         n = 0.
+        beta = np.infty
     else:
-        beta = 1. / (conversion* T)
-        n = float(1./(sp.exp(omega*beta)-1))
+        # no occupation yet, make sure it converges
+        beta = 1. / (conversion*T)
+        if sp.exp(omega*beta)-1 ==0.:
+            n = 0.
+        else:
+            n = float(1./(sp.exp(omega*beta)-1))
     return n
 
+<<<<<<< .merge_file_Clc5Ot
 def rate_up_super(epsilon, N, alpha):
     return 0.5*np.pi*alpha*N*(epsilon**3)
 
@@ -40,7 +52,19 @@ def rate_down(epsilon, N, alpha):
 
 def J_ohmic(omega, alpha, wc=10000):
     return alpha*omega*np.exp(-omega/wc)
+=======
+"""
+def J_multipolar(omega, Gamma, omega_0):
+    return Gamma*(omega**3)/(2*np.pi*(omega_0**3))
 
+def J_minimal(omega, Gamma, omega_0):
+    return Gamma*omega/(2*np.pi*omega_0)
+>>>>>>> .merge_file_j48cUt
+
+def J_flat(omega, Gamma, omega_0):
+    return Gamma
+"""
+'''
 def cauchyIntegrands(omega, beta, J, ver):
     # Function which will be called within another function where J, beta and the eta are defined locally.
     F = 0
@@ -73,13 +97,13 @@ def Gamma(omega, beta, J):
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
     return G
 
-def decay_rate(omega, J, alpha, T, time_units):
+def decay_rate(J, omega, Gamma, omega_0, T, time_units):
     """
     Decay rate for non-secular master equation. In my notes, this is called Gamma.
     """
     conversion = 0.695
     if time_units == 'ps': # allows conversion to picoseconds
-        conversion == 7.13
+        conversion == 8.617E-5
     else:
         pass
 
@@ -89,17 +113,101 @@ def decay_rate(omega, J, alpha, T, time_units):
     else:
         beta = 1. / (conversion* T)
 
-    Gamma = 0
-    coth = lambda x : (sp.exp(2*alpha)+1)/(sp.exp(2*alpha)-1)
+    Decay = 0 # Initialise decay rate variable
+    coth = lambda x : (sp.exp(2*x)+1)/(sp.exp(2*x)-1)
     if omega>0:
-        Gamma = np.pi*0.5*J(omega, alpha)*(coth(beta*omega/2)-1)
+        Decay = np.pi*0.5*J(omega, Gamma, omega_0)*(coth(beta*omega/2)-1)
     elif omega ==0:
-        Gamma = np.pi*J(1, alpha) #/beta I thought this was supposed to be just J(1), but mathematica says otherwise
+        Decay = np.pi*J(1, Gamma, omega_0) #/beta I thought this was supposed to be just J(1), but mathematica says otherwise
     else:
-        Gamma = 0.5*J(omega, alpha)*(coth(beta*omega/2)+1)
-    return Gamma
+        Decay = 0.5*J(omega, Gamma, omega_0)*(coth(beta*omega/2)+1)
+    return Decay
+'''
+import sympy
+def coth(x):
+    return float(sympy.coth(x))
 
-def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
+def cauchyIntegrands(omega, beta, J, alpha, wc, ver):
+    # J_overdamped(omega, alpha, wc)
+    # Function which will be called within another function where J, beta and
+    # the eta are defined locally
+    F = 0
+    if ver == 1:
+        F = J(omega, alpha, wc)*(coth(beta*omega/2.)+1)
+    elif ver == -1:
+        F = J(omega, alpha, wc)*(coth(beta*omega/2.)-1)
+    elif ver == 0:
+        F = J(omega, alpha, wc)
+    return F
+import time
+def integral_converge(f, a, omega):
+    inc = 5.
+    x = inc
+    I = 0
+    while abs(f(x))>5E-10:
+        #print x, f(x)
+        I += integrate.quad(f, a, x, weight='cauchy', wvar=omega)[0]
+        a+=inc
+        x+=inc
+        #time.sleep(0.1)
+    print "Integral converged"
+    return I # Converged integral
+
+def Gamma(omega, beta, J, alpha, wc, imag_part=True):
+    G = 0
+    # Here I define the functions which "dress" the integrands so they
+    # have only 1 free parameter for Quad.
+    F_p = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 1)))
+    F_m = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, -1)))
+    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 0)))
+    w='cauchy'
+    if omega>0.:
+        # These bits do the Cauchy integrals too
+        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega,alpha, wc)
+        if imag_part:
+            G += (1j/2.)*(integral_converge(F_m, 0,omega))
+            G -= (1j/2.)*(integral_converge(F_p, 0,-omega))
+
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega), integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)
+    elif omega==0.:
+        G = (np.pi/2)*(2*alpha/beta)
+        # The limit as omega tends to zero is zero for superohmic case?
+        if imag_part:
+            G += -(1j)*integral_converge(F_0, -1e-12,0)
+        #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
+    elif omega<0.:
+        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega),alpha, wc)
+        if imag_part:
+            G += (1j/2.)*integral_converge(F_m, 0,-abs(omega))
+            G -= (1j/2.)*integral_converge(F_p, 0,abs(omega))
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
+    return G
+
+def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, silent=False):
+    ti = time.time()
+    beta = beta_f(T_EM)
+
+    eVals, eVecs = H_vib.eigenstates()
+    #J=J_minimal # J_minimal(omega, Gamma, omega_0)
+    d_dim = len(eVals)
+    G = 0
+    for i in xrange(d_dim):
+        for j in xrange(d_dim):
+            eta = eVals[i]-eVals[j]
+            s = eVecs[i]*(eVecs[j].dag())
+            #print A.matrix_element(eVecs[i].dag(), eVecs[j])
+            s*= A.matrix_element(eVecs[i].dag(), eVecs[j])
+            s*= Gamma(eta, beta, J, alpha, w_0, imag_part=principal)
+            G+=s
+    G_dag = G.dag()
+    # Initialise liouvilliian
+    L =  qt.spre(A*G) - qt.sprepost(G, A)
+    L += qt.spost(G_dag*A) - qt.sprepost(A, G_dag)
+    if not silent:
+        print "Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)
+    return -L
+"""
+def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
     ti = time.time()
     d = H_vib.shape[0]
     evals, evecs = H_vib.eigenstates()
@@ -113,13 +221,14 @@ def L_nonrwa(H_vib, sig_x, alpha, T, time_units='cm'):
             IJ = evecs[i]*evecs[j].dag()
             JI = evecs[j]*evecs[i].dag()
             if abs(sig_ij) >0:
-                Z+= decay_rate(eps_ij, J_ohmic, alpha, T, time_units)*sig_ij*IJ
-                Z_dag += decay_rate(eps_ij, J_ohmic, alpha, T, time_units).conjugate()*sig_ji*JI
+                Z+= decay_rate(J, eps_ij, Gamma, omega_0, T, time_units)*sig_ij*IJ
+                Z_dag += decay_rate(J, eps_ij, Gamma, omega_0, T, time_units).conjugate()*sig_ji*JI
     L = spre(sig_x*Z) - sprepost(Z, sig_x) + spost(Z_dag*sig_x) - sprepost(sig_x, Z_dag)
     print "It took ", time.time()-ti, " seconds to build the non-RWA Liouvillian"
     return -L
+"""
 
-def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
+def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
     #Construct non-secular liouvillian
     ti = time.time()
     d = H_vib.shape[0]
@@ -128,24 +237,77 @@ def L_nonsecular(H_vib, sig, alpha, T, time_units='cm'):
     for i in range(int(d)):
         for j in range(int(d)):
             eps_ij = abs(evals[i]-evals[j])
-            sig_ij = sig.matrix_element(evecs[i].dag(), evecs[j])
-            sig_ji = (sig.dag()).matrix_element(evecs[j].dag(), evecs[i])
+            A_ij = A.matrix_element(evecs[i].dag(), evecs[j])
+            A_ji = (A.dag()).matrix_element(evecs[j].dag(), evecs[i])
             Occ = Occupation(eps_ij, T, time_units)
             IJ = evecs[i]*evecs[j].dag()
             JI = evecs[j]*evecs[i].dag()
+            # 0.5*np.pi*alpha*(N+1)
+            if abs(A_ij)>0 or abs(A_ji)>0:
+                r_up = 2*np.pi*J(eps_ij, Gamma, eps)*Occ
+                r_down = 2*np.pi*J(eps_ij, Gamma, eps)*(Occ+1)
+                X3+= r_down*A_ij*IJ
+                X4+= r_up*A_ij*IJ
+                X1+= r_up*A_ji*JI
+                X2+= r_down*A_ji*JI
 
-            if abs(sig_ij)>0 or abs(sig_ji)>0:
-                X3+= rate_down(eps_ij, Occ, alpha)*sig_ij*IJ
-                X4+= rate_up(eps_ij, Occ, alpha)*sig_ij*IJ
-                X1+= rate_up(eps_ij, Occ, alpha)*sig_ji*JI
-                X2+= rate_down(eps_ij, Occ, alpha)*sig_ji*JI
+    L = spre(A*X1) -sprepost(X1,A)+spost(X2*A)-sprepost(A,X2)
+    L+= spre(A.dag()*X3)-sprepost(X3, A.dag())+spost(X4*A.dag())-sprepost(A.dag(), X4)
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
+    return -0.5*L
 
-    L = spre(sig*X1) -sprepost(X1,sig)+spost(X2*sig)-sprepost(sig,X2)
-    L+= spre(sig.dag()*X3)-sprepost(X3, sig.dag())+spost(X4*sig.dag())-sprepost(sig.dag(), X4)
-    print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
+def L_full_secular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
+    '''
+    Initially assuming that the vibronic eigenstructure has no
+    degeneracy and the secular approximation has been made
+    '''
+    ti = time.time()
+    d = H_vib.shape[0]
+    L = 0
+    eVals, eVecs = H_vib.eigenstates()
+    A_dag = A.dag()
+    terms = 0
+    for l in range(int(d)):
+        for m in range(int(d)):
+            for p in range(int(d)):
+                for q in range(int(d)):
+                    secular_freq = (eVals[l]-eVals[m]) - (eVals[p]-eVals[q])
+                    if abs(secular_freq) <1E-10:
+                        terms+=1
+                        A_lm = A.matrix_element(eVecs[l].dag(), eVecs[m])
+                        A_lm_star = A_dag.matrix_element(eVecs[m].dag(), eVecs[l])
+                        A_pq = A.matrix_element(eVecs[p].dag(), eVecs[q])
+                        A_pq_star = A_dag.matrix_element(eVecs[q].dag(), eVecs[p])
+                        coeff_1 = A_lm*A_pq_star
+                        coeff_2 = A_lm_star*A_pq
+                        eps_pq = abs(eVals[p]-eVals[q])
+                        Occ = Occupation(eps_pq, T, time_units)
+                        r_up = np.pi*J(eps_pq, Gamma, eps)*Occ
+                        r_down = np.pi*J(eps_pq, Gamma, eps)*(Occ+1)
+                        LM = eVecs[l]*eVecs[m].dag()
+                        ML = LM.dag()
+                        PQ = eVecs[p]*eVecs[q].dag()
+                        QP = PQ.dag()
+                        """
+                        if abs(secular_freq) !=0:
+                            print (abs(secular_freq), r_up, A_lm, A_lm_star,
+                                   A_pq, A_pq_star, r_down, l,m,p,q, m==q, l==p)
+                        """
+                        if abs(r_up*coeff_1)>0:
+                            L+= r_up*coeff_1*(spre(LM*QP)-sprepost(QP,LM))
+                        if abs(r_up*coeff_2)>0:
+                            L+= r_up*coeff_2*(spost(PQ*ML)- sprepost(ML,PQ))
+                        if abs(r_down*coeff_1)>0:
+                            L+= r_down*coeff_1*(spre(ML*PQ)-sprepost(PQ, ML))
+                        if abs(r_down*coeff_2)>0:
+                            L+= r_down*coeff_2*(spost(QP*LM)-sprepost(LM, QP))
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the secular Liouvillian"
+        print "Secular approximation kept {:0.2f}% of total ME terms. \n".format(100*float(terms)/(d*d*d*d))
     return -L
 
-def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
+def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
     '''
     Initially assuming that the vibronic eigenstructure has no
     degeneracy and the secular approximation has been made
@@ -159,43 +321,40 @@ def L_vib_lindblad(H_vib, A, alpha_em, T, time_units='cm'):
     eVecs = eig[1] # come out like kets
     l = 0
     occs=[]
-    for m in range(int(d)):
-        #print " Liouvillian is ", (float(m)/H_vib.shape[0])*100, " percent complete after ", int(time.time()-ti), " seconds. (", int((time.time()-ti)/60.), " minutes)."
-        #print "There were ", l, " non-zero contributions."
+    for i in range(int(d)):
         l = 0
-        for n in range(int(d)):
+        for j in range(int(d)):
             t_0 = time.time() # initial time reference for tracking slow calculations
-            lam_nm = A.matrix_element(eVecs[m].dag(), eVecs[n])
-            #lam_mn = A.matrix_element(eVecs[n].dag(), eVecs[m])
-            lam_nm_sq = lam_nm*lam_nm.conjugate()
-            eps_mn = abs(eVals[m]-eVals[n])
-            if lam_nm_sq>0:
-                MN = eVecs[m]*eVecs[n].dag()
-                NM = eVecs[n]*eVecs[m].dag()
-                NN = eVecs[n]*eVecs[n].dag()
-                MM = eVecs[m]*eVecs[m].dag()
+            lam_ij = A.matrix_element(eVecs[i].dag(), eVecs[j])
+            #lam_mn = (A.dag()).matrix_element(eVecs[n].dag(), eVecs[m])
+            lam_ij_sq = lam_ij*lam_ij.conjugate()
+            eps_ij = abs(eVals[i]-eVals[j])
+            if lam_ij_sq>0:
+                IJ = eVecs[i]*eVecs[j].dag()
+                JI = eVecs[j]*eVecs[i].dag()
+                JJ = eVecs[j]*eVecs[j].dag()
+                II = eVecs[i]*eVecs[i].dag()
 
-                Occ = Occupation(eps_mn, T, time_units)
-                g2 = rate_up(eps_mn, Occ, alpha_em)
-                g1 = rate_down(eps_mn, Occ, alpha_em)
+                Occ = Occupation(eps_ij, T, time_units)
+                r_up = 2*np.pi*J(eps_ij, Gamma, eps)*Occ
+                r_down = 2*np.pi*J(eps_ij, Gamma, eps)*(Occ+1)
 
-                #T1 = 0.5*rate_up(eps_mn, Occ)*(spre(NN) - 2*sprepost(MN, NM)) + 0.5*rate_down(eps_mn, Occ)*(spre(MM) - 2*sprepost(NM, MN))
-                T1 = g2*lam_nm_sq*(spre(MM))+g1*lam_nm_sq*(spre(NN))
-                T2 = g2.conjugate()*lam_nm_sq*(spost(MM))+g1.conjugate()*lam_nm_sq*(spost(NN))
-                T3 = 2*(g2*lam_nm_sq*sprepost(NM, MN)+g1*lam_nm_sq*(sprepost(MN,NM)))
-                L += (T1 + T2 - T3)
+                T1 = r_up*spre(II)+r_down*spre(JJ)
+                T2 = r_up.conjugate()*spost(II)+r_down.conjugate()*spost(JJ)
+                T3 = (r_up*sprepost(JI, IJ)+r_down*sprepost(IJ,JI))
+                L += lam_ij_sq*(0.5*(T1 + T2) - T3)
                 l+=1
-
-    print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
-    #eMatrix = np.array(eMatrix).reshape((H_vib.shape[0], H_vib.shape[0]))
-    #plt.imshow(eMatrix)
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
     return -L
 
-def L_EM_lindblad(splitting, col_em, alpha, T, time_units='cm'):
+def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm', silent=False):
+    # col_em is collapse operator
     ti = time.time()
     L = 0
     EMnb = Occupation(splitting, T, time_units)
-    L+= np.pi*alpha*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
-    L+= np.pi*alpha*(EMnb)*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
-    print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
+    L+= 2*np.pi*J(splitting, Gamma, splitting)*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
+    L+= 2*np.pi*J(splitting, Gamma, splitting)*EMnb*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
+    if not silent:
+        print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
     return L

@@ -8,6 +8,8 @@ There is:
 - a module called superdriving_liouv.py which does the same as driving_liouv.py but for a superohmic spectral density (this is a cheap hack)
 - a module with several different types of checks. The main feature is one which attempts to determine which systems are likely to be susceptible to non-secular effects.
 - a plotting module which takes in the other two and plots graphs of the dynamics, coherences and emission spectra. This could be extended into an IPython notebook as well.
+- a mathematica notebook for calculating the Franck-Condon overlap factors of the various vibrational states
+- a module for calculating the exact dynamics of the Independent-Boson Model (currently does not work).
 - a directory with all of the accompanying notes and figures for the investigation, read Vibronic_incoherent_notes.pdf to get some more physical insight.
 
 # Requirements
@@ -24,12 +26,18 @@ All the python files are written in Python 2.7. The modules will need to be at l
 - Check in the Notes/Images folder for default plots of dynamics and spectra, or alternatively use the data files in DATA to plot your own.
 
 # Bugs
+<<<<<<< .merge_file_j2GDbo
 - In driving_liouv the nrwa Liouvillian does not work. I think it won't converge for a flat spectrum.
 - When using superdriving_liouv.py the dynamics do not converge.
+=======
+- Exact solution does not work
+- In driving_liouv the nrwa Liouvillian does not work.
+- It seems like when you have a small RC frequency the coherences diverge and the dynamics exhibit weird revivals and chaos.
+>>>>>>> .merge_file_34d6zr
 
 # To do:
 - Try to find the "smoking gun" for needing to use the non-secular treatment. E.g does the structure of a manifold and occupation number dictate exactly when secular works?
-- Locate each manifold in the NE_checking.plot_manifold() and plot them a different colour.
+- Locate each manifold in the ME_checking.plot_manifold() and plot them a different colour.
 - I still haven't accounted for the resonance effects in the Secular master equation (FRET).
 - Choose a better optical field spectral density which allows the Principal parts to converge for FRET and renormalisation terms.
 - Put all of the globally run code in ME_plotting into an IPython notebook with a full discussion of what's going on.

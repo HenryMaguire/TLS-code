@@ -16,14 +16,23 @@ In this script we have four methods.
 import numpy as np
 import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost
+#from sympy.functions import coth
 
-def Ham_RC(sigma, eps, Omega, kap, N):
+from utils import beta_f
+import utils as UTILS
+def Coth(x):
+    return (np.exp(2*x)+1)/(np.exp(2*x)-1)
+
+def Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
     Output: Hamiltonian, sigma_- and sigma_z in the vibronic Hilbert space
     """
+    if rotating:
+        eps=0.
     a = destroy(N)
-    H_S = eps*tensor(sigma.dag()*sigma, qeye(N)) + kap*tensor(sigma.dag()*sigma, (a + a.dag()))+tensor(qeye(2),Omega*a.dag()*a)
+    shift = (kappa**2)/Omega
+    H_S = (eps+shift)*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag()))+tensor(qeye(2),Omega*a.dag()*a)
     A_em = tensor(sigma, qeye(N))
     A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
     A_ph = tensor(qeye(2), (a + a.dag()))
@@ -36,63 +45,72 @@ def RCME_operators(H_0, A, gamma, beta):
     Chi = 0 # Initiate the operators
     Xi = 0
     eVals, eVecs = H_0.eigenstates()
+    ground_list = []
+    excited_list = []
+    for i in range(len(eVals)):
+        is_ground = sum(eVecs[i])[0][0].real == 1.
+        if is_ground:
+            ground_list.append(i)
+        else:
+            excited_list.append(i)
+
     #print H_0
-    EigenDiffs = []
     #ti = time.time()
     for j in range(dim_ham):
         for k in range(dim_ham):
             e_jk = eVals[j] - eVals[k] # eigenvalue difference
-            EigenDiffs.append(e_jk)
             A_jk = A.matrix_element(eVecs[j].dag(), eVecs[k])
             outer_eigen = eVecs[j] * (eVecs[k].dag())
             if sp.absolute(A_jk) > 0:
                 if sp.absolute(e_jk) > 0:
                     #print e_jk
                     # If e_jk is zero, coth diverges but J goes to zero so limit taken seperately
-                    Chi += e_jk*gamma * sp.tanh(beta*e_jk*0.5)*A_jk*outer_eigen # e_jk*gamma is the spectral density
-                    Xi += e_jk*gamma * A_jk * outer_eigen
+                    """
+                    if (np.pi*gamma*A_jk/beta) >0:
+                        print j, k
+                        print j in ground_list, k in ground_list
+                        print e_jk"""
+                    Chi += 0.5*np.pi*e_jk*gamma * Coth(e_jk * beta / 2)*A_jk*outer_eigen # e_jk*gamma is the spectral density
+                    Xi += 0.5*np.pi*e_jk*gamma * A_jk * outer_eigen
                 else:
-                    Chi += gamma*A_jk*outer_eigen # Just return coefficients which are left over
+                    """
+                    if (np.pi*gamma*A_jk/beta) >0:
+                        print j, k
+                        print j in ground_list, k in ground_list
+                        print e_jk"""
+
+                    Chi += (np.pi*gamma*A_jk/beta)*outer_eigen # Just return coefficients which are left over
                     #Xi += 0 #since J_RC goes to zero
 
-    return H_0, A, np.pi*Chi*0.5, np.pi*0.5*Xi
+    return H_0, A, Chi, Xi
 
-def liouvillian_build(H_0, A, gamma, wRC, T_C, time_units='cm'):
-    conversion = 0.695
-    if time_units == 'ps':
-        conversion == 7.13
-    else:
-        pass
-
-    beta_C = 0.
-    if T_C == 0.0:
-        beta_C = 10000000000.
-        RCnb = 0
-        print "Temperature is too low, this won't work"
-    else:
-        beta_C = 1./(conversion * T_C)
-        RCnb = (1 / (sp.exp( beta_C * wRC)-1))
+def liouvillian_build(H_0, A, gamma, wRC, T_C):
     # Now this function has to construct the liouvillian so that it can be passed to mesolve
-    H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, beta_C)
+    H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, beta_f(T_C))
     L = 0
-    L=L-spre(A*Chi)
-    L=L+sprepost(A, Chi)
-    L=L+sprepost(Chi, A)
-    L=L-spost(Chi*A)
-    L=L+spre(A*Xi)
-    L=L+sprepost(A, Xi)
-    L=L-sprepost(Xi, A)
-    L=L-spost(Xi*A)
-    return L
+    L-=spre(A*Chi)
+    L+=sprepost(A, Chi)
+    L+=sprepost(Chi, A)
+    L-=spost(Chi*A)
 
-def RC_function_UD(sigma, eps, T_Ph, wc, wRC, alpha_ph, N):
+    L+=spre(A*Xi)
+    L+=sprepost(A, Xi)
+    L-=sprepost(Xi, A)
+    L-=spost(Xi*A)
 
+    return L, Chi+Xi
+
+def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
+                                            residual_off=False, rotating=False):
     # we define all of the RC parameters by the underdamped spectral density
-    Gamma = (wRC**2)/wc
-    gamma = Gamma / (2. * np.pi * wRC)  # no longer a free parameter that we normally use to fix wRC to the system splitting
+    gamma = Gamma / (2. * np.pi * wRC)  # coupling between RC and residual bath
+    if residual_off:
+        gamma=0
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
-    print "SB cutoff= ",wc, "RC oscillator frequency=",wRC, " splitting =",eps, "gamma=", gamma, " N=",N
-    H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N)
-    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_Ph)
 
-    return L_RC, H, A_em, A_nrwa, wRC, kappa
+    if not silent:
+        print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
+    H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N, rotating=rotating)
+    L_RC, Z =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
+
+    return L_RC, H, A_em, A_nrwa, Z, wRC, kappa, Gamma
