@@ -87,3 +87,54 @@ def lin_construct(O):
     Od = O.dag()
     L = 2. * spre(O) * spost(Od) - spre(Od * O) - spost(Od * O)
     return L
+
+def ground_and_excited_states(states):
+    # For a TLS, gives separate ground and excited state manifolds
+    ground_list = []
+    excited_list = []
+    concat_list = [ground_list, excited_list]
+    for i in range(len(states)): #
+        is_ground = sum(states[i])[0][0].real == 1.
+        if is_ground:
+            ground_list.append(i)
+        else:
+            excited_list.append(i)
+    return ground_list, excited_list
+
+
+def initialise_TLS(init_sys, init_RC, states, w0, T_ph):
+    # allows specific state TLS-RC states to be constructed easily
+    ground_list, excited_list = ground_and_excited_states(states)
+    concat_list = [ground_list, excited_list]
+    N = states[1].shape[0]/2
+    if init_sys == 'coherence':
+        rho_left = (states[concat_list[0][init_RC]]+states[concat_list[1][init_RC]])/np.sqrt(2)
+        rho_right = rho_left.dag()
+        init_rho = rho_left*rho_right
+    elif type(init_sys) == tuple:
+        #coherence state
+        if type(init_RC) == tuple:
+            # take in a 2-tuple to initialise in coherence state.
+            print init_sys, init_RC
+            rho_left = states[concat_list[init_sys[0]][init_RC[0]]]
+            rho_right = states[concat_list[init_sys[1]][init_RC[1]]].dag()
+            init_rho = rho_left*rho_right
+        else:
+            raise ValueError
+    elif init_sys == 0:
+        # population state
+        init_rho = states[ground_list[init_RC]]*states[ground_list[init_RC]].dag()
+    elif init_sys==1:
+        init_rho = states[excited_list[init_RC]]*states[excited_list[init_RC]].dag()
+    elif init_sys==2:
+        E = qt.ket([1])
+        Therm = qt.thermal_dm( N, Occupation(w0, T_ph))
+        init_rho = qt.tensor(E*E.dag(), Therm)
+        # if in neither ground or excited
+        # for the minute, do nothing. This'll be fixed below.
+    else:
+        # finally, if not in either G or E, initialise as thermal
+        num = (-H_RC*beta_f(T_ph)).expm()
+        init_rho =  num/num.tr()
+    return init_rho
+
