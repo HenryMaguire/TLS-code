@@ -29,10 +29,9 @@ All the python files are written in Python 2.7. The modules will need to be at l
 
 
 # To do:
-- Try to find the "smoking gun" for needing to use the non-secular treatment. E.g does the structure of a manifold and occupation number dictate exactly when secular works?
-- Locate each manifold in the ME_checking.plot_manifold() and plot them a different colour.
-- I still haven't accounted for the resonance effects in the Secular master equation (FRET).
-- Choose a better optical field spectral density which allows the Principal parts to converge for FRET and renormalisation terms.
-- Put all of the globally run code in ME_plotting into an IPython notebook with a full discussion of what's going on.
-- Save data of a few relevant parameter regimes to file and load them into a pandas dataframe for easy analysis using matplotlib and seaborn.
-- Maybe create a TLS class, which has methods to analyse different parts of the dynamics/steady states.
+- Make sure all the code is sideways compatible after the two large merges. This means making sure the API is consistent between all the function calls in the notebooks.
+- Have two notebooks to start with. One for underdamped and one for overdamped spectral densities. Focus initially on the underdamped one.
+- Perhaps have a third notebook for the rigorous RWA comparisons. Clear the notebook these currently exist in of this work.
+- Move all general code from the jupyter notebooks into the scripts. Also move all legacy shitcode into some legacy file.
+- Make it so there's no OD/UD prefixes on the code files but one codebase is used for each case with some default parameter passed instead.
+
