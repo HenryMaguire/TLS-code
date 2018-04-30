@@ -20,7 +20,29 @@ def save_obj(obj, name ):
 def Coth(x):
     return (np.exp(2*x)+1)/(np.exp(2*x)-1)
 
-def beta_f(T):
+def Occupation(omega, T, time_units='cm'):
+    conversion = 0.695
+    if time_units == 'ev':
+        conversion == 8.617E-5
+    if time_units == 'ps':
+        conversion == 0.131
+    else:
+        pass
+    n =0.
+    beta = 0.
+    if T ==0.: # First calculate beta
+        n = 0.
+        beta = np.infty
+    else:
+        # no occupation yet, make sure it converges
+        beta = 1. / (conversion*T)
+        if sp.exp(omega*beta)-1 ==0.:
+            n = 0.
+        else:
+            n = float(1./(sp.exp(omega*beta)-1))
+    return n
+
+def beta_f(T, conversion =0.695):
     conversion = 0.695
     beta = 0
     if T ==0.: # First calculate beta

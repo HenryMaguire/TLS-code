@@ -17,9 +17,11 @@ import numpy as np
 import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost
 #from sympy.functions import coth
-import utils as UTILS
 
-from utils import beta_f, Coth
+from utils import beta_f
+import utils as UTILS
+def Coth(x):
+    return (np.exp(2*x)+1)/(np.exp(2*x)-1)
 
 def Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
     """
@@ -68,7 +70,7 @@ def RCME_operators(H_0, A, gamma, beta):
                         print j, k
                         print j in ground_list, k in ground_list
                         print e_jk"""
-                    Chi += 0.5*np.pi*e_jk*gamma * UTILS.Coth(e_jk * beta / 2)*A_jk*outer_eigen # e_jk*gamma is the spectral density
+                    Chi += 0.5*np.pi*e_jk*gamma * Coth(e_jk * beta / 2)*A_jk*outer_eigen # e_jk*gamma is the spectral density
                     Xi += 0.5*np.pi*e_jk*gamma * A_jk * outer_eigen
                 else:
                     """
@@ -96,7 +98,7 @@ def liouvillian_build(H_0, A, gamma, wRC, T_C):
     L-=sprepost(Xi, A)
     L-=spost(Xi*A)
 
-    return L
+    return L, Chi+Xi
 
 def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
                                             residual_off=False, rotating=False):
@@ -109,6 +111,6 @@ def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
     if not silent:
         print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N, rotating=rotating)
-    L_RC =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
+    L_RC, Z =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
 
-    return L_RC, H, A_em, A_nrwa, wRC, kappa, Gamma
+    return L_RC, H, A_em, A_nrwa, Z, wRC, kappa, Gamma
