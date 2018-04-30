@@ -75,7 +75,10 @@ def SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, exp
     plt.legend()
     plt.ylabel("Excited state population")
     plt.xlabel("RC Hilbert space dimension")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2017-overhaul-branch
     p_file_name = "Notes/Images/Checks/_convergence_a{:d}_Tem{:d}_w0{:d}_eps{:d}.pdf".format(int(alpha_ph), int(T_EM), int(w0), int(eps))
     plt.savefig(p_file_name)
     return ss_list_s,ss_list_ns,ss_list_naive, p_file_name
@@ -380,9 +383,14 @@ if __name__ == "__main__":
     E = ket([1])
     sigma = G*E.dag() # Definition of a sigma_- operator.
 
+<<<<<<< HEAD
 
     eps = 0.2*8065.5 # TLS splitting
 
+=======
+    eps = 0.2*8065.5 # TLS splitting
+
+>>>>>>> 2017-overhaul-branch
     T_EM = 6000. # Optical bath temperature
     #alpha_EM = 0.3 # System-bath strength (optical)
     alpha_EM = 6.582E-4*8065.5 #inv. cm
@@ -396,6 +404,7 @@ if __name__ == "__main__":
     #L_RC, H, A_EM, A_nrwa, wRC, kappa, Gamma= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N, time_units='cm')
 
     """
+<<<<<<< HEAD
     L_RC, H, A_EM, A_nrwa, wRC, kappa= RC.RC_function_UD(sigma, eps, T_ph, wc, w0, alpha_ph, N)
     L_s = EM.L_vib_lindblad(H, A_EM, alpha_EM, T_EM)
     L_ns = EM.L_nonsecular(H, A_EM, alpha_EM, T_EM)
@@ -406,6 +415,8 @@ if __name__ == "__main__":
     #plt.scatter(TD, rates)
     #plt.show()
     """
+=======
+>>>>>>> 2017-overhaul-branch
     TD, rates  = nonsec_check_A(H, A_EM, alpha_EM, T_EM, N)
     plt.figure()
     plt.scatter(TD, rates)
@@ -425,7 +436,37 @@ if __name__ == "__main__":
 
     """
     """
+
     plt.figure()
+<<<<<<< HEAD
+=======
+    #ss_list_s,ss_list_ns,ss_list_naive, p_file_name = SS_convergence_check(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, start_n = 5, end_n=15)
+    eps_values = np.append(np.append(np.arange(1000, 2000, 100.), np.arange(2000, 4000, 500.)), np.arange(4000, 18000, 2000.))
+    print eps_values
+    N_values = [25]*len(range(1000, 2000, 100)) + [15]*len(range(2000, 4000, 500)) + [9]*len(range(4000, 14000, 1000))
+    solver_method = 'direct'
+    ss_list_s,ss_list_ns,ss_list_naive, p_file_name = plot_SS_divergences(sigma, eps, T_EM, T_ph, wc, w0, alpha_ph, alpha_EM, N_values, eps_values, method=solver_method)
+    print "Plot saved: ",p_file_name
+    plt.savefig(p_file_name)
+    #plt.close()
+    """
+
+    multipolar_rates, minimal_rates, sec_rates, frequencies, frequencies_zero, forbidden = rates(H, A_EM, Gamma, eps, kappa, wRC, T_EM, 6)
+    plt.figure()
+    plt.scatter(frequencies, minimal_rates, color='r')
+    plt.scatter(np.zeros(len(sec_rates)), sec_rates, color='b')
+    plt.scatter(forbidden, np.zeros(len(forbidden)),color='y')
+
+    plt.axvline(eps-(kappa**2/wRC))
+    plt.axvline(-eps+(kappa**2/wRC))
+    plt.axvline(2*(eps-(kappa**2/wRC)))
+    plt.axvline(-2*(eps-(kappa**2/wRC)))
+    plt.title("Vibronic Transition Rates at "r"$\alpha_{ph}=400cm^{-1}$")
+
+    """
+    """
+    plt.figure()
+>>>>>>> 2017-overhaul-branch
     lazy_rates, rig_rates, lazy_freq, rig_freq = secular_approx_check(H, A_EM, Gamma, eps, T_EM, N)
     plt.scatter(lazy_rates, lazy_freq, color='b')
     plt.scatter(rig_rates, rig_freq, color='r')

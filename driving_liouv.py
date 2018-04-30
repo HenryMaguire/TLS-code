@@ -37,7 +37,7 @@ def Occupation(omega, T, time_units='cm'):
             n = float(1./(sp.exp(omega*beta)-1))
     return n
 
-<<<<<<< .merge_file_Clc5Ot
+
 def rate_up_super(epsilon, N, alpha):
     return 0.5*np.pi*alpha*N*(epsilon**3)
 
@@ -52,18 +52,17 @@ def rate_down(epsilon, N, alpha):
 
 def J_ohmic(omega, alpha, wc=10000):
     return alpha*omega*np.exp(-omega/wc)
-=======
-"""
+
+
 def J_multipolar(omega, Gamma, omega_0):
     return Gamma*(omega**3)/(2*np.pi*(omega_0**3))
 
 def J_minimal(omega, Gamma, omega_0):
     return Gamma*omega/(2*np.pi*omega_0)
->>>>>>> .merge_file_j48cUt
 
 def J_flat(omega, Gamma, omega_0):
     return Gamma
-"""
+
 '''
 def cauchyIntegrands(omega, beta, J, ver):
     # Function which will be called within another function where J, beta and the eta are defined locally.
@@ -186,7 +185,7 @@ def Gamma(omega, beta, J, alpha, wc, imag_part=True):
 def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, silent=False):
     ti = time.time()
     beta = beta_f(T_EM)
-
+    
     eVals, eVecs = H_vib.eigenstates()
     #J=J_minimal # J_minimal(omega, Gamma, omega_0)
     d_dim = len(eVals)
@@ -206,6 +205,28 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, silent=False):
     if not silent:
         print "Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)
     return -L
+
+def RWA_system_ops(H_vib, S):
+    S_plus = 0 #np.zeros(shape=H_vib.shape)
+    S_minus = 0 #np.zeros(shape=H_vib.shape)
+    S_0 = 0 #np.zeros(shape=H_vib.shape)
+    eVals, eVecs = H_vib.eigenstates()
+    
+    for j, phi_j in enumerate(eVecs):
+        for k, phi_k in enumerate(eVecs):
+            S_jk = S.matrix_element(phi_j.dag(), phi_k)
+            S_contrib = S_jk*phi_j*phi_k.dag()
+            if eVals[j]>eVals[k]:
+                S_plus += S_contrib
+            elif eVals[j]<eVals[k]:
+                S_minus += S_contrib
+            else:
+                S_0 += S_contrib
+    assert S_plus == S_minus.dag()
+    #if S_0 !=0:
+    #    print "Some non-zero S_0 contribution!"
+    return S_plus, S_minus, S_0
+
 """
 def L_nonrwa(H_vib, sig_x, omega_0, Gamma, T, J, time_units='cm'):
     ti = time.time()

@@ -8,17 +8,13 @@
 \usepackage[english]{isodate}
 \usepackage{authblk}
 
-<<<<<<< .merge_file_cKYZ1o
+
 \usepackage{graphicx}
 \graphicspath{{Images/}}
 
 
 \title{Vibronic effects on incoherent excitation in molecular systems}
-=======
 
-\title{Incoherently excited monomers at strong phonon coupling}
-
->>>>>>> .merge_file_pvGeVo
 \author[1]{H. Maguire}
 \affil[1]{Photon Science Institute and School of Physics and Astronomy, The University of Manchester, Oxford Road,
 	Manchester M13 9PL, United Kingdom}
@@ -26,7 +22,7 @@
 \begin{document}
 \tableofcontents
 \section*{Preface}
-<<<<<<< .merge_file_cKYZ1o
+
 Electron-phonon coupling theory from the book chapters.
 \maketitle
 \begin{abstract}
@@ -48,13 +44,13 @@ Previous work has assumed weakly-coupled molecular vibrations and introduced dec
 \end{itemize}
 \section{Introduction}
 \textbf{Questions we need to answer for introduction:}
-=======
+
 
 \maketitle
 \begin{abstract}
 Here we study a single electronic transition in a molecule, which is interacting strongly with broad low-frequency phonons. Specifically, we aim to investigate how incoherent excitation from a weakly-coupled thermal radiation field affects these systems. The Reaction Coordinate (RC) mapping is applied to the electron-phonon coupling in order to extend the validity of a Born-Markov master equation by effectively redrawing the boundary between system and bath to include a collective phonon degree-of-freedom within the system. The RC method without external driving is compared to an exact solution. Eigenstates of the Hamiltonian in the RC frame represent mixed electron-phonon excited states - each state interacting with the ambient electromagnetic field differently. The various approximations that can be made on the electromagnetic system-field interaction can be broken by different phonon-coupling regimes. At strong system-environment coupling and high thermal field temperature, we see that the secular approximation breaks down in the quantum optical master equation, leading to different coherence dynamics.
 \end{abstract}
- 
+
 \section{Plan:}
 \begin{enumerate}
 	\item Overview of the field and what is the motivation for studying this.
@@ -67,7 +63,7 @@ Here we study a single electronic transition in a molecule, which is interacting
 	\item Emission Spectra - what does this say about the nature of electron-phonon interaction?
 \end{enumerate}
 \subsection{Questions}
->>>>>>> .merge_file_pvGeVo
+
 \begin{itemize}
 	\item How does bare coupling strength relate to Huang-Rhys Parameter
 	\item Where does it say that exciton-phonon/vibration interactions are strong in biomolecular light-harvesting systems?
@@ -80,21 +76,23 @@ Here we study a single electronic transition in a molecule, which is interacting
 \end{itemize}
 In these notes, the interplay between vibrational and electronic degrees of freedom are investigated in the context of incoherently excited molecules. In essence it is a problem of introducing multiple baths at different orders of perturbation. In the limit of strong and intermediate exciton-phonon coupling, the interaction between an incoherent optical field and the effective system eigenstructure gives rise to a rich augmentation of the dynamics and steady states which can be explored with the Reaction Coordinate technique.
 
-<<<<<<< .merge_file_cKYZ1o
+
 The references \cite{Creatore2013}\cite{Dorfman}[Amir's published paper] discuss proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}(check reference), leading to pigment-pigment couplings strong enough to cause excitations to delocalise. In this case the electronic excitations of the system are known as excitons, which are bound electron-hole pairs. The dynamics of the excited states are subject to many disorder processes, due to the conformational and vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves\cite{}. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised vibrations lead to many interesting observable effects.
 
 Excitation of a electronic molecular transition leads to a reconfiguration of the equilibrium position of the nucleus. WE assume that the nuclear motion is far slower than that of the electron, so this electronic excitation amounts to a vertical transition to a higher lying potential well. In a typical diagram, nuclear displacement would be along the x-axis, so the upper potential well will be shifted to the right by some amount - related to vibronic coupling strength. Vibrational states in the upper potential well are occupied according to the vibronic transitional moment, or Franck-Condon overlap factors. Generally the nuclear configuration will be compressed in the excited electronic state, so molecule will occupy many vibrational modes which will in turn dissipate energy, causing the surrounding environment to heat up and the population to move to the vibrational ground state.The higher lying vibrational states then relax back to the potential minimum (assuming low-temperature) of the excited state on a fast timescale. This energy, dissipated to the vibrational environment, is called the reorganisation energy.
 \begin{itemize}
 	\item Homogeneous broadening of the emission and absorption spectra. Homogeneous due to the fact that the noise processes are resolved over experimental timescales?
 	\item A renormalisation of system transition energies.
-=======
+\end{itemize}
 Several recent papers have discussed proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures\cite{Dorfman}\cite{Creatore2013}\cite{Killoran2015}\cite{Fruchtman2016}. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations are excitonic in nature - bound electron-hole pairs . The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised, inter-molecular vibrations lead to many interesting observable effects:
+
+Several recent papers have discussed proposals for nanoscopic photocells based on recent analyses of biological photosynthetic architectures\cite{Dorfman}\cite{Creatore2013}\cite{Killoran2015}\cite{Fruchtman2016}. Natural light-harvesting systems are made up of many pigment molecules, which can have a nearest-neighbour spacing of less than a nanometer\cite{Adolphs2006}, leading to pigment-pigment couplings strong enough to cause superpositions of different excited pigment states. In this case the electronic excitations are excitonic in nature - bound electron-hole pairs . The dynamics of the excited states are subject to many disorder processes, due to the conformational and low-frequency vibrational motion of the protein scaffolds in which the pigments are embedded, as well as the localised intra-molecular vibrational modes of the pigments themselves. The conformational motion is essentially static compared to all other system and interaction timescales and is observed as inhomogeneous broadening of the various spectra. The low-frequency vibrational modes, or phonons, can be delocalised over many pigment sites and along with the localised, inter-molecular vibrations lead to many interesting observable effects:
+
 \begin{itemize}
 	\item Homogeneous broadening of the emission and absorption spectra.
 	\item Dissipation of electronic energy into the vibrational environment as heat - known as the reorganisation energy.
 	\item Dephasing of the excitonic wavefunction, leading to decoherence.
 	\item A renormalisation of system transition energies and a polaron shifted excited state manifold.
->>>>>>> .merge_file_pvGeVo
 \end{itemize}
 In these systems, it is thought that the strength of exciton-vibration interactions is on the same order as the excitonic energies and intermolecular couplings, which means that a perturbative treatment of this interaction may not be valid. We therefore use the Reaction Coordinate method, which allows for strong coupling to low-frequency environment modes and a degree of non-Markovianity. 
 \\
@@ -114,7 +112,7 @@ Vibronic transitions are simultaneous electronic and vibrational transitions, mo
 
 Since the nuclei adjust much more slowly than the electrons, the transition to the upper state occurs vertically. The upper state is usually compressed out of equilibrium so will vibrate more vigorously, occupying higher lying vibrational states. Excitation energy is then dissipated on a fast timescale into the vibrational modes of the molecular environment causing the excitation to relax to the bottom of the upper potential well (assuming $KT\ll\hbar\epsilon$ where T is temperature and $\epsilon$ is the TlS splitting). WE should expect to see the expected displacement of the phonons (in the Reaction-Coordinate density matrix) move between the two potential wells over the excited state life-time.
 
-<<<<<<< .merge_file_cKYZ1o
+
 In the case where vibrations couple strongly to electronic transitions, it has been shown that 
  In these systems, it is thought that the strength of exciton-phonon interactions is on the same order as the excitonic energies and intermolecule couplings, which means that we cannot use a perturbative treatment of this interaction. We therefore use the Reaction Coordinate method, which allows for strong coupling to low-frequency environment modes and a degree of non-Markovianity. 
 \\ 
@@ -135,14 +133,13 @@ Things I still want to cover:
 	\item[Incoherent driving] - 
 	\item[TYPICAL PARAMETERS] - I need to have a range of parameters which are typical for the types of systems I am interested in. System splitting, electron-phonon coupling strength, phonon frequencies, vibrational frequencies, phonon cutoff frequency. Let's assume that natural systems are the most efficient and use these values.
 \end{description}
-\section{Non-perturbative Electron-Phonon coupling}
-\begin{itemize}
-=======
+
+\section{Non-perturbative Exciton-Phonon coupling}
+
 \section{Non-perturbative Exciton-Phonon coupling}
 \begin{itemize}
 	\item As we have mentioned, strong-coupling to vibrations can occur in biomolecular and solid state systems.
 	\item Reaction coordinate method shown to be effective in modelling the broad and sharply peaked lorentzian sprectral densities, strong-coupling and non-Markovianity.
->>>>>>> .merge_file_pvGeVo
 	\item Discuss RC regime of applicability, it's physical interpretation and precisely how this applies to the biomolecular problem.
 \end{itemize}
 
@@ -169,13 +166,12 @@ J_{SB}  = \frac{4\gamma\Omega^2\lambda^2\omega}{(\Omega^2-\omega^2)^2 + (2\pi\Om
 Thus $\Omega = \omega_0$, $\lambda=\sqrt{\pi \alpha \omega_0/2}$ and $\gamma=\Gamma/2\pi\omega_0$. This means that for the underdamped spectral density $\Gamma$, $\omega_0$ and $\alpha$ are all free parameters, as shown in [J chem phys] in the case of large $\omega_0$ this spectrum becomes the overdamped, Drude-Lorentz sprectral density where $\Gamma=\omega_0^2\omega_c^{-1}$.
 
 \begin{figure}
-<<<<<<< .merge_file_cKYZ1o
 	%\includegraphics[width=0.5\textwidth]{"C:/Users/mbcxrhm2/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
 	\includegraphics[width=0.5\textwidth]{Images/SDs/SpectralDensities.pdf}
-=======
 	\includegraphics[width=0.5\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities".pdf}
 	%\includegraphics[width=0.5\textwidth]{"/home/henry/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
->>>>>>> .merge_file_pvGeVo
+	\includegraphics[width=0.5\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/SDs/SpectralDensities".pdf}
+	%\includegraphics[width=0.5\textwidth]{"/home/henry/Dropbox/PhD/1st year/TwoSpins/TwoSpinsNotes/Images/SpectralDensities".pdf}
 	\caption{Comparison of underdamped (solid lines) and overdamped (dashed line) spectral densities. Parameters are $\omega_c=53cm^{-1}$, $\alpha=100cm^{-1}$ and $\Gamma=\omega_0^2\omega_c^{-1}$.}
 \end{figure}
 \section{Exact Solution}
@@ -183,11 +179,8 @@ We start with the system and bath Hamiltonian
 \begin{equation}
 H = \epsilon\dyad{X} + \sum_{k}\omega_k b_k^{\dagger} b_k + \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k)
 \end{equation}
-<<<<<<< HEAD
-and perform a unitary, polaron transformation $H^{\prime} = e^{S}He^{-S}$ where $S= \dyad{X}\sum_{k}\frac{g_k}{\omega_k}(b_k^{\dagger}+b_k)$. This yields transformed system, bath and interaction Hamiltonians
-=======
-and perform a unitary, polaron transformation $H^{\prime} = e^{S}He^{-S}$ where $S= \dyad{X}\sum_{k}\frac{g_k}{\omega_k}(b_k^{\dagger}-b_k)$. This yields transformed system, bath and interaction Hamiltonians
->>>>>>> d91a73078751b16e271f9eb594f26a765226f8fc
+
+and perform a unitary, polaron transformation $H^{\prime} = e^{S}He^{-S}$ where $S= \dyad{X}\sum_{k}\frac{g_k}{\omega_k}(b_k^{\dagger}-b_k)$. This yields transformed system, bath and 
 \begin{align}
 H_S^{\prime} &= \epsilon\dyad{X} \\
 H_B^{\prime} &= \sum_{k}\omega_k b_k^{\dagger}b_k - \dyad{X}\sum_{k}g_k (b_k^{\dagger}+b_k) +\dyad{X}\sum_{k}\frac{g^2_k}{\omega_k} \\
@@ -385,6 +378,37 @@ g_{k\lambda} = i e \left(\frac{\omega_0}{2\epsilon_0 L^3}\right)^{\frac{1}{2}} \
 \end{equation}
 are used. 
 In the case of the minimal coupling, this leads to the spectral denisty
+
+\begin{equation}
+J(\omega) = \left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)\omega.
+\end{equation}
+For the two-level system the two different forms of coupling lead to the same spontaneous emission rates since the resultant spectral densities are evaluated at the same TLS splitting frequency
+\begin{equation}
+\label{eq:TLS_decay}
+\Gamma = 2\pi J(\omega_0) = \pi\left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)\omega_0,
+\end{equation}
+which means the constants can be expressed
+\begin{equation}
+\frac{\pi}{2} \frac{e^2\abs{\vec{d}}^2}{3\epsilon_0\pi^3c^3} = \frac{\Gamma}{2\pi\omega_0}.
+\end{equation}
+For a real molecule, it may not be easy to measure the dipole strength of a transition, but it might be easy to gain access to the (zero-phonon) excited state lifetime ($T_1 \approx 100ps - 1ns$) which gives a value for spontaneous emission rate ($\Gamma\approx 10^9-10^{10}s^{-1}$). We could then express the spectral density in terms of this
+\begin{equation}
+\label{eq:MinimalSpectral}
+J_{mc}(\omega) = \frac{\Gamma\omega}{2\pi\omega_0}.
+\end{equation}
+For the multipolar gauge we have
+\begin{equation}
+\label{eq:MultipolarSpectral}
+J_{mp}(\omega) = \frac{\Gamma\omega^3}{2\pi\omega_0^3}
+\end{equation}
+from which it can be seen that $\Gamma_{TLS}=J_{mc}(\omega_0)=J_{mp}(\omega_0)$, i.e. that the system-bath coupling and decay rates are gauge-invariant when evaluated at the TLS frequency.
+
+The many high-lying vibronic states on both the excited and ground manifold mean that even for a single electronic transition there are many vibronic transition frequencies and the transition rates between them are going to depend strongly on the overlap of the various vibrational wavefunctions. 
+
+As we will see later, the vibronic transition rates for the process $\ket{\phi_q}\to\ket{\phi_p}$ due to electromagnetic field interaction, as described by a secular Born-Markov master equation (ignoring Lamb-shifts) is given by
+\begin{equation}
+\Gamma_{pq} = \pi J(\omega_{pq}) A_{p,q}^{*}A_{p,q}
+\end{equation}
 \begin{equation}
 J(\omega) = \left(\frac{\pi e^2\omega_0^2 |d|^2}{2\epsilon_0(3\pi^3 c^3)}\right)\omega.
 \end{equation}
@@ -577,11 +601,7 @@ In reality, numerically calculating each of these terms is going to be expensive
 We now substitute in \ref{eq:Adecomposition} and bring the integrals into new operators
 \begin{align}
 	\begin{split}
-<<<<<<< .merge_file_cKYZ1o
 		\pdv{\rho(t)}{t} = -i[H_S, \rho(t)] - \left[A, \chi_1 \rho(t)\right]  + \left[\rho(t)\chi_2,A\right] + h.c.
-=======
-		\pdv{\rho(t)}{t} = -i[H_S, \rho(t)] - \left[A, \chi_1\rho(t)\right]  + \left[\rho(t)\chi_2,A\right] + h.c.
->>>>>>> .merge_file_pvGeVo
 	\end{split}
 \end{align}
 where 
@@ -745,12 +765,9 @@ Discuss "pulsed" excitation where system is initially in ground state and electr
 \begin{comment}
 \begin{figure}[h]
 	\centering
-<<<<<<< .merge_file_cKYZ1o
 	\includegraphics[width=0.8\textwidth]{Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000.pdf}
-=======
-	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/Pop_SS_divergence_a300_Tem6000_w0300_eps2000".pdf}
->>>>>>> .merge_file_pvGeVo
-	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$}
+
+	\caption{Steady-state excited state population as a fu $nction of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
 
@@ -769,11 +786,7 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 
 \begin{figure}[h]
 	\centering
-<<<<<<< .merge_file_cKYZ1o
 	\includegraphics[width=0.8\textwidth]{Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_eps2000.pdf}
-=======
-	\includegraphics[width=0.8\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Checks/RealPop_SS_divergence_a300_Tem6000_w030_eps2000".pdf}
->>>>>>> .merge_file_pvGeVo
 	\caption{Steady-state excited state population as a function of TLS splitting where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $k_B T_{EM}=4170cm^{-1}$}
 	\label{fig:steadyStatevsSplitting}
 \end{figure}
@@ -800,31 +813,21 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 \begin{comment}
 \begin{figure}[h]
 	\centering
-<<<<<<< .merge_file_cKYZ1o
+
 	\includegraphics[width=\textwidth]{Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000.pdf}
-=======
-	\includegraphics[width=\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a5_N15_Tem6000_w0300_eps2000".pdf}
->>>>>>> .merge_file_pvGeVo
 	\caption{Population where $\alpha_{ph}=5$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=10000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
 	\centering
-<<<<<<< .merge_file_cKYZ1o
+
 	\includegraphics[width=\textwidth]{Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000.pdf}
-=======
-	\includegraphics[width=\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w0300_eps2000".pdf}
->>>>>>> .merge_file_pvGeVo
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 300$, $\epsilon=2000$}
 	\label{}
 \end{figure}
 \begin{figure}[h]
-	\centering
-<<<<<<< .merge_file_cKYZ1o
+
 	\includegraphics[width=\textwidth]{Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000.pdf}
-=======
-	\includegraphics[width=\textwidth]{"/home/henry/Work/phd-work/vibronic-TLS/Notes/Images/Dynamics/Pop_a300_N15_Tem6000_w030_eps2000".pdf}
->>>>>>> .merge_file_pvGeVo
 	\caption{Population where $\alpha_{ph}=300$, $T_{EM} =6000$, $\omega_0 = 30$, $\epsilon=2000$}
 	\label{}
 \end{figure}
@@ -846,16 +849,13 @@ For moderate splitting and an underdamped phonon spectral density, the excited a
 	\item Do the calculations of Fluorescence spectra for electronic and non-secular theories in both the overdamped and underdamped phonon cases. See if the profiles match the theory that they are able to model localised and delocalised vibrations respectively.
 \end{itemize}
 
-<<<<<<< .merge_file_cKYZ1o
 
-\bibliographystyle{ieeetr}
-\bibliography{/Users/henrymaguire/Work/phd-work/BibTex/library}
-=======
 \subsection{Dimers and the nano-photocell}
 \begin{itemize}
 	\item In larger molecules there are going to be near degeneracies. Depending on a number of factors, this is going to result in charge transfer via vibronic resonances. Do we include this, or can we postulate that the important contributions are already included in the direct excitonic coupling? Need to think about the physics of this process.
 \end{itemize}
+\begin{comment}
 \bibliographystyle{ieeetr}
-\bibliography{/home/henry/Work/phd-work/BibTex/library}
->>>>>>> .merge_file_pvGeVo
+\bibliography{/BibTex/library}
+\end{comment}
 \end{document}

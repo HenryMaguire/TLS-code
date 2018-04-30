@@ -26,14 +26,7 @@ All the python files are written in Python 2.7. The modules will need to be at l
 - Check in the Notes/Images folder for default plots of dynamics and spectra, or alternatively use the data files in DATA to plot your own.
 
 # Bugs
-<<<<<<< .merge_file_j2GDbo
-- In driving_liouv the nrwa Liouvillian does not work. I think it won't converge for a flat spectrum.
-- When using superdriving_liouv.py the dynamics do not converge.
-=======
-- Exact solution does not work
-- In driving_liouv the nrwa Liouvillian does not work.
-- It seems like when you have a small RC frequency the coherences diverge and the dynamics exhibit weird revivals and chaos.
->>>>>>> .merge_file_34d6zr
+
 
 # To do:
 - Try to find the "smoking gun" for needing to use the non-secular treatment. E.g does the structure of a manifold and occupation number dictate exactly when secular works?

@@ -1,0 +1,23 @@
+\contentsline {section}{\numberline {1}TODO:}{2}
+\contentsline {section}{\numberline {2}Introduction}{3}
+\contentsline {section}{\numberline {3}Plan:}{3}
+\contentsline {subsection}{\numberline {3.1}Questions}{3}
+\contentsline {subsection}{\numberline {3.2}Electron-vibration interaction}{5}
+\contentsline {section}{\numberline {4}Non-perturbative Exciton-Phonon coupling}{6}
+\contentsline {section}{\numberline {5}Non-perturbative Exciton-Phonon coupling}{6}
+\contentsline {section}{\numberline {6}Exact Solution}{7}
+\contentsline {subsection}{\numberline {6.1}The reaction coordinate master equation}{9}
+\contentsline {subsection}{\numberline {6.2}Weak Coupling Master Equation}{10}
+\contentsline {subsection}{\numberline {6.3}Dynamics}{10}
+\contentsline {section}{\numberline {7}Vibronic dissipation due to an electromagnetic bath}{11}
+\contentsline {subsection}{\numberline {7.1}Non-Rotating Wave Approximation}{13}
+\contentsline {subsection}{\numberline {7.2}Vibronic non-secular theory}{15}
+\contentsline {subsection}{\numberline {7.3}Vibronic Lindblad theory}{17}
+\contentsline {subsection}{\numberline {7.4}Electronic Lindblad theory}{18}
+\contentsline {subsection}{\numberline {7.5}Convergence of theories with weakly-coupled phonons}{18}
+\contentsline {section}{\numberline {8}Exact Absorption Spectra for the Independent Boson Model}{18}
+\contentsline {section}{\numberline {9}Analysis}{19}
+\contentsline {subsection}{\numberline {9.1}Drude-Lorentz Spectral Density (Delocalised phonons)}{19}
+\contentsline {section}{\numberline {10}Future work}{22}
+\contentsline {subsection}{\numberline {10.1}Polaron shifts, phonon dynamics and optical spectra}{22}
+\contentsline {subsection}{\numberline {10.2}Dimers and the nano-photocell}{22}
