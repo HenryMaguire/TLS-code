@@ -102,7 +102,7 @@ def ground_and_excited_states(states):
     return ground_list, excited_list
 
 
-def initialise_TLS(init_sys, init_RC, states, w0, T_ph):
+def initialise_TLS(init_sys, init_RC, states, w0, T_ph, H_RC=np.ones((2,2))):
     # allows specific state TLS-RC states to be constructed easily
     ground_list, excited_list = ground_and_excited_states(states)
     concat_list = [ground_list, excited_list]
@@ -127,7 +127,6 @@ def initialise_TLS(init_sys, init_RC, states, w0, T_ph):
     elif init_sys==1:
         init_rho = states[excited_list[init_RC]]*states[excited_list[init_RC]].dag()
     elif init_sys==2:
-        E = qt.ket([1])
         Therm = qt.thermal_dm( N, Occupation(w0, T_ph))
         init_rho = qt.tensor(E*E.dag(), Therm)
         # if in neither ground or excited
@@ -137,4 +136,3 @@ def initialise_TLS(init_sys, init_RC, states, w0, T_ph):
         num = (-H_RC*beta_f(T_ph)).expm()
         init_rho =  num/num.tr()
     return init_rho
-
