@@ -185,7 +185,7 @@ def Gamma(omega, beta, J, alpha, wc, imag_part=True):
 def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, silent=False):
     ti = time.time()
     beta = beta_f(T_EM)
-    
+
     eVals, eVecs = H_vib.eigenstates()
     #J=J_minimal # J_minimal(omega, Gamma, omega_0)
     d_dim = len(eVals)
@@ -211,7 +211,7 @@ def RWA_system_ops(H_vib, S):
     S_minus = 0 #np.zeros(shape=H_vib.shape)
     S_0 = 0 #np.zeros(shape=H_vib.shape)
     eVals, eVecs = H_vib.eigenstates()
-    
+
     for j, phi_j in enumerate(eVecs):
         for k, phi_k in enumerate(eVecs):
             S_jk = S.matrix_element(phi_j.dag(), phi_k)

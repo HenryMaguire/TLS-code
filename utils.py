@@ -104,6 +104,8 @@ def ground_and_excited_states(states):
 
 def initialise_TLS(init_sys, init_RC, states, w0, T_ph, H_RC=np.ones((2,2))):
     # allows specific state TLS-RC states to be constructed easily
+    G = qt.ket([0])
+    E = qt.ket([1])
     ground_list, excited_list = ground_and_excited_states(states)
     concat_list = [ground_list, excited_list]
     N = states[1].shape[0]/2
