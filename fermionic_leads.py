@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 import qutip as qt
 
 kB = 0.695
-d = destroy(2)
-ddag = d.dag()
 
 
 def J_flat(eps, Gamma_0):
@@ -17,8 +15,8 @@ def fermi_occ(eps, T, mu):
     exp_part = np.exp((eps-mu)/(kB*T))
     return 1/(exp_part+1)
 
-def additive_lead_dissipator(eps, T, mu, Gamma):
-
+def additive_lead_dissipator(eps, d, T, mu, Gamma):
+    ddag = d.dag()
     L = 0
     L+= pi*J_flat(eps, Gamma)*fermi_occ(eps, T, mu)*(spost(d*ddag)+spre(d*ddag)-2*sprepost(ddag, d))
     L+= pi*J_flat(eps, Gamma)*(1-fermi_occ(eps, T, mu))*(spost(ddag*d)+spre(ddag*d)-2*sprepost(d, ddag))
