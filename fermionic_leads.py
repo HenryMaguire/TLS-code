@@ -3,12 +3,22 @@ import numpy as np
 from numpy import pi, linspace
 import matplotlib.pyplot as plt
 import qutip as qt
-
+from utils import J_underdamped
 kB = 0.695
 
+def rate_up(e_lk, T, mu, Gamma_0, width, pos, J):
+    return pi*J(e_lk, Gamma_0, width, pos)*fermi_occ(e_lk, T, mu)
 
-def J_flat(eps, Gamma_0):
-    return Gamma_0
+def rate_down(e_lk, T, mu, Gamma_0, width, pos, J):
+    return pi*J(e_lk, Gamma_0, width, pos)*(1-fermi_occ(e_lk, T, mu))
+
+def limit_fermi_flat(Gamma_0, T, mu):
+    # up, down
+    return pi*Gamma_0*(1-fermi_occ(2*mu, T, mu)), pi*Gamma_0*fermi_occ(2*mu, T, mu)
+
+def limit_fermi_lorentz(Gamma_0, T, mu):
+    # up, down
+    return 0,0
 
 def fermi_occ(eps, T, mu):
     eps, T, mu = float(eps), float(T), float(mu)
@@ -21,7 +31,7 @@ def additive_lead_dissipator(eps, d, T, mu, Gamma):
     L+= pi*J_flat(eps, Gamma)*fermi_occ(eps, T, mu)*(spost(d*ddag)+spre(d*ddag)-2*sprepost(ddag, d))
     L+= pi*J_flat(eps, Gamma)*(1-fermi_occ(eps, T, mu))*(spost(ddag*d)+spre(ddag*d)-2*sprepost(d, ddag))
     return -L
-
+"""
 def rate_up(e_lk, T, mu, Gamma_0):
     return pi*J_flat(e_lk, Gamma_0)*fermi_occ(e_lk, T, mu)
 
@@ -31,8 +41,42 @@ def rate_down(e_lk, T, mu, Gamma_0):
 def limit_fermi(Gamma_0, T, mu):
     # up, down
     return pi*Gamma_0*(1-fermi_occ(2*mu, T, mu)), pi*Gamma_0*fermi_occ(2*mu, T, mu)
-
-def non_additive_lead_dissipator(H, A, eps, T, mu, Gamma_0):
+"""
+def non_additive_lead_dissipator(H, A, eps, T, mu, Gamma_0, width, pos, J):
+    L=0
+    evals, estates = H.eigenstates()
+    Zp_1 = 0
+    Zp_2 = 0
+    Zm_1 = 0
+    Zm_2 = 0
+    dim = len(evals)
+    Adag = A.dag()
+    for l in range(dim):
+        for k in range(dim):
+            e_lk = abs(evals[l]- evals[k])
+            A_kl = A.matrix_element(estates[k].dag(), estates[l])
+            Adag_lk = Adag.matrix_element(estates[l].dag(), estates[k])
+            LK = estates[l]*estates[k].dag()
+            KL = estates[k]*estates[l].dag()
+            if e_lk != 0:
+                Zp_1 += LK*Adag_lk*rate_up(e_lk, T, mu, Gamma_0, width, pos, J)
+                Zp_2 += LK*Adag_lk*rate_down(e_lk, T, mu, Gamma_0, width, pos, J)
+                Zm_1 += KL*A_kl*rate_up(e_lk, T, mu, Gamma_0, width, pos, J)
+                Zm_2 += KL*A_kl*rate_down(e_lk, T, mu, Gamma_0, width, pos, J)
+            else:
+                pass
+                rup, rdown = limit_fermi_flat(Gamma_0, T, mu)
+                Zp_1 += LK*Adag_lk*rup
+                Zp_2 += LK*Adag_lk*rdown
+                Zm_1 += KL*A_kl*rup
+                Zm_2 += KL*A_kl*rdown
+    #print Z_plus_1+Z_plus_2, Z_minus_1+Z_minus_2
+    L += spre(A*Zp_1)-sprepost(Zp_1, A)
+    L += -sprepost(A, Zp_2)+spost(Zp_2*A)
+    L += spre(Adag*Zm_2)-sprepost(Zm_2, Adag)
+    L += -sprepost(Adag, Zm_1)+spost(Zm_1*Adag)
+    return -L
+"""def non_additive_lead_dissipator(H, A, eps, T, mu, Gamma_0):
     L=0
     evals, estates = H.eigenstates()
     Zp_1 = 0
@@ -64,9 +108,9 @@ def non_additive_lead_dissipator(H, A, eps, T, mu, Gamma_0):
     L += -sprepost(A, Zp_2)+spost(Zp_2*A)
     L += spre(Adag*Zm_2)-sprepost(Zm_2, Adag)
     L += -sprepost(Adag, Zm_1)+spost(Zm_1*Adag)
-    return -L
+    return -L"""
 
-def L_R_lead_dissipators(H, A, eps, TL, muL, Gamma_0L, TR, muR, Gamma_0R):
+def L_R_lead_dissipators(H, A, eps, TL, muL, Gamma_0L, widthL, posL, TR, muR, Gamma_0R, widthR, posR):
     L_R = 0
     L_L = 0
     evals, estates = H.eigenstates()
@@ -78,6 +122,7 @@ def L_R_lead_dissipators(H, A, eps, TL, muL, Gamma_0L, TR, muR, Gamma_0R):
     Zp_2R = 0
     Zm_1R = 0
     Zm_2R = 0
+    J = J_underdamped
     dim = len(evals)
     Adag = A.dag()
     for l in range(dim):
@@ -88,21 +133,22 @@ def L_R_lead_dissipators(H, A, eps, TL, muL, Gamma_0L, TR, muR, Gamma_0R):
             LK = estates[l]*estates[k].dag()
             KL = estates[k]*estates[l].dag()
             if e_lk != 0:
-                Zp_1L += LK*Adag_lk*rate_up(e_lk, TL, muL, Gamma_0L)
-                Zp_2L += LK*Adag_lk*rate_down(e_lk, TL, muL, Gamma_0L)
-                Zm_1L += KL*A_kl*rate_up(e_lk, TL, muL, Gamma_0L)
-                Zm_2L += KL*A_kl*rate_down(e_lk, TL, muL, Gamma_0L)
-                Zp_1R += LK*Adag_lk*rate_up(e_lk, TR, muR, Gamma_0R)
-                Zp_2R += LK*Adag_lk*rate_down(e_lk, TR, muR, Gamma_0R)
-                Zm_1R += KL*A_kl*rate_up(e_lk, TR, muR, Gamma_0R)
-                Zm_2R += KL*A_kl*rate_down(e_lk, TR, muR, Gamma_0R)
+                Zp_1L += LK*Adag_lk*rate_up(e_lk, TL, muL, Gamma_0L, widthL, posL, J)
+                Zp_2L += LK*Adag_lk*rate_down(e_lk, TL, muL, Gamma_0L, widthL, posL, J)
+                Zm_1L += KL*A_kl*rate_up(e_lk, TL, muL, Gamma_0L, widthL, posL, J)
+                Zm_2L += KL*A_kl*rate_down(e_lk, TL, muL, Gamma_0L, widthL, posL, J)
+                Zp_1R += LK*Adag_lk*rate_up(e_lk, TR, muR, Gamma_0R, widthR, posR, J)
+                Zp_2R += LK*Adag_lk*rate_down(e_lk, TR, muR, Gamma_0R, widthR, posR, J)
+                Zm_1R += KL*A_kl*rate_up(e_lk, TR, muR, Gamma_0R, widthR, posR, J)
+                Zm_2R += KL*A_kl*rate_down(e_lk, TR, muR, Gamma_0R, widthR, posR, J)
             else:
-                rup, rdown = limit_fermi(Gamma_0L, TL, muL)
+                pass
+                rup, rdown = limit_fermi_flat(Gamma_0L, TL, muL)
                 Zp_1L += LK*Adag_lk*rup
                 Zp_2L += LK*Adag_lk*rdown
                 Zm_1L += KL*A_kl*rup
                 Zm_2L += KL*A_kl*rdown
-                rup, rdown = limit_fermi(Gamma_0R, TR, muR)
+                rup, rdown = limit_fermi_flat(Gamma_0R, TR, muR)
                 Zp_1R += LK*Adag_lk*rup
                 Zp_2R += LK*Adag_lk*rdown
                 Zm_1R += KL*A_kl*rup
