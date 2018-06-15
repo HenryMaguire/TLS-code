@@ -169,7 +169,7 @@ def Gamma(omega, beta, J, alpha, wc, imag_part=True):
 
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega), integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)
     elif omega==0.:
-        G = (np.pi/2)*(2*alpha/beta)
+        G = 0.#(np.pi/2)*(2*alpha/beta)
         # The limit as omega tends to zero is zero for superohmic case?
         if imag_part:
             G += -(1j)*integral_converge(F_0, -1e-12,0)
