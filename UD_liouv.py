@@ -15,12 +15,12 @@ In this script we have four methods.
 """
 import numpy as np
 import scipy as sp
-from qutip import destroy, tensor, qeye, spre, spost, sprepost
+from qutip import destroy, tensor, qeye, spre, spost, sprepost, Qobj
 #from sympy.functions import coth
 import utils as UTILS
 
 from utils import beta_f, Coth
-
+#import pdb; pdb.set_trace()
 def Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
@@ -30,10 +30,12 @@ def Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
         eps=0.
     a = destroy(N)
     shift = (kappa**2)/Omega
-    H_S = (eps+shift)*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(qeye(2),Omega*a.dag()*a)
+    I_sys = Qobj(qeye(sigma.shape[0]),dims=sigma.dims)
+
+    H_S = (eps+shift)*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(I_sys,Omega*a.dag()*a)
     A_em = tensor(sigma, qeye(N))
     A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
-    A_ph = tensor(qeye(2), (a + a.dag()))
+    A_ph = tensor(I_sys, (a + a.dag()))
     return H_S, A_em, A_nrwa, A_ph
 
 def RCME_operators(H_0, A, gamma, beta):
