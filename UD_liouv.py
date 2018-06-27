@@ -21,6 +21,20 @@ import utils as UTILS
 
 from utils import beta_f, Coth
 #import pdb; pdb.set_trace()
+
+def rotating_Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
+    """
+    Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
+    Output: Hamiltonian, sigma_- and sigma_z in the vibronic Hilbert space
+    """
+    if rotating:
+        eps=0.
+    a = destroy(N)
+    shift = (kappa**2)/Omega
+    I_sys = Qobj(qeye(sigma.shape[0]),dims=sigma.dims)
+
+    return shift*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(I_sys,Omega*a.dag()*a)
+
 def Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension

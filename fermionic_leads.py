@@ -5,9 +5,6 @@ import matplotlib.pyplot as plt
 import qutip as qt
 from scipy import integrate
 
-
-import fermionic_leads as fl
-
 import UD_liouv as RC
 import driving_liouv as EM
 
@@ -28,7 +25,7 @@ sz = EE - GG
 sm = destroy(2)
 d2 = tensor(sm, sz) # swapped around from the calculations
 d1 = tensor(qeye(2), sm)
-
+I_sys = Qobj(qeye(4), dims= [[2, 2], [2, 2]])
 d1dag, d2dag = d1.dag(), d2.dag()
 
 z_ket = basis(4,0)
@@ -41,6 +38,7 @@ Z = Qobj(z_ket*z_ket.dag(), dims=D.dims)
 LUMO = Qobj(l_ket*l_ket.dag(), dims=D.dims)
 LUMOp = Qobj(lp_ket*lp_ket.dag(), dims=D.dims)
 n = d1dag*d1 + d2dag*d2 # populatiion operator
+
 J_leads = J_underdamped
 
 def build_H(eps1, eps2, U):
@@ -59,13 +57,22 @@ def commutator_term2(O1, O2):
     return spost(O1*O2)-sprepost(O2, O1)
 
 def fermi_occ(eps, T, mu):
+    kB = 0.695
     exp_part = np.exp((eps-mu)/(kB*T))
     return 1/(exp_part+1)
 
-def current_from_L(H, L_full, L_track, n):
-    rho_ss = qt.steadystate(H, [L_full])
-    time_dependence = (qt.vector_to_operator(L_track*qt.operator_to_vector(rho_ss))*n).tr()
-    return -time_dependence
+def current_from_L(H, L_full, L_track, obs_ops, method='direct'):
+    obs_out = []
+    use_precond = False
+    if method!='direct':
+        use_precond = True
+    rho_ss = qt.steadystate(H, [L_full], method=method, use_precond=use_precond)
+    obs_out.append(-(qt.vector_to_operator(L_track*qt.operator_to_vector(rho_ss))*obs_ops[0]).tr())
+    for obs in obs_ops[1::]:
+        obs_out.append((rho_ss*obs).tr())
+
+    del rho_ss
+    return obs_out
 
 def cauchyIntegrands(eps, J, height, width, pos, T, mu, ver=1):
     # Function which will be called within another function where other inputs
@@ -343,44 +350,54 @@ def current_vs_voltage_with_phonons(eps1=1000., eps2=1000., U= 0., T_ph=77,
 def current_vs_phonon_coupling(eps1, eps2, T_ph=77., Gamma=30., w0=70., U=0., N=10,
                                gamma_L=1., T_L=77., mu_L=1000., width_L=1000., pos_L=1000.,
                                gamma_R=1., T_R=77., mu_R=0., width_R=1000., pos_R=1000.,
-                               height_L=1., height_R=1.):
+                               height_L=1., height_R=1., method='iterative-gmres'):
     ti = time.time()
     eps = abs(eps2-eps1)
-    alpha_prop = np. linspace(0, 1., 50)
+    alpha_prop = np. linspace(0., 1., 15)
     print "RC would need {} states to fill electronic gap.".format(eps/w0)
     currents_nonadd = []
     #timelist = np.linspace(0, 3/Gamma_EM, 360)
     H = build_H(eps1, eps2, U)
-    d_RC = tensor(d1+d2, qeye(N))
+    d_sub = d1+d2
+    d_RC = tensor(d_sub, qeye(N))
     E_RC = tensor(n, qeye(N))
-
+    RC_occ = destroy(N).dag()*destroy(N)
+    RC_occ_ = tensor(I_sys, RC_occ)
+    obs_ops = [E_RC, RC_occ_]
     #timelist = np.linspace(0, 3/Gamma_EM, 360)
 
     for i, alphap in enumerate(alpha_prop):
         alpha_ph = alphap*eps/pi
 
-        L_RC, H_RC, A_EM, A_nrwa, Z, _, _, _, = RC_function_UD(H, n, d1+d2, T_ph, Gamma, w0, alpha_ph,
-                                                             N, silent=True)
-        L_Lfull, L_Rfull = L_R_lead_dissipators(H_RC, d_RC, T_L=T_L, mu_L=mu_L,
-                         width_L=width_L, pos_L=pos_L, height_L=height_L, T_R=T_R,
-                         mu_R=mu_R, width_R=width_R, pos_R=pos_R, height_R=height_R)
+        L_RC, H_RC, A_EM, A_nrwa, Z, _, _, _ = RC_function_UD(H, n, d_sub, T_ph,
+                                                            Gamma, w0, alpha_ph,
+                                                            N, silent=True)
+        L_Lfull, L_Rfull = L_R_lead_dissipators(H_RC, d_RC,
+                                            T_L=T_L, mu_L=mu_L, width_L=width_L,
+                                            pos_L=pos_L, height_L=height_L,
+                                            T_R=T_R, mu_R=mu_R, width_R=width_R,
+                                            pos_R=pos_R, height_R=height_R)
         #currents_add.append(current_from_L(H_RC, L_RC+L_Ladd+L_Radd, L_Radd, E_RC))
-        currents_nonadd.append(current_from_L(H_RC, L_RC+L_Lfull+L_Rfull, L_Rfull, E_RC))
+        currents_nonadd.append(current_from_L(H_RC, L_RC+L_Lfull+L_Rfull,
+                                            L_Rfull, obs_ops, method=method))
+        del L_Lfull, L_Rfull, L_RC, H_RC, A_EM, A_nrwa, Z
         if (i%10)==0:
             print 100*(float(i)/len(alpha_prop)), "% complete"
     print "Took {} seconds.".format(time.time()-ti)
-    return alpha_prop,  currents_nonadd
+    return alpha_prop,  np.array(currents_nonadd).T
 
-a_prop1,  pc1 = current_vs_phonon_coupling(1000., 200., T_ph=77., Gamma=30., w0=50.,
-                                           N=5, T_L=77., T_R=77., mu_R=0., mu_L=1500.)
-a_prop2,  pc2 = current_vs_phonon_coupling(1000., 200., T_ph=77., Gamma=30., w0=50.,
-                                           N=8, T_L=77., T_R=77., mu_R=0., mu_L=1500.)
+
+"""
+
 a_prop3,  pc3 = current_vs_phonon_coupling(1000., 200., T_ph=77., Gamma=30., w0=50.,
-                                           N=10, T_L=77., T_R=77., mu_R=0., mu_L=1500.)
-a_prop4,  pc4 = current_vs_phonon_coupling(1000., 200., T_ph=77., Gamma=30., w0=50.,
-                                           N=15, T_L=77., T_R=77., mu_R=0., mu_L=1500.)
-plt.plot(a_prop1, pc1, label='5', color=colors[0])
-plt.plot(a_prop2, pc2, label='8', color=colors[0])
-plt.plot(a_prop3, pc3, label='10', color=colors[0])
-plt.plot(a_prop4, pc4, label='15', color=colors[0])
-plt.show()
+                                           N=15, T_L=77., T_R=77., mu_R=0., mu_L=1500.
+                                           , method='iterative-gmres')
+#plt.plot(a_prop1, pc1, label='5', color=colors[0])
+#plt.plot(a_prop2, pc2, label='8', color=colors[1])
+plt.figure()
+plt.plot(a_prop3, pc3[0], label='current', color=colors[2])
+plt.figure()
+plt.plot(a_prop3, pc3[1], label='phonon occ.', color=colors[2])
+#plt.plot(a_prop4, pc4, label='15', color=colors[3])
+plt.legend(loc='best')
+plt.show()"""

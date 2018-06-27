@@ -28,7 +28,7 @@ plt.rcParams['axes.facecolor'] = 'white'
 
 def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
                     T_ph=300., T_EM=0.,Gamma_EM=1., overdamped=False, N=9,
-                    end_T_mult=10, tau_f_mult=1., per_tau=1.):
+                    end_T_mult=10, tau_f_mult=1., per_tau=1., rotating=False):
     wc = 53.
     # Start system+RC in adiabatic eigenstate and then time-evolve
     plt.close('all')
@@ -59,7 +59,9 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
     dyn_DATA = []
     L_RC, H_RC, A_EM, A_nrwa, Z, wRC, kappa, Gamma= RC.RC_function_UD(sigma, eps,
                                                                    T_ph, Gamma,
-                                                                   w0, alpha_ph, N, rotating=False)
+                                                                   w0, alpha_ph,
+                                                                   N, rotating=rotating)
+    H_RC_opt = RC.Ham_RC(sigma, eps, w0, kappa, N, rotating=False)[0]
     evals, states = H_RC.eigenstates()
     ground_list, excited_list = ground_and_excited_states(states)
     # work out how to initialise system rho
@@ -68,26 +70,31 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
     #print len(excited_list), 'excited'
     # electromagnetic bath liouvillians
     final_t = end_T_mult/Gamma_EM
-    timelist = np.linspace(0,final_t,int(380*final_t))
-    options = qt.Options(nsteps=6000, store_states=True)
+    print "final t: ", final_t
+    timelist = np.linspace(0, final_t, int(13*final_t))
+    options = qt.Options(nsteps=2000, store_states=True)
     f1, (ax1, ax2) = plt.subplots(1, 2, figsize=(14,6))
     f2, (ax3, ax4) = plt.subplots(1, 2, figsize=(14,6))
     E_op = tensor(E*E.dag(), I_RC)
-    for i, L_EM in enumerate([EM.L_EM_lindblad(eps, A_EM, Gamma_EM, T_EM, J=J, silent=True),
-                        EM.L_non_rwa(H_RC, A_nrwa, eps, Gamma_EM, T_EM, J, silent=True)]):
+    #EM.L_non_rwa(H_RC_opt, A_nrwa, eps, Gamma_EM, T_EM, J, silent=True)]
+    for i, L_EM in enumerate([EM.L_EM_lindblad(eps, A_EM, Gamma_EM, T_EM,
+                                J=J, silent=True)]):
         #L_EM = EM.L_nonsecular(H_RC, A_EM, eps, Gamma_EM, T_EM, J=J)
         #L_s = EM.L_vib_lindblad(H_RC, A_EM, eps, Gamma_EM, T_EM, J=J, silent=True)
         ti = time.time()
         sigma_RC = tensor(sigma, I_RC)
 
         if label[i]=='Full':
-            sigma_plus_RC, sigma_RC, sigma_0_RC = EM.RWA_system_ops(H_RC, tensor(sigma+sigma.dag(), I_RC))
+            sigma_plus_RC, sigma_RC, sigma_0_RC = EM.RWA_system_ops(H_RC_opt,
+                                                tensor(sigma+sigma.dag(), I_RC))
             ls = 'solid'
         else:
             ls = 'dashed'
-        P = mesolve(H_RC, init_rho, timelist, [L_RC+L_EM], progress_bar=None,options=options).states
+        P = mesolve(H_RC, init_rho, timelist, [L_RC+L_EM], progress_bar=True,
+                                                        options=options).states
 
-        ax1.plot(timelist, [((E_op*p).tr()).real for p in P], label=label[i], linestyle=ls)
+        ax1.plot(timelist, [((E_op*p).tr()).real for p in P],
+                            label=label[i], linestyle=ls)
         if overdamped:
             steps_per_tau, tau_f = 1500*per_tau,  1.1
         else:
@@ -98,7 +105,7 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
         tau_f*=tau_f_mult
         #norm = np.array([(sigma_RC.dag()*sigma_RC*rho_t).tr() for rho_t in P])[0:tau_f*steps_per_tau]
         R= sum(P)
-        print "Completed initial dynamics calculations for {} in {} seconds.".format(label[i], time.time()-ti)
+        print "Completed initial dynamics calculations for {} in {}  seconds.".format(label[i], time.time()-ti)
         ti = time.time()
         Lambda_0 = sigma_RC*R
         del P
@@ -119,10 +126,15 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
                  g_1.real[0:int(tau_f*steps_per_tau/2.)], label=label[i], linestyle=ls)
         ax4.plot(taulist[0:int(tau_f*steps_per_tau/2.)],
                  g_1.imag[0:int(tau_f*steps_per_tau/2.)], label=label[i], linestyle=ls)
-        freq, spec = qt.spectrum_correlation_fft(taulist, g_1)
+        spec = sp.fftpack.fft(g_1)
+        dt = taulist[1]-taulist[0]
+        freq = 2*pi*np.array(sp.fftpack.fftfreq(spec.size, dt))
+        spec = 2 * dt* np.real(spec)
+        #freq, spec = qt.spectrum_correlation_fft(taulist, g_1)
         spec-= min(spec)
         spec = spec/sum(spec)
-        ax2.plot(freq, spec.real, label=label[i], linestyle=ls)
+        freq, spec = zip(*sorted(zip(freq, np.array(spec).real)))
+        ax2.plot(freq, spec, label=label[i], linestyle=ls)
         print "Completed correlation function calculations for {} in {} seconds.".format(label[i], time.time()-ti)
     ax1.set_xlim(0,final_t)
     #ax3.set_xlim(0,taulist[int((len(taulist)-1)/5.)])
@@ -130,7 +142,7 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
     ax1.set_xlabel(r"Time")
     ax2.set_xlabel(r"Frequency $cm^{-1}$")
     #ax2.axvline(eps, linestyle='dashed',color='k', alpha=0.4)
-    ax2.set_xlim(0,2*eps)
+    ax2.set_xlim(-1000,1000.)
 
     ax1.set_ylabel(r"Excited state population")
     ax2.set_ylabel(r"Fluorescence intensity (arb. units)")
