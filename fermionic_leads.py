@@ -63,9 +63,9 @@ def fermi_occ(eps, T, mu):
 
 def current_from_L(H, L_full, L_track, obs_ops, method='direct'):
     obs_out = []
-    use_precond = False
-    if method!='direct':
-        use_precond = True
+    use_precond = True
+    if method in ['direct','svd', 'eigen', 'power']:
+        use_precond = False
     rho_ss = qt.steadystate(H, [L_full], method=method, use_precond=use_precond)
     obs_out.append(-(qt.vector_to_operator(L_track*qt.operator_to_vector(rho_ss))*obs_ops[0]).tr())
     for obs in obs_ops[1::]:
@@ -171,7 +171,8 @@ def simple_current_voltage(eps1=100., eps2=900., U=0., T_L=77.,
 def L_R_lead_dissipators(H, A, T_L=77., mu_L=1000.,
                      width_L=1000., pos_L=900., height_L=1., T_R=77.,
                      mu_R=0., width_R=1000., pos_R=900., height_R=1.,
-                        real_only=False):
+                        real_only=False, silent=True):
+    ti = time.time()
     L_leads = []
     T = [T_L, T_R]
     mu = [mu_L, mu_R]
@@ -224,6 +225,8 @@ def L_R_lead_dissipators(H, A, T_L=77., mu_L=1000.,
         L += spre(Adag*Zm_2)-sprepost(Zm_2, Adag)
         L += -sprepost(Adag, Zm_1)+spost(Zm_1*Adag)
         L_leads.append(L)
+    if not silent:
+        print "Calculating the lead dissipators took {} seconds.".format(time.time()-ti)
     return -L_leads[0],-L_leads[1]
 
 def nonadditive_current_voltage(eps1=500., eps2=900., U=0., T_L=77.,
@@ -312,7 +315,7 @@ def RC_function_UD(H, n_op, sigma_op, T_ph, Gamma, wRC, alpha_ph, N, silent=Fals
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
 
     if not silent:
-        print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
+        print "w_RC={} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, gamma,  kappa, Gamma, alpha_ph, N)
     H, A_em, A_nrwa, A_ph = Ham_RC(H, n_op, sigma_op, wRC, kappa, N, rotating=rotating)
     L_RC, Z =  RC.liouvillian_build(H, A_ph, gamma, wRC, T_ph)
     return L_RC, H, A_em, A_nrwa, Z, wRC, kappa, Gamma
