@@ -33,20 +33,44 @@ def rotating_Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
     shift = (kappa**2)/Omega
     I_sys = Qobj(qeye(sigma.shape[0]),dims=sigma.dims)
 
-    return shift*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(I_sys,Omega*a.dag()*a)
+    return shift*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(I_sys, Omega*a.dag()*a)
+
+def Ham_RC_gen(H_sub, sigma, Omega, kappa, N, rotating=False, shift_op=None):
+    """
+    will only work for spin-boson like models
+    Input: System Hamiltonian, RC freq., system-RC coupling and Hilbert space dimension
+    Output: Hamiltonian, sigma_- and sigma_z in the vibronic Hilbert space
+    """
+
+    a = destroy(N)
+    shift = (kappa**2)/Omega
+    I_sys = Qobj(qeye(H_sub.shape[0]),dims=sigma.dims)
+    if shift_op is not None:
+        H_sub += shift_op*shift
+    if rotating:
+        # Hopefully removes energy scale. Shift operator should be the same as
+        # the site energy-scale operator.
+        H_sub -= shift_op*H_sub*(shift_op.dag())
+    H_S = tensor(H_sub, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag()))
+    H_S += tensor(I_sys, Omega*a.dag()*a)
+    A_em = tensor(sigma, qeye(N))
+    A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
+    A_ph = tensor(I_sys, (a + a.dag()))
+    return H_S, A_em, A_nrwa, A_ph
 
 def Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
     """
     Input: System splitting, RC freq., system-RC coupling and Hilbert space dimension
     Output: Hamiltonian, sigma_- and sigma_z in the vibronic Hilbert space
     """
-    if rotating:
-        eps=0.
+
     a = destroy(N)
     shift = (kappa**2)/Omega
     I_sys = Qobj(qeye(sigma.shape[0]),dims=sigma.dims)
-
-    H_S = (eps+shift)*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(I_sys,Omega*a.dag()*a)
+    sys_energy = (eps+shift)
+    if rotating:
+        sys_energy=0.
+    H_S = sys_energy*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(I_sys,Omega*a.dag()*a)
     A_em = tensor(sigma, qeye(N))
     A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
     A_ph = tensor(I_sys, (a + a.dag()))
@@ -125,6 +149,24 @@ def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
     if not silent:
         print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N, rotating=rotating)
+    L_RC, Z =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
+
+    return L_RC, H, A_em, A_nrwa, Z, wRC, kappa, Gamma
+
+
+def RC_function_gen(H_sub, sigma, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
+                                            residual_off=False, rotating=False
+                                            shift_op = None):
+    # we define all of the RC parameters by the underdamped spectral density
+    gamma = Gamma / (2. * np.pi * wRC)  # coupling between RC and residual bath
+    if residual_off:
+        gamma=0
+    kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
+
+    if not silent:
+        print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
+    H, A_em, A_nrwa, A_ph = Ham_RC_gen(H_sub, sigma, wRC, kappa, N,
+                                        rotating=rotating, shift_op=shift_op)
     L_RC, Z =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
 
     return L_RC, H, A_em, A_nrwa, Z, wRC, kappa, Gamma
