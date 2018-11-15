@@ -16,10 +16,9 @@ In this script we have four methods.
 import numpy as np
 import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost, Qobj
-#from sympy.functions import coth
 import utils as UTILS
+reload(UTILS)
 
-from utils import beta_f, Coth
 #import pdb; pdb.set_trace()
 
 def rotating_Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
@@ -35,7 +34,7 @@ def rotating_Ham_RC(sigma, eps, Omega, kappa, N, rotating=False):
 
     return shift*tensor(sigma.dag()*sigma, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag())) + tensor(I_sys, Omega*a.dag()*a)
 
-def Ham_RC_gen(H_sub, sigma, Omega, kappa, N, rotating=False, shift_op=None):
+def Ham_RC_gen(H_sub, sigma, Omega, kappa, N, rotating=False, shift = True, shift_op=None):
     """
     will only work for spin-boson like models
     Input: System Hamiltonian, RC freq., system-RC coupling and Hilbert space dimension
@@ -43,15 +42,16 @@ def Ham_RC_gen(H_sub, sigma, Omega, kappa, N, rotating=False, shift_op=None):
     """
 
     a = destroy(N)
-    shift = (kappa**2)/Omega
+    energy_shift = (kappa**2)/Omega
     I_sys = Qobj(qeye(H_sub.shape[0]),dims=sigma.dims)
-    if shift_op is not None:
-        H_sub += shift_op*shift
+    if shift and shift_op is not None:
+        print "Shifted"
+        H_sub += shift_op*energy_shift
     if rotating:
         # Hopefully removes energy scale. Shift operator should be the same as
         # the site energy-scale operator.
         H_sub -= shift_op*H_sub*(shift_op.dag())
-    H_S = tensor(H_sub, qeye(N)) + kappa*tensor(sigma.dag()*sigma, (a + a.dag()))
+    H_S = tensor(H_sub, qeye(N)) + kappa*tensor(shift_op, (a + a.dag()))
     H_S += tensor(I_sys, Omega*a.dag()*a)
     A_em = tensor(sigma, qeye(N))
     A_nrwa = tensor(sigma+sigma.dag(), qeye(N))
@@ -124,7 +124,7 @@ def RCME_operators(H_0, A, gamma, beta):
 
 def liouvillian_build(H_0, A, gamma, wRC, T_C):
     # Now this function has to construct the liouvillian so that it can be passed to mesolve
-    H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, beta_f(T_C))
+    H_0, A, Chi, Xi = RCME_operators(H_0, A, gamma, UTILS.beta_f(T_C))
     L = 0
     L-=spre(A*Chi)
     L+=sprepost(A, Chi)
@@ -155,8 +155,8 @@ def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
 
 
 def RC_function_gen(H_sub, sigma, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
-                                            residual_off=False, rotating=False
-                                            shift_op = None):
+                                            residual_off=False, rotating=False,
+                                            shift_op = None, shift=True):
     # we define all of the RC parameters by the underdamped spectral density
     gamma = Gamma / (2. * np.pi * wRC)  # coupling between RC and residual bath
     if residual_off:
@@ -164,9 +164,10 @@ def RC_function_gen(H_sub, sigma, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
 
     if not silent:
-        print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
+        print "w_RC={} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, gamma,  kappa, Gamma, alpha_ph, N)
     H, A_em, A_nrwa, A_ph = Ham_RC_gen(H_sub, sigma, wRC, kappa, N,
-                                        rotating=rotating, shift_op=shift_op)
+                                        rotating=rotating,
+                                        shift_op=shift_op, shift=shift)
     L_RC, Z =  liouvillian_build(H, A_ph, gamma, wRC, T_ph)
 
     return L_RC, H, A_em, A_nrwa, Z, wRC, kappa, Gamma
