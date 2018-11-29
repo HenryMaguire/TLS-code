@@ -126,17 +126,17 @@ import sympy
 def coth(x):
     return float(sympy.coth(x))
 
-def cauchyIntegrands(omega, beta, J, alpha, wc, ver):
+def cauchyIntegrands(omega, beta, J, alpha, wc, ver, c=1.):
     # J_overdamped(omega, alpha, wc)
     # Function which will be called within another function where J, beta and
     # the eta are defined locally
     F = 0
     if ver == 1:
-        F = J(omega, alpha, wc)*(coth(beta*omega/2.)+1)
+        F = J(omega, alpha, wc, ohmicity=c)*(coth(beta*omega/2.)+1)
     elif ver == -1:
-        F = J(omega, alpha, wc)*(coth(beta*omega/2.)-1)
+        F = J(omega, alpha, wc, ohmicity=c)*(coth(beta*omega/2.)-1)
     elif ver == 0:
-        F = J(omega, alpha, wc)
+        F = J(omega, alpha, wc, ohmicity=c)
     return F
 import time
 def integral_converge(f, a, omega):
@@ -152,17 +152,17 @@ def integral_converge(f, a, omega):
     print "Integral converged"
     return I # Converged integral
 
-def Gamma(omega, beta, J, alpha, wc, imag_part=True):
+def Gamma(omega, beta, J, alpha, wc, imag_part=True, c=1):
     G = 0
     # Here I define the functions which "dress" the integrands so they
     # have only 1 free parameter for Quad.
-    F_p = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 1)))
-    F_m = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, -1)))
-    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 0)))
+    F_p = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 1 , ohmicity=c)))
+    F_m = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, -1, ohmicity=c)))
+    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 0, ohmicity=c)))
     w='cauchy'
     if omega>0.:
         # These bits do the Cauchy integrals too
-        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega,alpha, wc)
+        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega,alpha, wc, ohmicity=c)
         if imag_part:
             G += (1j/2.)*(integral_converge(F_m, 0,omega))
             G -= (1j/2.)*(integral_converge(F_p, 0,-omega))
@@ -175,14 +175,16 @@ def Gamma(omega, beta, J, alpha, wc, imag_part=True):
             G += -(1j)*integral_converge(F_0, -1e-12,0)
         #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
     elif omega<0.:
-        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega),alpha, wc)
+        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega),alpha, wc, 
+                                                    ohmicity=c)
         if imag_part:
             G += (1j/2.)*integral_converge(F_m, 0,-abs(omega))
             G -= (1j/2.)*integral_converge(F_p, 0,abs(omega))
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
     return G
 
-def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, silent=False):
+def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, 
+                                silent=False, ohmicity=3):
     ti = time.time()
     beta = beta_f(T_EM)
 
@@ -196,7 +198,8 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False, silent=False):
             s = eVecs[i]*(eVecs[j].dag())
             #print A.matrix_element(eVecs[i].dag(), eVecs[j])
             s*= A.matrix_element(eVecs[i].dag(), eVecs[j])
-            s*= Gamma(eta, beta, J, alpha, w_0, imag_part=principal)
+            s*= Gamma(eta, beta, J, alpha, w_0, imag_part=principal, 
+                                                c=ohmicity)
             G+=s
     G_dag = G.dag()
     # Initialise liouvilliian

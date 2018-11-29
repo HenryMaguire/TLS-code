@@ -54,6 +54,9 @@ def beta_f(T):
         beta = 1. / (conversion*T)
     return beta
 
+def J_poly(omega, Gamma, omega_0, ohmicity=1):
+    return Gamma*(omega**ohmicity)/(2*np.pi*(omega_0**ohmicity))
+
 def J_multipolar(omega, Gamma, omega_0):
     return Gamma*(omega**3)/(2*np.pi*(omega_0**3))
 
