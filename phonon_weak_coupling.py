@@ -14,9 +14,9 @@ from utils import *
 def integral_converge(f, a, omega):
     x = 1
     I = 0
-    print abs(f(x)), 'f(x)'
+    print(abs(f(x)), 'f(x)')
     while abs(f(x))>0.0001:
-        print a, x
+        print(a, x)
         I += integrate.quad(f, a, x, weight='cauchy', wvar=omega)[0]
         a+=1
         x+=1

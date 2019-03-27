@@ -10,10 +10,11 @@ import exact_IB as exact
 import scipy as sp
 import phonon_weak_coupling as WC
 from utils import J_overdamped, beta_f, J_underdamped, J_minimal_hard
-reload(RC)
-reload(EM)
-reload(check)
-reload(exact)
+import imp
+imp.reload(RC)
+imp.reload(EM)
+imp.reload(check)
+imp.reload(exact)
 plt.style.use('ggplot')
 def steadystate_coupling_dependence(couplings, T_ph, eps, Gamma, w0, T_EM, Gamma_EM, overdamped=True):
     plt.figure()
@@ -30,7 +31,7 @@ def steadystate_coupling_dependence(couplings, T_ph, eps, Gamma, w0, T_EM, Gamma
     i = 1
     for alpha_ph in couplings:
         alpha_ph = alpha_ph*eps
-        print i
+        print(i)
         i+=1
         L_RC, H_RC, A_EM, A_nrwa, wRC, kappa, Gamma= RC.RC_function_UD(sigma, eps, T_ph, Gamma, w0, alpha_ph, N)
         L_wc = WC.L_phonon(alpha_ph, beta, Gamma, w0, overdamped=overdamped)
@@ -74,14 +75,14 @@ def steadystate_bias_dependence(biases, T_ph, alpha_ph, Gamma, w0, cutoff, T_EM,
     rc_s = []
     rc_naive = []
     i = 1
-    print w0, wc
+    print(w0, wc)
     for eps in biases:
         if overdamped:
             optical_cutoff = 20000.
             Gamma = w0**2/cutoff
         else:
             w0 = eps+0.5*np.pi*alpha_ph # underdamped SD parameter omega_0
-        print i
+        print(i)
         i+=1
         L_RC, H_RC, A_EM, A_nrwa, wRC, kappa, Gamma= RC.RC_function_UD(sigma, eps, T_ph, Gamma, w0, alpha_ph, N)
         L_wc = WC.L_phonon(alpha_ph, beta, Gamma, w0, overdamped=overdamped)
@@ -130,7 +131,7 @@ def steadystate_mode_dependence(mode_freqs, eps, T_ph, alpha_ph, Gamma, T_EM, Ga
     rc_naive = []
     i = 1
     for w0 in mode_freqs:
-        print i
+        print(i)
         i+=1
         L_RC, H_RC, A_EM, A_nrwa, wRC, kappa, Gamma= RC.RC_function_UD(sigma, eps, T_ph, Gamma, w0, alpha_ph, N)
         L_wc = WC.L_phonon(alpha_ph, beta, Gamma, w0, overdamped=False)
@@ -249,16 +250,16 @@ if __name__ == "__main__":
         # Calculate dynamics
         opts = qt.Options(nsteps=15000)
         if not phonon_only:
-            print "WEAK_COUPLING"
+            print("WEAK_COUPLING")
             #DATA_wc = mesolve(H_S, initial_sys, timelist, [L_wc+L_wc_EM], expects_wc, progress_bar=True)
-            print "NON-ROTATING-WAVE"
+            print("NON-ROTATING-WAVE")
             DATA_nrwa = mesolve(H_RC, rho_0, timelist, [L_RC+L_nrwa1], expects, progress_bar=True, options=opts)
             #DATA_nrwa2 = mesolve(H_RC, rho_0, timelist, [L_RC+L_nrwa2], expects, progress_bar=True, options=opts)
-            print "NON-SECULAR"
+            print("NON-SECULAR")
             #DATA_ns = mesolve(H_RC, rho_0, timelist, [L_RC+L_ns], expects, progress_bar=True)
-            print "SECULAR"
+            print("SECULAR")
             #DATA_s = mesolve(H_RC, rho_0, timelist, [L_RC+L_s], expects, progress_bar=True)
-            print "NAIVE"
+            print("NAIVE")
             #DATA_naive = mesolve(H_RC, rho_0, timelist, [L_RC+L_naive], expects, progress_bar=True)
             plt.figure()
             colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
@@ -303,7 +304,7 @@ if __name__ == "__main__":
             plt.legend()
 
             import frequency_analysis as fa
-            reload(fa)
+            imp.reload(fa)
             plt.figure()
             fa.plot_frequency(DATA_wc, timelist, label='WC', QOBJ=True)
             fa.plot_frequency(DATA_sc, timelist, label='SC', QOBJ=True)

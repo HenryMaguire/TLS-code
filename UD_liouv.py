@@ -17,7 +17,8 @@ import numpy as np
 import scipy as sp
 from qutip import destroy, tensor, qeye, spre, spost, sprepost, Qobj
 import utils as UTILS
-reload(UTILS)
+import imp
+imp.reload(UTILS)
 
 #import pdb; pdb.set_trace()
 
@@ -45,7 +46,7 @@ def Ham_RC_gen(H_sub, sigma, Omega, kappa, N, rotating=False, shift = True, shif
     energy_shift = (kappa**2)/Omega
     I_sys = Qobj(qeye(H_sub.shape[0]),dims=sigma.dims)
     if shift and shift_op is not None:
-        print "Shifted"
+        print("Shifted")
         H_sub += shift_op*energy_shift
     if rotating:
         # Hopefully removes energy scale. Shift operator should be the same as
@@ -167,7 +168,7 @@ def RC_function_UD(sigma, eps, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
 
     if not silent:
-        print "w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N)
+        print("w_RC={} | TLS splitting = {} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, eps, gamma,  kappa, Gamma, alpha_ph, N))
     H, A_em, A_nrwa, A_ph = Ham_RC(sigma, eps, wRC, kappa, N, rotating=rotating)
     if new:
         L_RC, Z =  liouvillian_build_new(H, A_ph, gamma, wRC, T_ph)
@@ -186,7 +187,7 @@ def RC_function_gen(H_sub, sigma, T_ph, Gamma, wRC, alpha_ph, N, silent=False,
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
 
     if not silent:
-        print "w_RC={} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, gamma,  kappa, Gamma, alpha_ph, N)
+        print("w_RC={} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, gamma,  kappa, Gamma, alpha_ph, N))
     H, A_em, A_nrwa, A_ph = Ham_RC_gen(H_sub, sigma, wRC, kappa, N,
                                         rotating=rotating,
                                         shift_op=shift_op, shift=shift)

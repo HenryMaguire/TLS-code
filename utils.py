@@ -4,6 +4,7 @@ import scipy as sp
 from qutip import spre, spost, sprepost
 import qutip as qt
 import pickle
+import sympy
 
 
 ev_to_inv_cm = 8065.5
@@ -18,7 +19,9 @@ def save_obj(obj, name ):
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 def Coth(x):
-    return (np.exp(2*x)+1)/(np.exp(2*x)-1)
+    #return (np.exp(2*x)+1)/(np.exp(2*x)-1)
+    return float(sympy.coth(x))
+    
 
 
 def Occupation(omega, T, time_units='cm'):
@@ -120,7 +123,7 @@ def initialise_TLS(init_sys, init_RC, states, w0, T_ph, H_RC=np.ones((2,2))):
         #coherence state
         if type(init_RC) == tuple:
             # take in a 2-tuple to initialise in coherence state.
-            print init_sys, init_RC
+            print(init_sys, init_RC)
             rho_left = states[concat_list[init_sys[0]][init_RC[0]]]
             rho_right = states[concat_list[init_sys[1]][init_RC[1]]].dag()
             init_rho = rho_left*rho_right

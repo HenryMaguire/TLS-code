@@ -37,11 +37,11 @@ def integrand_Im(omega, t, alpha, beta, Gamma, w0):
 
 
 def integral_converge(f, a):
-    step = 150.
+    step = 60.+np.random.random()
     x = step
     I = 0
     der = 1000.
-    while (abs(f(x))>5E-11):
+    while (abs(f(x))>1E-9):
         I += quad(f, a, x)[0]
         der = abs(f(a)-f(x))/step
         a+=step
@@ -84,17 +84,17 @@ def exact_solution_at_t(t, eps, alpha, beta, Gamma, w0, rho_init):
 def exact_dynamics(eps, alpha, wc, w0, Gamma, beta, rho_init, time_points, overdamped=False , silent=False):
     rho_t = []
     alpha = alpha
-    print "eps: {}, alpha: {}, w0: {}, Gamma: {}, beta: {}".format(eps, alpha, w0, Gamma, beta)
+    print("eps: {}, alpha: {}, w0: {}, Gamma: {}, beta: {}".format(eps, alpha, w0, Gamma, beta))
     if overdamped:
-        Gamma = w0**2/wc
+        Gamma = (w0**2)/wc
     ti = time.time()
     for t in time_points:
         rho_t.append(exact_solution_at_t(t, eps, alpha, beta, Gamma, w0, rho_init))
         if not silent:
             if len(rho_t)%40 == 0:
-                print "Exact solution {:0.3f} percent finished".format((float(len(rho_t))/len(time_points))*100)
+                print("Exact solution {:0.3f} percent finished".format((float(len(rho_t))/len(time_points))*100))
     if not silent:
-        print "Exact solution took {} to calculate.".format(time.time()- ti)
+        print("Exact solution took {} to calculate.".format(time.time()- ti))
     return rho_t
 
 def absorption_integrand(t, omega, eps, shift, alpha, beta, Gamma, omega_0):

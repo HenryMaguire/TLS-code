@@ -226,7 +226,7 @@ def L_R_lead_dissipators(H, A, T_L=77., mu_L=1000.,
         L += -sprepost(Adag, Zm_1)+spost(Zm_1*Adag)
         L_leads.append(L)
     if not silent:
-        print "Calculating the lead dissipators took {} seconds.".format(time.time()-ti)
+        print("Calculating the lead dissipators took {} seconds.".format(time.time()-ti))
     return -L_leads[0],-L_leads[1]
 
 def nonadditive_current_voltage(eps1=500., eps2=900., U=0., T_L=77.,
@@ -315,7 +315,7 @@ def RC_function_UD(H, n_op, sigma_op, T_ph, Gamma, wRC, alpha_ph, N, silent=Fals
     kappa= np.sqrt(np.pi * alpha_ph * wRC / 2.)  # coupling strength between the TLS and RC
 
     if not silent:
-        print "w_RC={} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, gamma,  kappa, Gamma, alpha_ph, N)
+        print("w_RC={} | RC-res. coupling={:0.2f} | TLS-RC coupling={:0.2f} | Gamma_RC={:0.2f} | alpha_ph={:0.2f} | N={} |".format(wRC, gamma,  kappa, Gamma, alpha_ph, N))
     H, A_em, A_nrwa, A_ph = Ham_RC(H, n_op, sigma_op, wRC, kappa, N, rotating=rotating)
     L_RC, Z =  RC.liouvillian_build(H, A_ph, gamma, wRC, T_ph)
     return L_RC, H, A_em, A_nrwa, Z, wRC, kappa, Gamma
@@ -329,7 +329,7 @@ def current_vs_voltage_with_phonons(eps1=1000., eps2=1000., U= 0., T_ph=77,
     T_R = T_ph
     ti = time.time()
     mu_Ls = np. linspace(0, 30.*w0, 70)
-    print "RC would need {} states to fill electronic gap.".format(eps/w0)
+    print("RC would need {} states to fill electronic gap.".format(eps/w0))
     currents = []
 
     H = build_H(eps1, eps2, U)
@@ -346,8 +346,8 @@ def current_vs_voltage_with_phonons(eps1=1000., eps2=1000., U= 0., T_ph=77,
                          real_only=real_only)
         currents.append(current_from_L(H_RC, L_RC+L_L+L_R, L_R, E_RC))
         if (i%10)==0:
-            print 100*(float(i)/len(mu_Ls)), "% complete"
-    print "Took {} seconds.".format(time.time()-ti)
+            print(100*(float(i)/len(mu_Ls)), "% complete")
+    print("Took {} seconds.".format(time.time()-ti))
     return mu_Ls-mu_R, currents
 
 def current_vs_phonon_coupling(eps1, eps2, T_ph=77., Gamma=30., w0=70., U=0., N=10,
@@ -357,7 +357,7 @@ def current_vs_phonon_coupling(eps1, eps2, T_ph=77., Gamma=30., w0=70., U=0., N=
     ti = time.time()
     eps = abs(eps2-eps1)
     alpha_prop = np. linspace(0., 1., 15)
-    print "RC would need {} states to fill electronic gap.".format(eps/w0)
+    print("RC would need {} states to fill electronic gap.".format(eps/w0))
     currents_nonadd = []
     #timelist = np.linspace(0, 3/Gamma_EM, 360)
     H = build_H(eps1, eps2, U)
@@ -385,8 +385,8 @@ def current_vs_phonon_coupling(eps1, eps2, T_ph=77., Gamma=30., w0=70., U=0., N=
                                             L_Rfull, obs_ops, method=method))
         del L_Lfull, L_Rfull, L_RC, H_RC, A_EM, A_nrwa, Z
         if (i%10)==0:
-            print 100*(float(i)/len(alpha_prop)), "% complete"
-    print "Took {} seconds.".format(time.time()-ti)
+            print(100*(float(i)/len(alpha_prop)), "% complete")
+    print("Took {} seconds.".format(time.time()-ti))
     return alpha_prop,  np.array(currents_nonadd).T
 
 

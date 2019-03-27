@@ -149,7 +149,7 @@ def integral_converge(f, a, omega):
         a+=inc
         x+=inc
         #time.sleep(0.1)
-    print "Integral converged"
+    print("Integral converged")
     return I # Converged integral
 
 def Gamma(omega, beta, J, alpha, wc, imag_part=True, c=1):
@@ -192,8 +192,8 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False,
     #J=J_minimal # J_minimal(omega, Gamma, omega_0)
     d_dim = len(eVals)
     G = 0
-    for i in xrange(d_dim):
-        for j in xrange(d_dim):
+    for i in range(d_dim):
+        for j in range(d_dim):
             eta = eVals[i]-eVals[j]
             s = eVecs[i]*(eVecs[j].dag())
             #print A.matrix_element(eVecs[i].dag(), eVecs[j])
@@ -206,7 +206,7 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False,
     L =  qt.spre(A*G) - qt.sprepost(G, A)
     L += qt.spost(G_dag*A) - qt.sprepost(A, G_dag)
     if not silent:
-        print "Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)
+        print("Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti))
     return -L
 
 def RWA_system_ops(H_vib, S):
@@ -278,7 +278,7 @@ def L_nonsecular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
     L = spre(A*X1) -sprepost(X1,A)+spost(X2*A)-sprepost(A,X2)
     L+= spre(A.dag()*X3)-sprepost(X3, A.dag())+spost(X4*A.dag())-sprepost(A.dag(), X4)
     if not silent:
-        print "It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian"
+        print("It took ", time.time()-ti, " seconds to build the Non-secular RWA Liouvillian")
     return -0.5*L
 
 def L_full_secular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
@@ -327,8 +327,8 @@ def L_full_secular(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
                         if abs(r_down*coeff_2)>0:
                             L+= r_down*coeff_2*(spost(QP*LM)-sprepost(LM, QP))
     if not silent:
-        print "It took ", time.time()-ti, " seconds to build the secular Liouvillian"
-        print "Secular approximation kept {:0.2f}% of total ME terms. \n".format(100*float(terms)/(d*d*d*d))
+        print("It took ", time.time()-ti, " seconds to build the secular Liouvillian")
+        print("Secular approximation kept {:0.2f}% of total ME terms. \n".format(100*float(terms)/(d*d*d*d)))
     return -L
 
 def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
@@ -369,7 +369,7 @@ def L_vib_lindblad(H_vib, A, eps, Gamma, T, J, time_units='cm', silent=False):
                 L += lam_ij_sq*(0.5*(T1 + T2) - T3)
                 l+=1
     if not silent:
-        print "It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian"
+        print("It took ", time.time()-ti, " seconds to build the vibronic Lindblad Liouvillian")
     return -L
 
 def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm', silent=False):
@@ -380,5 +380,5 @@ def L_EM_lindblad(splitting, col_em, Gamma, T, J, time_units='cm', silent=False)
     L+= 2*np.pi*J(splitting, Gamma, splitting)*(EMnb+1)*(sprepost(col_em, col_em.dag())-0.5*(spre(col_em.dag()*col_em) +spost(col_em.dag()*col_em)))
     L+= 2*np.pi*J(splitting, Gamma, splitting)*EMnb*(sprepost(col_em.dag(), col_em)-0.5*(spre(col_em*col_em.dag())+ spost(col_em*col_em.dag())))
     if not silent:
-        print "It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian"
+        print("It took ", time.time()-ti, " seconds to build the electronic-Lindblad Liouvillian")
     return L

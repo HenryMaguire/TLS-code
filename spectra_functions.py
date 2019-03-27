@@ -14,10 +14,11 @@ import scipy as sp
 import phonon_weak_coupling as WC
 from utils import J_overdamped, beta_f, J_underdamped, J_multipolar
 from utils import ground_and_excited_states, initialise_TLS
+import imp
 
-reload(RC)
-reload(EM)
-reload(exact)
+imp.reload(RC)
+imp.reload(EM)
+imp.reload(exact)
 plt.style.use('ggplot')
 plt.rcParams["axes.grid"] = True
 plt.rcParams["axes.edgecolor"] = "0.15"
@@ -64,7 +65,7 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
 
     # electromagnetic bath liouvillians
     final_t = end_T_mult/Gamma_EM
-    print "final t: ", final_t
+    print("final t: ", final_t)
     timelist = np.linspace(0, final_t, int(T_increments*final_t))
     options = qt.Options(nsteps=nsteps, store_states=True, method=method, order=order)
     E_op = tensor(E*E.dag(), I_RC)
@@ -96,7 +97,7 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
 
         tau_f *= tau_f_mult # extend tau
 
-        print "Completed initial dynamics calculations for {} in {}  seconds.".format(label[i], time.time()-ti)
+        print("Completed initial dynamics calculations for {} in {}  seconds.".format(label[i], time.time()-ti))
         ti = time.time()
         Lambda_0 = sigma_RC*sum(P)
         del P
@@ -114,18 +115,18 @@ def emission_spectra(init_sys, init_RC, prop_coupling, eps, Gamma, w0_prop=2.1,
         #freq, spec = qt.spectrum_correlation_fft(taulist, g_1) # old method
         spec-= min(spec)
         spec = spec/sum(spec)
-        freq, spec = zip(*sorted(zip(freq, np.array(spec).real)))
+        freq, spec = list(zip(*sorted(zip(freq, np.array(spec).real))))
 
         pop_list.append(pop)
         g1_data.append(g_1)
         spectrum_data.append(spec)
         freq_data.append(freq)
-        print "Completed correlation function calculations for {} in {} seconds.".format(label[i], time.time()-ti)
+        print("Completed correlation function calculations for {} in {} seconds.".format(label[i], time.time()-ti))
     return timelist, pop_list, taulist, g1_data, spectrum_data, freq_data
 
 
 
-reload(RC)
+imp.reload(RC)
 def absorption_spectra(prop_coupling, eps, Gamma, w0, T_ph=300., T_EM=0.,
                                     Gamma_EM=1., overdamped=True, N=3):
     # Start system+RC in adiabatic eigenstate and then time-evolve
@@ -183,7 +184,7 @@ def absorption_spectra(prop_coupling, eps, Gamma, w0, T_ph=300., T_EM=0.,
         ax1.plot(timelist, S1.real, label=label[i]+' real')
         ax2.plot(timelist, S1.imag, label=label[i]+' imag')
         #norm = np.array([(sigma_RC.dag()*sigma_RC*rho_t).tr() for rho_t in P])[0:tau_f*steps_per_tau]
-        print "Completed response function calculations for {} in {} seconds.".format(label[i], time.time()-ti)
+        print("Completed response function calculations for {} in {} seconds.".format(label[i], time.time()-ti))
 
         freq, spec = qt.spectrum_correlation_fft(timelist, S1)
         #spec-= min(spec)
