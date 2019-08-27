@@ -60,7 +60,7 @@ def beta_f(T):
 def J_poly(omega, Gamma, omega_0, ohmicity=1):
     return Gamma*(omega**ohmicity)/(2*np.pi*(omega_0**ohmicity))
 
-def J_multipolar(omega, Gamma, omega_0):
+def J_multipolar(omega, Gamma, omega_0, alpha=0.):
     return Gamma*(omega**3)/(2*np.pi*(omega_0**3))
 
 def J_minimal(omega, Gamma, omega_0):

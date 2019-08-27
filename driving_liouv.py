@@ -14,6 +14,10 @@ import qutip as qt
 from qutip import destroy, tensor, qeye, spost, spre, sprepost
 import time
 from utils import J_minimal, beta_f, J_minimal_hard
+import sympy
+
+def coth(x):
+    return float(sympy.coth(x))
 
 def Occupation(omega, T, time_units='cm'):
     conversion = 0.695
@@ -53,17 +57,19 @@ def rate_down(epsilon, N, alpha):
 def J_ohmic(omega, alpha, wc=10000):
     return alpha*omega*np.exp(-omega/wc)
 
+def J_underdamped(omega, Gamma, omega_0, alpha=0.):
+    raise ValueError("Don't use this")
 
-def J_multipolar(omega, Gamma, omega_0):
+def J_multipolar(omega, Gamma, omega_0, alpha=0.):
     return Gamma*(omega**3)/(2*np.pi*(omega_0**3))
 
-def J_minimal(omega, Gamma, omega_0):
+def J_minimal(omega, Gamma, omega_0, alpha=0.):
     return Gamma*omega/(2*np.pi*omega_0)
 
-def J_flat(omega, Gamma, omega_0):
+def J_flat(omega, Gamma, omega_0, alpha=0.):
     return Gamma
-
 '''
+
 def cauchyIntegrands(omega, beta, J, ver):
     # Function which will be called within another function where J, beta and the eta are defined locally.
     F = 0
@@ -75,24 +81,32 @@ def cauchyIntegrands(omega, beta, J, ver):
         F = J(omega)
     return F
 
-def Gamma(omega, beta, J):
+def Gamma(omega, beta, J, alpha, wc, imag_part=True, c=1):
     G = 0
-    # Here I define the functions which "dress" the integrands so they have only 1 free parameter for Quad.
-    F_p = (lambda x: (cauchyIntegrands(x, beta, J, 1)))
-    F_m = (lambda x: (cauchyIntegrands(x, beta, J, -1)))
-    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, 0)))
-    n = 30
-    print "Cauchy int. convergence checks: ", F_p(4*n), F_p(4*n), F_p(4*n)
+    # Here I define the functions which "dress" the integrands so they
+    # have only 1 free parameter for Quad.
+    F_p = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 1 )))
+    F_m = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, -1)))
+    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, alpha, wc, 0)))
     if omega>0.:
         # These bits do the Cauchy integrals too
-        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega)+ (1j/2.)*((integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega)[0]+integrate.quad(F_m, n, 2*n, weight='cauchy', wvar=omega)[0]+integrate.quad(F_m, 2*n, 3*n, weight='cauchy', wvar=omega)[0]+integrate.quad(F_m, 3*n, 4*n, weight='cauchy', wvar=omega)[0]) - (integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)[0]+integrate.quad(F_p, n, 2*n, weight='cauchy', wvar=-omega)[0]+integrate.quad(F_p, 2*n, 3*n, weight='cauchy', wvar=-omega)[0]+integrate.quad(F_p, 3*n, 4*n, weight='cauchy', wvar=-omega)[0]))
+        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega,alpha, wc)
+        if imag_part:
+            G += (1j/2.)*(integral_converge(F_m, 0,omega))
+            G -= (1j/2.)*(integral_converge(F_p, 0,-omega))
+
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega), integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)
     elif omega==0.:
+        G = 0.#(np.pi/2)*(2*alpha/beta)
         # The limit as omega tends to zero is zero for superohmic case?
-        G = -(1j)*(integrate.quad(F_0, -1e-12, n, weight='cauchy', wvar=0)[0]+integrate.quad(F_0, n, 2*n, weight='cauchy', wvar=0)[0]+integrate.quad(F_0, 2*n, 3*n, weight='cauchy', wvar=0)[0]+integrate.quad(F_0, 3*n, 4*n, weight='cauchy', wvar=0)[0])
+        if imag_part:
+            G += -(1j)*integral_converge(F_0, -1e-12,0)
         #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
     elif omega<0.:
-        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega))+ (1j/2.)*((integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega))[0]+integrate.quad(F_m, n, 2*n, weight='cauchy', wvar=-abs(omega))[0]+integrate.quad(F_m, 2*n, 3*n, weight='cauchy', wvar=-abs(omega))[0]+integrate.quad(F_m, 3*n, 4*n, weight='cauchy', wvar=-abs(omega))[0]) - (integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))[0]+integrate.quad(F_p, n, 2*n, weight='cauchy', wvar=abs(omega))[0]+integrate.quad(F_p, 2*n, 3*n, weight='cauchy', wvar=abs(omega))[0]+integrate.quad(F_p, 3*n, 4*n, weight='cauchy', wvar=abs(omega))[0]))
+        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega),alpha, wc)
+        if imag_part:
+            G += (1j/2.)*integral_converge(F_m, 0,-abs(omega))
+            G -= (1j/2.)*integral_converge(F_p, 0,abs(omega))
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
     return G
 
@@ -121,7 +135,7 @@ def decay_rate(J, omega, Gamma, omega_0, T, time_units):
     else:
         Decay = 0.5*J(omega, Gamma, omega_0)*(coth(beta*omega/2)+1)
     return Decay
-'''
+
 import sympy
 def coth(x):
     return float(sympy.coth(x))
@@ -198,8 +212,9 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False,
             s = eVecs[i]*(eVecs[j].dag())
             #print A.matrix_element(eVecs[i].dag(), eVecs[j])
             s*= A.matrix_element(eVecs[i].dag(), eVecs[j])
-            s*= Gamma(eta, beta, J, alpha, w_0, imag_part=principal, 
-                                                c=ohmicity)
+            s*= Gamma(eta, beta, J, alpha, w_0, imag_part=principal)
+            #s*= Gamma(eta, beta, J, alpha, w_0, imag_part=principal, 
+            #                                    c=ohmicity)
             G+=s
     G_dag = G.dag()
     # Initialise liouvilliian
@@ -207,6 +222,107 @@ def L_non_rwa(H_vib, A, w_0, alpha, T_EM, J, principal=False,
     L += qt.spost(G_dag*A) - qt.sprepost(A, G_dag)
     if not silent:
         print("Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti))
+    return -L
+'''
+
+def cauchyIntegrands(omega, beta, J, Gamma, w0, ver, alpha=0.):
+    # J_overdamped(omega, alpha, wc)
+    # Function which will be called within another function where J, beta and
+    # the eta are defined locally
+    F = 0
+    if ver == 1:
+        F = J(omega, Gamma, w0, alpha=alpha)*(coth(beta*omega/2.)+1)
+    elif ver == -1:
+        F = J(omega, Gamma, w0, alpha=alpha)*(coth(beta*omega/2.)-1)
+    elif ver == 0:
+        F = J(omega, Gamma, w0, alpha=alpha)
+    return F
+
+def int_conv(f, a, inc, omega, tol=1E-5):
+    x = inc
+    I = 0.
+    while abs(f(x))>tol:
+        #print ince x, f(x), a, omega
+        I += integrate.quad(f, a, x, weight='cauchy', wvar=omega)[0]
+        a+=inc
+        x+=inc
+        #time.sleep(0.1)
+    #print(("Integral converged to {} with step size of {}".format(I, inc)))
+    return I # Converged integral
+
+def integral_converge(f, a, omega, tol=1e-5):
+    for inc in [200., 100., 50., 25., 10, 5., 1, 0.5]:
+        try:
+            return int_conv(f, a, inc, omega, tol=tol)
+        except:
+            if inc == 0.5:
+                raise ValueError("Integrals couldn't converge")
+            else:
+                pass
+                
+    
+
+def DecayRate(omega, beta, J, Gamma, w0, imag_part=True, tol=1e-5, alpha=0.):
+    G = 0
+    # Here I define the functions which "dress" the integrands so they
+    # have only 1 free parameter for Quad.
+    F_p = (lambda x: (cauchyIntegrands(x, beta, J, Gamma, w0, 1 , alpha=alpha)))
+    F_m = (lambda x: (cauchyIntegrands(x, beta, J, Gamma, w0, -1, alpha=alpha)))
+    F_0 = (lambda x: (cauchyIntegrands(x, beta, J, Gamma, w0, 0,  alpha=alpha)))
+    w='cauchy'
+    if omega>0.:
+        # These bits do the Cauchy integrals too
+        G = (np.pi/2)*(coth(beta*omega/2.)-1)*J(omega, Gamma, w0, alpha=alpha)
+        if imag_part:
+            G += (1j/2.)*(integral_converge(F_m, 0,omega, tol=tol))
+            G -= (1j/2.)*(integral_converge(F_p, 0,-omega, tol=tol))
+
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega), integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)
+    elif omega==0.:
+        if J == J_underdamped:
+            #print("USING UNDERDAMPED SD")
+            G = (pi*alpha*Gamma)/(beta*(w0**2))
+        elif J == J_multipolar:
+            G=0.
+        else:
+            #print("Assuming J_minimal")
+            G = (np.pi/2)*(2*Gamma/beta)
+            # G = Gamma/(2*beta*w0)
+        # The limit as omega tends to zero is zero for superohmic case?
+        if imag_part:
+            G += -(1j)*integral_converge(F_0, -1e-12,0., tol=tol)
+        #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
+    elif omega<0.:
+        G = (np.pi/2)*(coth(beta*abs(omega)/2.)+1)*J(abs(omega),Gamma, w0, alpha=alpha)
+        if imag_part:
+            G += (1j/2.)*integral_converge(F_m, 0,-abs(omega), tol=tol)
+            G -= (1j/2.)*integral_converge(F_p, 0,abs(omega), tol=tol)
+        #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=-abs(omega)), integrate.quad(F_p, 0, n, weight='cauchy', wvar=abs(omega))
+    return G
+
+def L_non_rwa(H_vib, A, w_0, Gamma, T_EM, J, principal=False, 
+                                silent=False, alpha=0., tol=1e-5):
+    ti = time.time()
+    beta = beta_f(T_EM)
+    eVals, eVecs = H_vib.eigenstates()
+    #J=J_minimal # J_minimal(omega, Gamma, omega_0)
+    d_dim = len(eVals)
+    G = 0
+    for i in range(d_dim):
+        for j in range(d_dim):
+            eta = eVals[i]-eVals[j]
+            s = eVecs[i]*(eVecs[j].dag())
+            #print A.matrix_element(eVecs[i].dag(), eVecs[j])
+            overlap = A.matrix_element(eVecs[i].dag(), eVecs[j])
+            s*= A.matrix_element(eVecs[i].dag(), eVecs[j])
+            s*= DecayRate(eta, beta, J, Gamma, w_0, imag_part=principal, alpha=alpha, tol=tol)
+            G+=s
+    G_dag = G.dag()
+    # Initialise liouvilliian
+    L =  qt.spre(A*G) - qt.sprepost(G, A)
+    L += qt.spost(G_dag*A) - qt.sprepost(A, G_dag)
+    if not silent:
+        print(("Calculating non-RWA Liouvilliian took {} seconds.".format(time.time()-ti)))
     return -L
 
 def RWA_system_ops(H_vib, S):
