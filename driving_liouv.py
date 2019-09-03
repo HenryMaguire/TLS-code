@@ -54,7 +54,7 @@ def rate_up(epsilon, N, alpha):
 def rate_down(epsilon, N, alpha):
     return 0.5*np.pi*alpha*(N+1)
 
-def J_ohmic(omega, alpha, wc=10000):
+"""def J_ohmic(omega, alpha, wc=10000):
     return alpha*omega*np.exp(-omega/wc)
 
 def J_underdamped(omega, Gamma, omega_0, alpha=0.):
@@ -67,7 +67,7 @@ def J_minimal(omega, Gamma, omega_0, alpha=0.):
     return Gamma*omega/(2*np.pi*omega_0)
 
 def J_flat(omega, Gamma, omega_0, alpha=0.):
-    return Gamma
+    return Gamma"""
 '''
 
 def cauchyIntegrands(omega, beta, J, ver):
@@ -279,16 +279,7 @@ def DecayRate(omega, beta, J, Gamma, w0, imag_part=True, tol=1e-5, alpha=0.):
 
         #print integrate.quad(F_m, 0, n, weight='cauchy', wvar=omega), integrate.quad(F_p, 0, n, weight='cauchy', wvar=-omega)
     elif omega==0.:
-        if J == J_underdamped:
-            #print("USING UNDERDAMPED SD")
-            G = (pi*alpha*Gamma)/(beta*(w0**2))
-        elif J == J_multipolar:
-            G=0.
-        else:
-            #print("Assuming J_minimal")
-            G = (np.pi/2)*(2*Gamma/beta)
-            # G = Gamma/(2*beta*w0)
-        # The limit as omega tends to zero is zero for superohmic case?
+        G=0.
         if imag_part:
             G += -(1j)*integral_converge(F_0, -1e-12,0., tol=tol)
         #print (integrate.quad(F_0, -1e-12, 20, weight='cauchy', wvar=0)[0])
